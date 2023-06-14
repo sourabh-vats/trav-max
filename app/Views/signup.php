@@ -113,6 +113,18 @@ if (empty($_GET["plan"])) {
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                         <label class="form-check-label" for="exampleCheck1">I agree to all terms and conditions.</label>
                     </div>
+
+                    <a href="terms_of_use.php" id="redirectLink" style="display: none;">Redirect</a>
+                    <script>
+                    document.getElementById('exampleCheck1').addEventListener('change', function() {
+                    var redirectLink = document.getElementById('redirectLink');
+                    if (this.checked) {
+                        redirectLink.click();
+                    }
+                    });
+                    </script>
+
+
                     <button type="submit" class="btn btn-danger w-100 btn-lg">Sign Up</button>
                 </form>
             </div>
