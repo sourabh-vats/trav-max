@@ -14,17 +14,45 @@
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <img src="/images/p02.jpg" class="img-fluid" alt="...">
+                <img src="/images/Thailand Beach Prime.jpg" class="img-fluid" alt="...">
                 <h4>Phuket with Krabi</h4>
             </div>
             <div class="col-sm-6">
-                <img src="/images/p04.jpg" class="img-fluid" alt="...">
+                <img src="/images/maldives.jpg" class="img-fluid" alt="...">
                 <h4>Magical Maldives </h4>
                 </a>
             </div>
             <div class="col-sm-6">
-                    <img src="/images/p03.jpg" class="img-fluid" alt="...">
-                    <h4>Exciting Dubai </h4>
+                <img src="/images/dubai.jpg" class="img-fluid" alt="...">
+                <h4>Exciting Dubai </h4>
+            </div>
+            <div class="col-sm-6">
+                <img src="/images/Switzerland & Paris.jpg" class="img-fluid" alt="...">
+                <h4>Switzerland & Paris </h4>
+            </div>
+            <div class="col-sm-6">
+                <img src="/images/CANADA & USA.jpg" class="img-fluid" alt="...">
+                <h4>CANADA/USA </h4>
+            </div>
+            <div class="col-sm-6">
+                <img src="/images/udaipur.jpg" class="img-fluid" alt="...">
+                <h4>Udaipur </h4>
+            </div>
+            <div class="col-sm-6">
+                <img src="/images/manali.jpg" class="img-fluid" alt="...">
+                <h4>Manali </h4>
+            </div>
+            <div class="col-sm-6">
+                <img src="/images/goa.jpg" class="img-fluid" alt="...">
+                <h4>GOA </h4>
+            </div>
+            <div class="col-sm-6">
+                <img src="/images/leh.jpg" class="img-fluid" alt="...">
+                <h4>Leh </h4>
+            </div>
+            <div class="col-sm-6">
+                <img src="/images/kerala.jpg" class="img-fluid" alt="...">
+                <h4>Kerala </h4>
             </div>
             <div class="col-sm-6">
                 <img src="/images/prg1.jpg" class="img-fluid" alt="...">
