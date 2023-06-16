@@ -487,7 +487,7 @@ class Profile extends BaseController
         $data['page_title'] = 'Dashboard';
 
         $id = session('cust_id');
-        $customer_id = session('bliss_id');
+        $customer_id = session('trav_id');
         $data['profile'] = $user_model->profile($id);
         $data['has_package'] = false;
         $data['package_information'] = $user_model->get_package($id);

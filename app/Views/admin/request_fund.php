@@ -61,14 +61,14 @@ echo form_open_multipart('admin/request-fund', $attributes);
 
       <div class="form-group col-sm-12 utr">
         <label class='name'> Bank Name</label>
-        <input type="text" class="form-control" name="bank_name" value="<?php if ($_POST['bank_name'] != '') {
+        <input type="text" class="form-control" name="bank_name" value="<?php if (!empty($_POST['bank_name'])) {
                                                                           echo $_POST['bank_name'];
                                                                         }  ?>">
       </div>
       <!--<div class="form-group col-sm-12">
             <label>Bank branch</label>
-              <input type="text" class="form-control"  name="bank_branch" value="<?php if ($_POST['bank_branch'] != '') {
-                                                                                    echo $_POST['bank_branch'];
+              <input type="text" class="form-control"  name="bank_branch" value="<?php if (!empty($_POST['bank_branch'])) {
+                                                                                    echo $_POST[')bank_branch'];
                                                                                   }  ?>" >
           </div>-->
       <div class="form-group col-sm-12 utr">
@@ -77,7 +77,7 @@ echo form_open_multipart('admin/request-fund', $attributes);
       </div>
       <div class="form-group col-sm-12 utr">
         <label class='two'>Image</label>
-        <input type="file" name="image" value="<?php if ($_POST['file'] != '') {
+        <input type="file" name="image" value="<?php if (!empty($_POST['file'])) {
                                                   echo $_POST['file'];
                                                 }  ?>">
       </div>
@@ -85,27 +85,27 @@ echo form_open_multipart('admin/request-fund', $attributes);
 
       <!--<div class="form-group col-sm-12">
             <label> IFSC Code</label>
-              <input type="text" class="form-control"  name="ifsc" value="<?php if ($_POST['ifcs'] != '') {
+              <input type="text" class="form-control"  name="ifsc" value="<?php if (!empty($_POST['ifcs'])) {
                                                                             echo $_POST['ifcs'];
                                                                           }  ?>">
           </div>
        <div class="form-group col-sm-12">
             <label> NEFT / RTGS</label>
-              <input type="text" class="form-control"  name="neft" value="<?php if ($_POST['neft'] != '') {
+              <input type="text" class="form-control"  name="neft" value="<?php if (!empty($_POST['neft'])) {
                                                                             echo $_POST['neft'];
                                                                           }  ?>">
           </div>-->
 
       <!--<div class="form-group col-lg-6 col-mg-6 col-sm-6">
             <label>Bank Name</label>
-              <input type="file" class="form-control"  name="image" value="<?php if ($_POST['image'] != '') {
+              <input type="file" class="form-control"  name="image" value="<?php if (!empty($_POST['image'])) {
                                                                               echo $_POST['image'];
                                                                             }  ?>">
           </div> -->
 
       <div class="form-group col-sm-12">
         <label>Description</label>
-        <textarea class="form-control" required="required" name="description" value="<?php if ($_POST['description'] != '') {
+        <textarea class="form-control" required="required" name="description" value="<?php if (!empty($_POST['description'])) {
                                                                                         echo $_POST['description'];
                                                                                       }  ?>"></textarea>
       </div>
