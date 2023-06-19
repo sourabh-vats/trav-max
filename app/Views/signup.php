@@ -5,6 +5,12 @@ if (empty($_GET["plan"])) {
     die();
 } else {
     $user_type = $_GET["plan"];
+    $booking_packages_number = 1;
+    if ($user_type == "micro") {
+        $booking_packages_number = $_GET["micro"];
+    }else if ($user_type == "macro") {
+        $booking_packages_number = 5;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -105,13 +111,14 @@ if (empty($_GET["plan"])) {
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234" required>
+                        <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234" required value="<?php echo isset($_GET['refer_id']) ? $_GET['refer_id'] : ''; ?>">
                         <label for="trav_id">Referral ID</label>
                     </div>
                     <input type="hidden" name="partner_type" value="<?php echo $user_type; ?>">
+                    <input type="hidden" name="booking_packages_number" value="<?php echo $booking_packages_number; ?>">
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">I agree to all terms and conditions.</label>
+                        <label class="form-check-label" for="exampleCheck1">I agree to all <a href="/terms_of_use">terms and conditions.</a></label>
                     </div>
 
                     <a href="terms_of_use.php" id="redirectLink" style="display: none;">Redirect</a>
@@ -143,7 +150,7 @@ if (empty($_GET["plan"])) {
             url: "/register",
             data: jQuery("#register-form").serialize(),
             success: function(data) {
-                console.log(data);
+                // console.log(data);
                 if (data.status == "error") {
                     jQuery("#signup_error").removeClass("d-none");
                     jQuery("#signup_error").text(data.message);
@@ -152,6 +159,7 @@ if (empty($_GET["plan"])) {
                     jQuery("#signup_error").removeClass("alert-danger");
                     jQuery("#signup_error").addClass("alert-primary");
                     jQuery("#signup_error").text(data.message);
+                    window.location.replace("/admin");
                 }
                 jQuery("#loading_screen").addClass("d-none");
             }

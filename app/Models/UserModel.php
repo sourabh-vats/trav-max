@@ -49,6 +49,29 @@ class UserModel extends Model
         }
     }
 
+    public function parent_profile($blissid)
+    {
+        $db = db_connect();
+        $builder = $db->table('customer');
+        $builder->select('*');
+        $builder->where('customer_id', $blissid);
+        $query = $builder->get();
+
+        return $query->getResultArray();
+    }
+
+    public function friends_by_position_direct_in_array($cust_id)
+    {
+        $db = db_connect();
+        $builder = $db->table('customer');
+        $builder->select('id,f_name,l_name,customer_id,status,parent_customer_id,direct_customer_id,rdate,var_status,macro');
+        $builder->whereIn('direct_customer_id', $cust_id);
+        $query = $builder->get();
+
+        return $query->getResultArray();
+    }
+
+
     function get_total_income($id)
     {
         try {
@@ -260,10 +283,11 @@ class UserModel extends Model
                     'l_name' => $_POST["l_name"],
                     'email' => $_POST["email"],
                     'phone' => $_POST["number"],
-                    'status' => 'active',
+                    'status' => 'hold',
                     'pass_word' => md5($_POST["password"]),
                     'parent_customer_id' => $_POST["trav_id"],
-                    'role' => ucfirst($_POST["partner_type"])
+                    'role' => ucfirst($_POST["partner_type"]),
+                    'booking_packages_number' => $_POST["booking_packages_number"]
                 ];
                 $query = $db->table('customer')->insert($new_member_insert_data);
                 $insert_id = $db->insertID();
@@ -271,16 +295,43 @@ class UserModel extends Model
                 $phone = $_POST["number"];
                 $customer_n = $insert_id . substr($f_name, 0, 3) . substr($phone, -4);
                 $customer_id = strtoupper($customer_n);
-                
+
                 $builder = $db->table('customer');
                 $builder->set('customer_id', $customer_id);
                 $builder->where('id', $insert_id);
                 $builder->update();
                 $data = array("status" => "success", "message" => "Account created successfully.");
+                $session = session();
+                $session_data = array('full_name' => $f_name, 'email' => $_POST["l_name"], 'trav_id' => $customer_id,  'cust_id' => $insert_id, 'is_customer_logged_in' => true);
+                $session->set($session_data);
                 header("Content-Type: application/json");
                 echo json_encode($data);
                 exit();
             }
         }
+    }
+
+    public function get_all_installment($id)
+    {
+        $db = db_connect();
+
+        $builder = $db->table('installment as i');
+        $builder->select('*');
+        //$builder->join('pins as p', 'i.order_id = p.id', 'left');
+        $builder->where('i.user_id', $id);
+        $builder->orderBy('i.pay_date', 'asc');
+
+        $query = $builder->get();
+
+        return $query->getResultArray();
+    }
+
+    public function add_order($data_to_store)
+    {
+        $db = db_connect();
+        $builder = $db->table('transaction_summery');
+        $builder->insert($data_to_store);
+
+        return $this->db->insertID();
     }
 }
