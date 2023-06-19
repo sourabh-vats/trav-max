@@ -272,12 +272,18 @@ class UserModel extends Model
             $builder->select('*');
             $builder->where('customer_id', $_POST["trav_id"]);
             $query = $builder->get();
+            $referralCustomer = $query->getRow();
             if ($query->getNumRows() == 0) {
                 $data = array("status" => "error", "message" => "Referral ID doesn't exist.");
                 header("Content-Type: application/json");
                 echo json_encode($data);
                 exit();
-            } else {
+            } else  if ($referralCustomer->status != 'active') {
+                $data = array("status" => "error", "message" => "Referral ID is not active.");
+                header("Content-Type: application/json");
+                echo json_encode($data);
+                exit();
+            }else {
                 $new_member_insert_data = [
                     'f_name' => $_POST["f_name"],
                     'l_name' => $_POST["l_name"],
