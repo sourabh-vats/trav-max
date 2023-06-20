@@ -82,7 +82,7 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu1 " aria-labelledby="navbarDropdown">
                                                     <a class="dropdown-item" href="/admin">Dashboard</a>
-                                                    <a class="dropdown-item" href="/admin/profile">Profile</a>
+                                                    
                                                     <a class="dropdown-item" href="/invite_friend/<?php echo ucfirst($session->get('trav_id')); ?>">Refer and Earn</a>
                                                     <a class="dropdown-item" href="admin/logout">Logout</a>
                                                 </div>
