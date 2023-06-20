@@ -27,7 +27,7 @@ class DistributorLevelInformation extends BaseController
         $myfriendid = [$id];
         $p = 0;
         while ($p < $level) {
-            $myfriends = $user_model->friends_by_position_direct_in_array($cus_array);
+            $myfriends = $user_model->friends_by_position_direct_in_array($data['profile'][0]['customer_id']);
             if (!empty($myfriends)) {
                 $user_list = $myfriends;
                 $cus_array = array_column($myfriends, 'customer_id');
