@@ -117,19 +117,12 @@ if (empty($_GET["plan"])) {
                     <input type="hidden" name="partner_type" value="<?php echo $user_type; ?>">
                     <input type="hidden" name="booking_packages_number" value="<?php echo $booking_packages_number; ?>">
                     <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">I agree to all <a href="/terms_of_use">terms and conditions.</a></label>
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                        <label class="form-check-label" for="exampleCheck1">I agree to all <a href="/terms_of_use">terms and conditions.</a></label >
                     </div>
 
                     <a href="terms_of_use.php" id="redirectLink" style="display: none;">Redirect</a>
-                    <script>
-                    document.getElementById('exampleCheck1').addEventListener('change', function() {
-                    var redirectLink = document.getElementById('redirectLink');
-                    if (this.checked) {
-                        redirectLink.click();
-                    }
-                    });
-                    </script>
+                    
 
 
                     <button type="submit" class="btn btn-danger w-100 btn-lg">Sign Up</button>
