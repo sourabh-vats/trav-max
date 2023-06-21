@@ -54,7 +54,7 @@
                                     </button>
 
                                 </div>
-                                <div id="navbar" class="navbar-collapse collapse">
+                                 <div id="navbar" class="navbar-collapse collapse">
                                     <ul class="nav navbar-nav">
                                         <li><a href="<?php echo base_url(); ?>"> Home </a></li>
                                         <li><a href="/services">Services </a></li>
@@ -72,36 +72,35 @@
                                     </ul>
 
 
-                                    <ul class="nav navbar-nav navbar-right ">
-                                        <?php if ($session->has('is_customer_logged_in')) {
-                                        ?>
 
-                                            <li class="nav-item dropdown social-icons">
-                                                <a class="nav-link dropdown-toggle" href="JavaScript:Void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fa fa-user"></i> Hi, <?php echo ucfirst($session->full_name); ?><i class="fa fa-angle-down"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu1 " aria-labelledby="navbarDropdown">
-                                                    <a class="dropdown-item" href="/admin">Dashboard</a>
-                                                    
-                                                    <a class="dropdown-item" href="/invite_friend/<?php echo ucfirst($session->get('trav_id')); ?>">Refer and Earn</a>
-                                                    <a class="dropdown-item" href="admin/logout">Logout</a>
-                                                </div>
-                                            </li>
-                                        <?php } else { ?>
-                                            <li style="display:none;"><a title="Login" href="javascript:;" data-toggle="modal" data-target="#registerLoginModal"><i class="fa fa-user"></i> Account</a></li>
-                                        <?php } ?>
-                                        <?php if ($session->has('is_customer_logged_in')) {
-                                        ?>
-                                            <li><a href="admin/logout"><i class="fa fa-lock"></i> Logout</a></li>
-                                        <?php } else { ?>
-                                            <li class="drop-nav">
-                                                <a id="login_btn" title="Login" href="javascript:;" data-toggle="modal" data-target="#registerLoginModal"><i class="fa fa-sign-in"></i> Login</a>
-                                            </li>
-                                            <li class="drop-nav" style="margin-left: 10px;">
-                                                <a id="" href="/plans">Signup</a>
-                                            </li>
-                                        <?php } ?>
-                                    </ul>
+<ul class="nav navbar-nav navbar-right">
+  <?php if ($session->has('is_customer_logged_in')) { ?>
+    <li class="nav-item dropdown social-icons">
+      <a class="nav-link dropdown-toggle" href="JavaScript:Void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-user"></i> Hi, <?php echo ucfirst($session->full_name); ?><i class="fa fa-angle-down"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu1 dropdown-menu-right" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="/admin">Dashboard</a>
+        <a class="dropdown-item" href="/invite_friend/<?php echo ucfirst($session->get('trav_id')); ?>">Refer and Earn</a>
+        <a class="dropdown-item" href="/admin/logout">Logout</a>
+      </div>
+    </li>
+  <?php } else { ?>
+    <li style="display:none;"><a title="Login" href="javascript:;" data-toggle="modal" data-target="#registerLoginModal"><i class="fa fa-user"></i> Account</a></li>
+  <?php } ?>
+  <?php if ($session->has('is_customer_logged_in')) { ?>
+    <li class="nav-item"><a href="/admin/logout"><i class="fa fa-lock"></i> Logout</a></li>
+  <?php } else { ?>
+    <li class="nav-item drop-nav">
+      <a id="login_btn" title="Login" href="javascript:;" data-toggle="modal" data-target="#registerLoginModal"><i class="fa fa-sign-in"></i> Login</a>
+    </li>
+    <li class="nav-item drop-nav" style="margin-left: 10px;">
+      <a id="" href="/plans">Signup</a>
+    </li>
+  <?php } ?>
+</ul>
+
+
                                 </div>
                             </nav>
                         </div>
@@ -115,3 +114,7 @@
             $("#navbar").removeClass("in");
         });
     </script>
+    <style>.navbar-nav li a {
+  text-transform: uppercase; /* or lowercase */
+}
+</style>
