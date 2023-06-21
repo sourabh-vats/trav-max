@@ -48,6 +48,18 @@ class UserModel extends Model
             var_dump($error);
         }
     }
+    function status($id)
+    {
+        try {
+            $db = db_connect();
+            $query = $db->query("Select status from purchase where id = " . $id);
+            $row = $query->getResultArray();
+            return $row;
+        } catch (\Throwable $th) {
+            $error = $db->error();
+            var_dump($error);
+        }
+    }
 
     public function parent_profile($blissid)
     {
