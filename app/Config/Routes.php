@@ -46,7 +46,7 @@ $routes->get('mega', 'Page::mega');
 $routes->get('logout', 'User::logout');
 $routes->match(['get', 'post'],'feedback', 'Page::feedback');
 $routes->match(['get', 'post'],'invite_friend/(:any)', 'Page::invite_friend/$1');
-$routes->get('test_mail', 'Page::tes_mail');
+$routes->get('test_mail', 'Page::test_mail');
 
 
 // Admin Dashboard
