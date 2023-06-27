@@ -177,4 +177,15 @@ class Page extends BaseController
 		$data['main_content'] = 'invite_friend';
 		return view('includes/front/front_template', $data);
 	}
+
+	public function test_mail()
+	{
+		$data['page_keywords'] = '';
+		$data['page_description'] = '';
+		$data['page_slug'] = 'test_mail';
+		$data['page_title'] = 'test_mail';
+
+		$data['main_content'] = 'test_mail';
+		return view('includes/front/front_template', $data);
+	}
 }
