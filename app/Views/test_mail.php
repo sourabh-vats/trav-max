@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
-    <script src="js/emails.js"></script>
     <script>
         var signupBody = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -278,26 +276,74 @@
 </body>
 </html>`;
 
-        function signupEmail(to) {
-            Email.send({
-                Host: "smtp.elasticemail.com",
-                Username: "sourabhsharma94676@gmail.com",
-                Password: "634690CE4DC73A2C522A8A0300F04A9DDD8A",
-                To: to,
-                From: "sourabhsharma94676@gmail.com",
-                Subject: "Account Created",
-                Body: signupBody
-            }).then(
-                message => alert(message)
-            );
-        }
+        // function signupEmail(to) {
+        //     Email.send({
+        //         Host: "smtp.elasticemail.com",
+        //         Username: "sourabhvats96@gmail.com",
+        //         Password: "D523B4735BB9E3503EF9C1257E0FBD6AD5BF",
+        //         To: to,
+        //         EnvelopeFrom: "Travmax",
+        //         From: "info@travmaxholidays.com",
+        //         Subject: "Account Created",
+        //         Body: signupBody
+        //     }).then(
+        //         message => alert(message)
+        //     );
+        // }
     </script>
     <script>
-        signupEmail("sourabhvats96@gmail.com");
+        signupEmail("watchmoviesatfree@gmail.com");
     </script>
 </head>
 
 <body>
+
+    <?php
+    require 'lib/PHPMailer/src/Exception.php';
+    require 'lib/PHPMailer/src/PHPMailer.php';
+    require 'lib/PHPMailer/src/SMTP.php';
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+    //Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
+        $mail->Password   = 'D523B4735BB9E3503EF9C1257E0FBD6AD5BF';                               //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+        //Recipients
+        $mail->setFrom('sourabh@travmaxholidays.com', 'Travmax');
+        $mail->addAddress('karandeeppoonia392@gmail.com');     //Add a recipient
+        $mail->addReplyTo('info@travmaxholidays.com', 'Information');
+        //$mail->addCC('cc@example.com');
+        //$mail->addBCC('bcc@example.com');
+
+        //Attachments
+        //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+        //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+        //Content
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = 'OTP';
+        $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+        $mail->send();
+        echo 'Message has been sent';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+    ?>
 </body>
 
 </html>
