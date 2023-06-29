@@ -40,6 +40,12 @@ $routes->get('partner', 'Page::partner');
 $routes->get('terms_of_use', 'Page::terms_of_use');
 $routes->get('contact_us', 'Page::contact_us');
 $routes->get('signup', 'Page::signup');
+$routes->get('signup/select_package', 'Page::select_package');
+$routes->get('signup/choose_partnership', 'Page::choose_partnership');
+$routes->get('signup/choose_payment_plan', 'Page::choose_payment_plan');
+$routes->match(['get', 'post'],'signup/confirm_plan', 'Page::confirm_plan');
+$routes->get('signup/successfull', 'Page::successfull');
+
 $routes->get('plans', 'Page::plans');
 $routes->get('micro_plans', 'Page::micro_plans');
 $routes->get('mega', 'Page::mega');

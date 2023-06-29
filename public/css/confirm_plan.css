@@ -8,7 +8,7 @@ a {
 
 #wrapper {
     background: url("/images/confirm_plan_cover.jpg");
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     display: grid;
     justify-content: center;
