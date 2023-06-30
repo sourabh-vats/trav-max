@@ -217,7 +217,7 @@ class Page extends BaseController
 		} else {
 			$partner_type = $_POST["plan"];
 		}
-		
+
 		$number_of_packages = 1;
 		if ($partner_type != "macro") {
 			switch ($partner_type) {
@@ -393,9 +393,9 @@ class Page extends BaseController
 				'role' => $partner_type,
 				'status' => 'hold'
 			];
-			$return = $user_model->update_profile($id,$data_to_store);
+			$return = $user_model->update_profile($id, $data_to_store);
 			if ($return == true) {
-				
+				$session->set('signup_email', 'true');
 				return redirect()->to(base_url('admin/package_selected_successfully'));
 			} else {
 				$session->setFlashdata('flash_message', 'not_updated');
@@ -404,7 +404,7 @@ class Page extends BaseController
 		$data['main_content'] = 'confirm_plan';
 		return view('confirm_plan', $data);
 	}
-	
+
 	public function micro_plans()
 	{
 		$data['page_keywords'] = '';
