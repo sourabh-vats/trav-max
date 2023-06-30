@@ -92,10 +92,10 @@
 
    <section class="all-in-one Expense">
       <div class="container">
-         <h2>Maximize the Travel Experience & Optimize the Travel Expense</h2>
-         <h3>Travmax Holidays + Zoogol Partnership</h3>
+      <h2>Maximize the Travel Experience & Optimize the Travel Expense</h2>
+         <h3>Travmax Holidays + Travmax Partnership</h3>
          <h4><span>Travmax maximizes your travel experience by enhancing quality at every step </span>of the process. The whole idea is to make the time spent on holiday more fun and memorable. The holiday lasts few days but the memories last forever. We are sensitive to create that joyful forever for each of our clients, partners and their loved ones. While Travmax focuses on the travel experience, </h4>
-         <h4><span>Zoogol optimizes the expenditure you have made by converting it into an investment. </span>Every Partner gets an opportunity to earn the investment back and build a sublte yet powerful business that brings in powerful monthly income. All just by following a simple step by step process. </h4>
+         <h4><span>Travmax Partnership optimizes the expenditure you have made by converting it into an investment. </span>Every Partner gets an opportunity to earn the investment back and build a sublte yet powerful business that brings in powerful monthly income. All just by following a simple step by step process. </h4>
 
       </div>
    </section>
@@ -136,7 +136,7 @@
                <div class="col-sm-4">
                   <div class="part_back part_2">
                      <div class="part_botm">
-                        <img src="/images/15.jpg" class="img-responsive">
+                        <img src="/images/imp5.jpeg" class="img-responsive">
                      </div>
                   </div>
                </div>
@@ -144,7 +144,7 @@
                <div class="col-sm-4">
                   <div class="part_back part_2">
                      <div class="part_botm">
-                        <img src="/images/14.jpg" class="img-responsive">
+                        <img src="/images/imp6.jpeg" class="img-responsive">
                      </div>
                   </div>
                </div>
@@ -152,7 +152,7 @@
                <div class="col-sm-4">
                   <div class="part_back part_2">
                      <div class="part_botm">
-                        <img src="/images/21.jpg" class="img-responsive">
+                        <img src="/images/imp4.jpeg" class="img-responsive">
                      </div>
                   </div>
                </div>
@@ -200,11 +200,11 @@
       <div class="partner_main">
          <div class="row">
             <div class="col-sm-4">
-               <img src="/images/Wh.jpeg" class="img-responsive">
-               <img class="trt" src="/images/WhatsApp Image).jpeg" class="img-responsive">
+               <img src="/images/maldives.jpg" class="img-responsive">
+               <img class="trt" src="/images/dubai.jpg" class="img-responsive">
             </div>
             <div class="col-sm-8">
-               <img src="/images/WhatsApp Image 23 PM.jpeg" class="img-responsive">
+               <img src="/images/Thailand Beach Prime.jpg.jpeg" class="img-responsive">
             </div>
          </div>
 
@@ -278,7 +278,8 @@
 </section>
 
 <section class="Start">
-   <h2>Start Traveling - Book a Tour Now </h2>
+   
+   <a class="fist-c" href="" data-toggle="modal" data-target="#registerLoginModal"><h2>Start Traveling - Book a Tour Now </h2></a>
 </section>
 
 
@@ -666,8 +667,8 @@
    <h2>Start Traveling - Book a Tour Now</h2>
 </section>
 <section class="Start">
-   <h2>Be a Partner - Register Now </h2>
+<a class="fist-c" href="" data-toggle="modal" data-target="#registerLoginModal"><h2>Be a Partner - Register Now</h2></a>
 </section>
 <section class="Return">
-   <h2>Return to Top </h2>
+<a href="#top"><h2>Return to Top </h2></a>
 </section>
