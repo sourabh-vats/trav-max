@@ -231,6 +231,24 @@ class UserModel extends Model
         return $query->getResultArray();
     }
 
+    public function get_international_packages()
+    {
+        $db = db_connect();
+        $builder = $db->table('package');
+        $builder->where('type', 'international'); 
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
+    public function get_national_packages()
+    {
+        $db = db_connect();
+        $builder = $db->table('package');
+        $builder->where('type', 'national'); 
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
     public function get_payment_amount($id)
     {
         $db = db_connect();
@@ -295,7 +313,7 @@ class UserModel extends Model
                 header("Content-Type: application/json");
                 echo json_encode($data);
                 exit();
-            }else {
+            } else {
                 $booking_packages_number = 1;
                 $partner_type = "micro";
                 $new_member_insert_data = [
