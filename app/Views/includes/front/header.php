@@ -98,7 +98,7 @@
                                                 <a id="login_btn" title="Login" href="javascript:;" data-toggle="modal" data-target="#registerLoginModal"><i class="fa fa-sign-in"></i> Login</a>
                                             </li>
                                             <li class="drop-nav" style="margin-left: 10px;">
-                                                <a id="" href="/plans">Signup</a>
+                                                <a id="" href="/signup">Signup</a>
                                             </li>
                                         <?php } ?>
                                     </ul>

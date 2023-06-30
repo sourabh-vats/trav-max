@@ -108,15 +108,301 @@ class Page extends BaseController
 		return view('signup', $data);
 	}
 
-	public function plans()
+	public function select_package()
 	{
 		$data['page_keywords'] = '';
 		$data['page_description'] = '';
-		$data['page_slug'] = 'plans';
-		$data['page_title'] = 'plans';
+		$data['page_slug'] = 'select_package';
+		$data['page_title'] = 'select_package';
 
-		$data['main_content'] = 'plans';
-		return view('includes/front/front_template', $data);
+		$session = session();
+		if (!$session->has('is_customer_logged_in')) {
+			return redirect()->route('signup');
+		}
+
+		$trav_id = $session->get('trav_id');
+		$id = $session->cust_id;
+		$user_model = model('UserModel');
+		$data['profile'] = $user_model->profile($id);
+
+		if ($data['profile'][0]['status'] == "hold" || $data['profile'][0]['status'] == 'active') {
+			return redirect()->route('admin');
+		} elseif ($data['profile'][0]['status'] == "process") {
+			# code...
+		} else {
+			return redirect()->route('/');
+		}
+
+		$user_model = model('UserModel');
+		$data['all_packages'] = $user_model->get_all_packages();
+
+		$data['main_content'] = 'select_package';
+		return view('select_package', $data);
+	}
+
+	public function choose_partnership()
+	{
+		$data['page_keywords'] = '';
+		$data['page_description'] = '';
+		$data['page_slug'] = 'choose_partnership';
+		$data['page_title'] = 'choose_partnership';
+
+		$data['main_content'] = 'choose_partnership';
+		return view('choose_partnership', $data);
+	}
+
+	public function choose_payment_plan()
+	{
+		$data['page_keywords'] = '';
+		$data['page_description'] = '';
+		$data['page_slug'] = 'choose_payment_plan';
+		$data['page_title'] = 'choose_payment_plan';
+
+		$user_model = model('UserModel');
+		$data['package_data'] = $user_model->get_package_data($_GET["package"]);
+		$partner_type = $_GET["plan"];
+		$number_of_packages = 1;
+		if ($partner_type != "macro") {
+			switch ($partner_type) {
+				case 'microx':
+					$number_of_packages = 1;
+					break;
+				case 'micro2x':
+					$number_of_packages = 2;
+					break;
+				case 'micro3x':
+					$number_of_packages = 3;
+					break;
+				case 'micro4x':
+					$number_of_packages = 4;
+					break;
+
+				default:
+					$number_of_packages = 1;
+					break;
+			}
+		} else {
+			$number_of_packages = 5;
+		}
+		$data['booking_packages_number'] = $number_of_packages;
+
+		$data['main_content'] = 'choose_payment_plan';
+		return view('choose_payment_plan', $data);
+	}
+
+	public function confirm_plan()
+	{
+		$data['page_keywords'] = '';
+		$data['page_description'] = '';
+		$data['page_slug'] = 'confirm_plan';
+		$data['page_title'] = 'confirm_plan';
+		$data['css'] = '/css/confirm_plan.css';
+		$data['js'] = '/js/confirm_plan.js';
+
+		$user_model = model('UserModel');
+		$session = session();
+		$db = db_connect();
+
+		$id = session('cust_id');
+		$customer_id = session('trav_id');
+		$data['profile'] = $user_model->profile($id);
+
+		$package_id = $this->request->getGet('package');
+		$payment_plan = $this->request->getGet('payment_plan');
+		$payment_amount = 0;
+		$data['package_data'] = $user_model->get_package_data($package_id);
+
+		if (isset($_GET["plan"])) {
+			$partner_type = $_GET["plan"];
+		} else {
+			$partner_type = $_POST["plan"];
+		}
+
+		$number_of_packages = 1;
+		if ($partner_type != "macro") {
+			switch ($partner_type) {
+				case 'microx':
+					$number_of_packages = 1;
+					break;
+				case 'micro2x':
+					$number_of_packages = 2;
+					break;
+				case 'micro3x':
+					$number_of_packages = 3;
+					break;
+				case 'micro4x':
+					$number_of_packages = 4;
+					break;
+
+				default:
+					$number_of_packages = 1;
+					break;
+			}
+		} else {
+			$number_of_packages = 5;
+		}
+
+		if ($payment_plan == 'traveasy_plan') {
+			$payment_amount = 5500 * $number_of_packages;
+		} elseif ($payment_plan == 'travlater_plan') {
+			$payment_amount = 11000 * $number_of_packages;
+		} elseif ($payment_plan == 'travnow_plan') {
+			$payment_amount = $data['package_data'][0]['total'] * $number_of_packages;
+		}
+		$data['payment_amount'] = $payment_amount;
+
+		if ($this->request->getMethod() === 'post') {
+			$package_id = $this->request->getPost('package_id');
+			$plan = $this->request->getPost('plan');
+			$payment_type = $this->request->getPost('payment_plan');
+			$package_data = $user_model->get_package_data($package_id);
+			$package = $package_data[0];
+			$package_amount_with_tax = $package["total"] + ($package["total"] * 0.05);
+			//Add packages to user in purchase table
+			for ($i = 1; $i <= $number_of_packages; $i++) {
+				$add_purchase_data = [
+					'customer_id' => $customer_id,
+					'type' => 'package',
+					'item_id' => $package_id,
+					'purchase_date' => date('d-M-Y H:i:s'),
+					'purchase_price' => $package_amount_with_tax,
+					'status' => 'booked',
+				];
+				$query = $db->table('purchase')->insert($add_purchase_data);
+				$purchase_id = $db->insertID();
+				//installments
+				if ($payment_type == 'traveasy_plan') {
+					$intallment_amount_left = $package_amount_with_tax;
+					$installment_amount = 5500;
+					$installment_number = 1;
+					$insdate = date('Y-m-d');
+					$pay_date = date('Y-m-d');
+					$add_installment = [
+						'user_id' => $id,
+						'amount' => $installment_amount,
+						'description' => $insdate,
+						'pay_date' => $pay_date,
+						'installment_no' => $installment_number,
+						'status' => 'Active',
+						'order_id' => $purchase_id
+					];
+					$user_model->add_installment($add_installment);
+					$insdate = $pay_date;
+					$intallment_amount_left -= 5500;
+					$installment_number += 1;
+					if ($intallment_amount_left > 5500) {
+						$installment_amount = 5500;
+					} else {
+						$installment_amount = $intallment_amount_left;
+					}
+					$installment_amount = 5500;
+					while ($intallment_amount_left > 0) {
+						$pay_date = date('Y-m-d', strtotime("+ 1 month", strtotime($insdate)));
+						$add_installment = [
+							'user_id' => $id,
+							'amount' => $installment_amount,
+							'description' => $insdate,
+							'pay_date' => $pay_date,
+							'installment_no' => $installment_number,
+							'status' => 'Active',
+							'order_id' => $purchase_id
+						];
+						$user_model->add_installment($add_installment);
+						$insdate = $pay_date;
+						$intallment_amount_left -= 5500;
+						$installment_number += 1;
+						if ($intallment_amount_left > 5500) {
+							$installment_amount = 5500;
+						} else {
+							$installment_amount = $intallment_amount_left;
+						}
+					}
+				} elseif ($payment_type == 'travnow_plan') {
+					$intallment_amount_left = $package_amount_with_tax;
+					$installment_amount = $package_amount_with_tax;
+					$installment_number = 1;
+					$insdate = date('Y-m-d');
+					$pay_date = date('Y-m-d');
+					$add_installment = [
+						'user_id' => $id,
+						'amount' => $installment_amount,
+						'description' => $insdate,
+						'pay_date' => $pay_date,
+						'installment_no' => $installment_number,
+						'status' => 'Active',
+						'order_id' => $purchase_id
+					];
+					$user_model->add_installment($add_installment);
+				} elseif ($payment_type == 'travlater_plan') {
+					$intallment_amount_left = $package_amount_with_tax;
+					$installment_amount = 11000;
+					$installment_number = 1;
+					$insdate = date('Y-m-d');
+					$pay_date = date('Y-m-d');
+					$add_installment = [
+						'user_id' => $id,
+						'amount' => $installment_amount,
+						'description' => $insdate,
+						'pay_date' => $pay_date,
+						'installment_no' => $installment_number,
+						'status' => 'Active',
+						'order_id' => $purchase_id
+					];
+					$user_model->add_installment($add_installment);
+					$insdate = $pay_date;
+					$intallment_amount_left -= 11000;
+					$installment_number += 1;
+					if ($intallment_amount_left > 5500) {
+						$installment_amount = 5500;
+					} else {
+						$installment_amount = $intallment_amount_left;
+					}
+					$installment_amount = 5500;
+					while ($intallment_amount_left > 0) {
+						$pay_date = date('Y-m-d', strtotime("+ 1 month", strtotime($insdate)));
+						$add_installment = [
+							'user_id' => $id,
+							'amount' => $installment_amount,
+							'description' => $insdate,
+							'pay_date' => $pay_date,
+							'installment_no' => $installment_number,
+							'status' => 'Active',
+							'order_id' => $purchase_id
+						];
+						$user_model->add_installment($add_installment);
+						$insdate = $pay_date;
+						$intallment_amount_left -= 5500;
+						$installment_number += 1;
+						if ($intallment_amount_left > 5500) {
+							$installment_amount = 5500;
+						} else {
+							$installment_amount = $intallment_amount_left;
+						}
+					}
+				}
+			}
+
+			$data_to_store = [
+				'user_id' => $id,
+				'package_id' => $package_id,
+				'payment_type' => $payment_type,
+				'amount_remaining' => $package_amount_with_tax
+			];
+			$return = $user_model->add_user_package($data_to_store);
+			$data_to_store = [
+				'role' => $partner_type,
+				'status' => 'hold'
+			];
+			$return = $user_model->update_profile($id, $data_to_store);
+			if ($return == true) {
+				$session->set('signup_email', 'true');
+				return redirect()->to(base_url('admin/package_selected_successfully'));
+			} else {
+				$session->setFlashdata('flash_message', 'not_updated');
+			}
+		}
+		$data['main_content'] = 'confirm_plan';
+		return view('confirm_plan', $data);
 	}
 
 	public function micro_plans()

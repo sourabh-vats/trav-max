@@ -296,16 +296,18 @@ class UserModel extends Model
                 echo json_encode($data);
                 exit();
             }else {
+                $booking_packages_number = 1;
+                $partner_type = "micro";
                 $new_member_insert_data = [
                     'f_name' => $_POST["f_name"],
                     'l_name' => $_POST["l_name"],
                     'email' => $_POST["email"],
                     'phone' => $_POST["number"],
-                    'status' => 'hold',
+                    'status' => 'process',
                     'pass_word' => md5($_POST["password"]),
                     'parent_customer_id' => $_POST["trav_id"],
-                    'role' => ucfirst($_POST["partner_type"]),
-                    'booking_packages_number' => $_POST["booking_packages_number"]
+                    'role' => ucfirst($partner_type),
+                    'booking_packages_number' => $booking_packages_number
                 ];
                 $query = $db->table('customer')->insert($new_member_insert_data);
                 $insert_id = $db->insertID();
