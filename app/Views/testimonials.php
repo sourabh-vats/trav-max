@@ -167,7 +167,7 @@
                     </div>
                     <div class="col-sm-4">
                         <img src="/images/test20.jpg" class="img-fluid" alt="...">
-                        <h4>Akanksha</h4>
+                        <h4>Shashank</h4>
                         <span>
                             I have to admit, I'm a picky customer. I<br>
                             came across this and was skeptical. I<br>
