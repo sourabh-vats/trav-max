@@ -31,7 +31,21 @@
         <a class="d-block m-auto text-center my-3" href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
         <div class="row d-flex align-items-center justify-content-center flex-wrap" id="select_package_section">
             <h1 class="text-center">Please select a package from the following and continue.</h1>
-            <?php foreach ($all_packages as $package) { ?>
+            <h2 class="text-center" style="padding-top: 30px;">International Package</h2>
+            <?php foreach ($international as $package) { ?>
+                <div class="col-md-4 d-flex justify-content-center p-3">
+                    <div class="package_card">
+                        <a href="/signup/choose_partnership?package=<?php echo $package['id']; ?>">
+                            <img class="img-fluid select_package_id" src="/images/<?php echo $package['name']; ?>.jpg" alt="" title="<?php echo $package['id']; ?>">
+                        </a>
+                        <input type="hidden" name="package_information" class="package_information" value='<?php echo json_encode($package); ?>'>
+                        <p class="package_title"><?php echo $package['name']; ?></p>
+                        <a href="/terms_of_use">Terms And Conditions</a>
+                    </div>
+                </div>
+            <?php } ?>
+            <h2 class="text-center" style="padding-top: 30px;">National Package</h2>
+            <?php foreach ($national as $package) { ?>
                 <div class="col-md-4 d-flex justify-content-center p-3">
                     <div class="package_card">
                         <a href="/signup/choose_partnership?package=<?php echo $package['id']; ?>">
