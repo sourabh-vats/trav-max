@@ -161,6 +161,7 @@
       </div>
    </section>
 
+
    <section class="all-in-one Holiday">
       <div class="container">
          <h2>Make Life a Holiday </h2>
@@ -204,7 +205,7 @@
                <img class="trt" src="/images/dubai.jpg" class="img-responsive">
             </div>
             <div class="col-sm-8">
-               <img src="/images/Thailand Beach Prime.jpg.jpeg" class="img-responsive">
+               <img src="/images/Thailand Beach Prime.jpg" class="img-responsive">
             </div>
          </div>
 
@@ -278,8 +279,7 @@
 </section>
 
 <section class="Start">
-   
-   <a class="fist-c" href="" data-toggle="modal" data-target="#registerLoginModal"><h2>Start Traveling - Book a Tour Now </h2></a>
+<a class="fist-c" href="" data-toggle="modal" data-target="#registerLoginModal"><h2>Start Traveling - Book a Tour Now </h2></a>
 </section>
 
 
