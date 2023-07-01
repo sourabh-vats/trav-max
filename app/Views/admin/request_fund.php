@@ -39,7 +39,7 @@ echo form_open_multipart('admin/request-fund', $attributes);
       <div class="form-group col-sm-12">
         <label> Amount</label>
         <?php if (!empty($payment_amount)) {
-          echo '<input type="number" class="form-control" name="amount" value="' . $payment_amount . '" readonly>';
+          echo '<input type="number" class="form-control" name="amount" value="' . $payment_amount . '" >';
           echo '<input type="hidden" name="subject" value="installment">';
         } else {
           echo '<input type="number" class="form-control" name="amount">';
@@ -77,31 +77,12 @@ echo form_open_multipart('admin/request-fund', $attributes);
       </div>
       <div class="form-group col-sm-12 utr">
         <label class='two'>Image</label>
-        <input type="file" name="image" value="<?php if (!empty($_POST['file'])) {
+        <input class="form-control" type="file" name="image" value="<?php if (!empty($_POST['file'])) {
                                                   echo $_POST['file'];
                                                 }  ?>">
       </div>
 
 
-      <!--<div class="form-group col-sm-12">
-            <label> IFSC Code</label>
-              <input type="text" class="form-control"  name="ifsc" value="<?php if (!empty($_POST['ifcs'])) {
-                                                                            echo $_POST['ifcs'];
-                                                                          }  ?>">
-          </div>
-       <div class="form-group col-sm-12">
-            <label> NEFT / RTGS</label>
-              <input type="text" class="form-control"  name="neft" value="<?php if (!empty($_POST['neft'])) {
-                                                                            echo $_POST['neft'];
-                                                                          }  ?>">
-          </div>-->
-
-      <!--<div class="form-group col-lg-6 col-mg-6 col-sm-6">
-            <label>Bank Name</label>
-              <input type="file" class="form-control"  name="image" value="<?php if (!empty($_POST['image'])) {
-                                                                              echo $_POST['image'];
-                                                                            }  ?>">
-          </div> -->
 
       <div class="form-group col-sm-12">
         <label>Description</label>
@@ -110,9 +91,9 @@ echo form_open_multipart('admin/request-fund', $attributes);
                                                                                       }  ?>"></textarea>
       </div>
 
-      <div class="col-lg-12 col-md-12">
+      <div class="col-lg-12 col-md-12" style="padding-top: 20px;">
         <div class="form-group">
-          <button class="btn btn-primary" type="submit">Request</button> &nbsp;
+          <button class="btn btn-primary" type="submit">Upload</button> &nbsp;
         </div>
       </div>
     </fieldset>

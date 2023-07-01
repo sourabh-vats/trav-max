@@ -1,18 +1,3 @@
-<?php
-$user_type = "";
-if (empty($_GET["plan"])) {
-    header("LOCATION: /");
-    die();
-} else {
-    $user_type = $_GET["plan"];
-    $booking_packages_number = 1;
-    if ($user_type == "micro") {
-        $booking_packages_number = $_GET["micro"];
-    }else if ($user_type == "macro") {
-        $booking_packages_number = 5;
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +5,10 @@ if (empty($_GET["plan"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Travmax">
+    <meta name="description" content=" We offer flights, packages, hotels, corporate travel services, the best customized travel support and more.">
+    <meta property="og:title" content="RealSatisfied"/>
+    <meta property="og:image" content="http://travmaxholidays.com/images/logo-social.jpg"/>
     <title>Signup</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="/lib/jquery/jquery-1.11.1.min.js"></script>
@@ -67,10 +56,7 @@ if (empty($_GET["plan"])) {
                         <img height="40px" src="/images/logo.png" alt="">
                     </a>
                 </div>
-                <div class="alert alert-success text-center" role="alert">
-                    <?php echo strtoupper($user_type) ?> PARTNER
-                </div>
-                <form id="register-form">
+                <form id="register-form" action="/signup/select_package" method="POST">
                     <div class="alert alert-danger text-center d-none" id="signup_error" role="alert">
 
                     </div>
@@ -114,17 +100,13 @@ if (empty($_GET["plan"])) {
                         <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234" required value="<?php echo isset($_GET['refer_id']) ? $_GET['refer_id'] : ''; ?>">
                         <label for="trav_id">Referral ID</label>
                     </div>
-                    <input type="hidden" name="partner_type" value="<?php echo $user_type; ?>">
-                    <input type="hidden" name="booking_packages_number" value="<?php echo $booking_packages_number; ?>">
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">I agree to all <a href="/terms_of_use">terms and conditions.</a></label>
-                    </div>
+                    <!-- <input type="hidden" name="partner_type" value="<?php //echo $user_type; ?>"> -->
+                    <input type="hidden" name="booking_packages_number" value="<?php //echo $booking_packages_number; ?>">
                     <button type="submit" class="btn btn-danger w-100 btn-lg">Sign Up</button>
                 </form>
             </div>
         </div>
-        <div class="col-md-6 d-none d-md-block" style="background-image: url(/images/signup_bg.jpg); background-position:center; background-size:cover">
+        <div class="col-md-6 d-none d-md-block" style="background-image: url(/images/macro.jpg); background-position:center; background-size:cover">
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
@@ -147,7 +129,7 @@ if (empty($_GET["plan"])) {
                     jQuery("#signup_error").removeClass("alert-danger");
                     jQuery("#signup_error").addClass("alert-primary");
                     jQuery("#signup_error").text(data.message);
-                    window.location.replace("/admin");
+                    window.location.replace("/signup/select_package");
                 }
                 jQuery("#loading_screen").addClass("d-none");
             }

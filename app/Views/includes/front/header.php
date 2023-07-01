@@ -82,9 +82,9 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu1 " aria-labelledby="navbarDropdown">
                                                     <a class="dropdown-item" href="/admin">Dashboard</a>
-                                                    <a class="dropdown-item" href="/admin/profile">Profile</a>
+                                                    
                                                     <a class="dropdown-item" href="/invite_friend/<?php echo ucfirst($session->get('trav_id')); ?>">Refer and Earn</a>
-                                                    <a class="dropdown-item" href="admin/logout">Logout</a>
+                                                    <a class="dropdown-item" href="/admin/logout">Logout</a>
                                                 </div>
                                             </li>
                                         <?php } else { ?>
@@ -92,13 +92,13 @@
                                         <?php } ?>
                                         <?php if ($session->has('is_customer_logged_in')) {
                                         ?>
-                                            <li><a href="admin/logout"><i class="fa fa-lock"></i> Logout</a></li>
+                                            <li><a href="/admin/logout"><i class="fa fa-lock"></i> Logout</a></li>
                                         <?php } else { ?>
                                             <li class="drop-nav">
                                                 <a id="login_btn" title="Login" href="javascript:;" data-toggle="modal" data-target="#registerLoginModal"><i class="fa fa-sign-in"></i> Login</a>
                                             </li>
                                             <li class="drop-nav" style="margin-left: 10px;">
-                                                <a id="" href="/plans">Signup</a>
+                                                <a id="" href="/signup">Signup</a>
                                             </li>
                                         <?php } ?>
                                     </ul>

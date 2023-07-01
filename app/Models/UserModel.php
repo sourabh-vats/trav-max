@@ -48,6 +48,18 @@ class UserModel extends Model
             var_dump($error);
         }
     }
+    function status($id)
+    {
+        try {
+            $db = db_connect();
+            $query = $db->query("Select status from purchase where id = " . $id);
+            $row = $query->getResultArray();
+            return $row;
+        } catch (\Throwable $th) {
+            $error = $db->error();
+            var_dump($error);
+        }
+    }
 
     public function parent_profile($blissid)
     {
@@ -64,8 +76,8 @@ class UserModel extends Model
     {
         $db = db_connect();
         $builder = $db->table('customer');
-        $builder->select('id,f_name,l_name,customer_id,status,parent_customer_id,direct_customer_id,rdate,var_status,macro');
-        $builder->whereIn('direct_customer_id', $cust_id);
+        $builder->select('*');
+        $builder->where('direct_customer_id', $cust_id);
         $query = $builder->get();
 
         return $query->getResultArray();
@@ -219,6 +231,24 @@ class UserModel extends Model
         return $query->getResultArray();
     }
 
+    public function get_international_packages()
+    {
+        $db = db_connect();
+        $builder = $db->table('package');
+        $builder->where('type', 'international'); 
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
+    public function get_national_packages()
+    {
+        $db = db_connect();
+        $builder = $db->table('package');
+        $builder->where('type', 'national'); 
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
     public function get_payment_amount($id)
     {
         $db = db_connect();
@@ -272,22 +302,30 @@ class UserModel extends Model
             $builder->select('*');
             $builder->where('customer_id', $_POST["trav_id"]);
             $query = $builder->get();
+            $referralCustomer = $query->getRow();
             if ($query->getNumRows() == 0) {
                 $data = array("status" => "error", "message" => "Referral ID doesn't exist.");
                 header("Content-Type: application/json");
                 echo json_encode($data);
                 exit();
+            } else  if ($referralCustomer->status != 'active') {
+                $data = array("status" => "error", "message" => "Referral ID is not active.");
+                header("Content-Type: application/json");
+                echo json_encode($data);
+                exit();
             } else {
+                $booking_packages_number = 1;
+                $partner_type = "micro";
                 $new_member_insert_data = [
                     'f_name' => $_POST["f_name"],
                     'l_name' => $_POST["l_name"],
                     'email' => $_POST["email"],
                     'phone' => $_POST["number"],
-                    'status' => 'hold',
+                    'status' => 'process',
                     'pass_word' => md5($_POST["password"]),
                     'parent_customer_id' => $_POST["trav_id"],
-                    'role' => ucfirst($_POST["partner_type"]),
-                    'booking_packages_number' => $_POST["booking_packages_number"]
+                    'role' => ucfirst($partner_type),
+                    'booking_packages_number' => $booking_packages_number
                 ];
                 $query = $db->table('customer')->insert($new_member_insert_data);
                 $insert_id = $db->insertID();
