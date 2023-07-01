@@ -134,7 +134,8 @@ class Page extends BaseController
 		}
 
 		$user_model = model('UserModel');
-		$data['all_packages'] = $user_model->get_all_packages();
+		$data['international'] = $user_model->get_international_packages();
+		$data['national'] = $user_model->get_national_packages();
 
 		$data['main_content'] = 'select_package';
 		return view('select_package', $data);
