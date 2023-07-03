@@ -31,13 +31,13 @@ $package = $package_data[0];
 
 <body>
     <div class="container">
-        <a class="d-block m-auto text-center my-3" href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
+        <a class="d-block m-auto text-center my-5" href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
         <div class="row" id="wrapper">
             <div id="content_box">
                 <p class="text_1">
                     <span>You've selected</span>
                     <span class="heading_1"><?php echo $package["name"]; ?></span><br>
-                    <span>7 Nights 3 Days</span>
+                    <span><?php echo $package["nights"] ." ". $package["days"];?></span>
                     <br>
                     <br>
                     <span>The Plan you have selected is <span class="heading_1"><?php echo $_GET["plan"]; ?></span></span>

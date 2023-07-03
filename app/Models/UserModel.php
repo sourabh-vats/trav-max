@@ -321,7 +321,7 @@ class UserModel extends Model
                     'l_name' => $_POST["l_name"],
                     'email' => $_POST["email"],
                     'phone' => $_POST["number"],
-                    'status' => 'process',
+                    'status' => 'hold',
                     'pass_word' => md5($_POST["password"]),
                     'parent_customer_id' => $_POST["trav_id"],
                     'role' => ucfirst($partner_type),

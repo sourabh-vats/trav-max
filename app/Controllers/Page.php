@@ -125,13 +125,13 @@ class Page extends BaseController
 		$user_model = model('UserModel');
 		$data['profile'] = $user_model->profile($id);
 
-		if ($data['profile'][0]['status'] == "hold" || $data['profile'][0]['status'] == 'active') {
-			return redirect()->route('admin');
-		} elseif ($data['profile'][0]['status'] == "process") {
-			# code...
-		} else {
-			return redirect()->route('/');
-		}
+		// if ($data['profile'][0]['status'] == "hold" || $data['profile'][0]['status'] == 'active') {
+		// 	return redirect()->route('admin');
+		// } elseif ($data['profile'][0]['status'] == "process") {
+		// 	# code...
+		// } else {
+		// 	return redirect()->route('/');
+		// }
 
 		$user_model = model('UserModel');
 		$data['international'] = $user_model->get_international_packages();
@@ -392,7 +392,10 @@ class Page extends BaseController
 			$return = $user_model->add_user_package($data_to_store);
 			$data_to_store = [
 				'role' => $partner_type,
-				'status' => 'hold'
+				'status' => 'hold',
+				'booking_packages_number' => $number_of_packages
+
+				
 			];
 			$return = $user_model->update_profile($id, $data_to_store);
 			if ($return == true) {
