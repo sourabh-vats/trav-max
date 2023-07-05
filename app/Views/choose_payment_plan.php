@@ -35,15 +35,11 @@
 
 <body>
     <div class="container">
-        <a class="d-block m-auto text-center my-3" href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
+        <a class="d-block m-auto text-center my-5" href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
         <div class="row" id="pick_a_plan_section">
-            <div class="alert alert-info w-auto m-auto mt-3" role="alert">
-                <p id="partner"><?php echo ucfirst($_GET['plan']); ?></p>
-            </div>
-            <h1 class="text-center mb-5">You have selected <span id="pick_a_plan_selected_package_name"><?php echo $package_data[0]["name"]; ?></span> package <?php if ($booking_packages_number != 1) {
-                                                                                                                                                                    echo 'for ' . $booking_packages_number . ' persons';
+            <h1 class="text-center mb-5">You have selected <span id="pick_a_plan_selected_package_name"><?php echo $package_data[0]["name"]; ?></span> package <?php if ($booking_packages_number != 1) {                                                                                                                                          echo 'for ' . $booking_packages_number . ' persons';
                                                                                                                                                                 } ?>.<br> Please select a payment plan.</h1>
-            <div class="card-group text-center justify-content-center">
+            <div class="card-group text-left justify-content-center">
                 <div class="card plan_box" id="travnow_plan">
                     <div class="card-body">
                         <h5 class="card-title">trav<span style='color:#ea664f;'>now</h5>
