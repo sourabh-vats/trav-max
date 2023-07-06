@@ -13,7 +13,7 @@ $mail = new PHPMailer(true);
 try {
     //Server settings
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();   
+    //$mail->isSMTP();
     $mail->SMTPOptions = array(
         'ssl' => array(
             'verify_peer' => false,
@@ -21,12 +21,19 @@ try {
             'allow_self_signed' => true
         )
     );                                         //Send using SMTP
-    $mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
-    $mail->Password   = 'D523B4735BB9E3503EF9C1257E0FBD6AD5BF';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    //$mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
+    //$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    //$mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
+    //$mail->Password   = 'D523B4735BB9E3503EF9C1257E0FBD6AD5BF';                               //SMTP password
+    //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    //$mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+
+    $mail->isSMTP();
+    $mail->Host = 'localhost';
+    $mail->SMTPAuth = false;
+    $mail->SMTPAutoTLS = false;
+    $mail->Port = 25;
 
     //Recipients
     $mail->setFrom('support@travmaxholidays.com', 'Travmax');
@@ -39,8 +46,8 @@ try {
     $data['name'] =  $profile[0]['f_name'] . ' ' . $profile[0]['l_name'];
     $data['email'] =  $profile[0]['email'];
 
-    $view = view('content',$data);
-            
+    $view = view('content', $data);
+
     // Set the view content as the email body
     $mail->Body = $view;
     // $mail->Body    = 'Hello ' . $profile[0]['f_name'] . ' ' . $profile[0]['l_name'] .',
