@@ -445,7 +445,7 @@
             <tr>
               <td class="email-masthead">
                 <a href="https://www.travmaxholidays.com/" class="f-fallback email-masthead_name">
-                Travmax
+                <img src="https://www.travmaxholidays.com/images/logo.png" alt="" srcset="">
               </a>
               </td>
             </tr>
