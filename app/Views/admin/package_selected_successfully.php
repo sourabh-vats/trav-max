@@ -23,18 +23,25 @@ try {
 
     //Recipients
     $mail->setFrom('support@travmaxholidays.com', 'Travmax');
-    $mail->addAddress('sourabhsharma94676@gmail.com');     //Add a recipient
+    $mail->addAddress($profile[0]['email']);     //Add a recipient
     $mail->addReplyTo('info@travmaxholidays.com', 'Information');
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Account Created';
-    $mail->Body    = 'Hello ' . $profile[0]['f_name'] . ' ' . $profile[0]['l_name'] .',
+    $data['name'] =  $profile[0]['f_name'] . ' ' . $profile[0]['l_name'];
+    $data['email'] =  $profile[0]['email'];
 
-    Thank you. We are delighted to have you with us.<br> We hope you find in our business what you are looking for. Someone from our customer care team will get in touch within 24 hours.
-    <br><br>
-    Respectfully,<br>
-    Travmax';
+    $view = view('content',$data);
+            
+    // Set the view content as the email body
+    $mail->Body = $view;
+    // $mail->Body    = 'Hello ' . $profile[0]['f_name'] . ' ' . $profile[0]['l_name'] .',
+
+    // Thank you. We are delighted to have you with us.<br> We hope you find in our business what you are looking for. Someone from our customer care team will get in touch within 24 hours.
+    // <br><br>
+    // Respectfully,<br>
+    // Travmax';
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
