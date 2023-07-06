@@ -523,9 +523,9 @@
                   <tr>
                     <td class="content-cell" align="center">
                       <p class="f-fallback sub align-center">
-                        [Company Name, LLC]
-                        <br>1234 Street Rd.
-                        <br>Suite 1234
+                        Travmax
+                        <br>Sco 69, second floor, Main market <br>
+                        Chandigarh Sector 17a, Chandigarh - 160017
                       </p>
                     </td>
                   </tr>
