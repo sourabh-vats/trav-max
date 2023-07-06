@@ -43,10 +43,10 @@
                 <div class="card plan_box" id="travnow_plan">
                     <div class="card-body">
                         <h5 class="card-title">trav<span style='color:#ea664f;'>now</h5>
-                        <p>Package: <?php echo $package_data[0]['name']; ?></p>
+                        <p>Package Name: <?php echo $package_data[0]['name']; ?></p>
                         <p>Price: ₹<?php echo $package_data[0]['total']; ?></p>
                         <p>Plan: <?php echo ucfirst($_GET['plan']); ?></p>
-                        <p>Packages: <?php echo $booking_packages_number; ?></p>
+                        <p>No. of Packages: <?php echo $booking_packages_number; ?></p>
                         <p>Total: ₹<?php echo $package_data[0]['total'] . ' * ' . $booking_packages_number . ' = ' .$package_data[0]['total'] * $booking_packages_number; ?></p>
                         <p>Pay Now: ₹<?php echo $package_data[0]['total'] * $booking_packages_number; ?></p>
                     </div>
@@ -61,10 +61,10 @@
                 <div class="card plan_box" id="travlater_plan">
                     <div class="card-body">
                         <h5 class="card-title">trav<span style="color: #ca3813;">later</h5>
-                        <p>Package: <?php echo $package_data[0]['name']; ?></p>
+                        <p>Package Name: <?php echo $package_data[0]['name']; ?></p>
                         <p>Price: ₹<?php echo $package_data[0]['total']; ?></p>
                         <p>Plan: <?php echo ucfirst($_GET['plan']); ?></p>
-                        <p>Packages: <?php echo $booking_packages_number; ?></p>
+                        <p>No. of Packages: <?php echo $booking_packages_number; ?></p>
                         <p>Total: ₹<?php echo $package_data[0]['total'] . ' * ' . $booking_packages_number . ' = ' .$package_data[0]['total'] * $booking_packages_number; ?></p>
                         <p>Plan Price: ₹11000</p>
                         <p>Pay Now: ₹<?php echo '11000 * ' . $booking_packages_number . ' = ' . 11000 * $booking_packages_number; ?></p>
@@ -81,10 +81,10 @@
                 <div class="card plan_box" id="traveasy_plan">
                     <div class="card-body">
                         <h5 class="card-title">trav<span style="color: #97030f;">easy</span></h5>
-                        <p>Package: <?php echo $package_data[0]['name']; ?></p>
+                        <p>Package Name: <?php echo $package_data[0]['name']; ?></p>
                         <p>Price: ₹<?php echo $package_data[0]['total']; ?></p>
                         <p>Plan: <?php echo ucfirst($_GET['plan']); ?></p>
-                        <p>Packages: <?php echo $booking_packages_number; ?></p>
+                        <p>No. of Packages: <?php echo $booking_packages_number; ?></p>
                         <p>Total: ₹<?php echo $package_data[0]['total'] . ' * ' . $booking_packages_number . ' = ' .$package_data[0]['total'] * $booking_packages_number; ?></p>
                         <p>Plan Price: ₹5500</p>
                         <p>Pay Now: ₹<?php echo '5500 * ' . $booking_packages_number . ' = ' . 5500 * $booking_packages_number; ?></p>

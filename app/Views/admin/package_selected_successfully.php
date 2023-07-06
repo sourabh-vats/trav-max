@@ -23,7 +23,7 @@ try {
 
     //Recipients
     $mail->setFrom('support@travmaxholidays.com', 'Travmax');
-    $mail->addAddress($profile[0]['email']);     //Add a recipient
+    $mail->addAddress('sourabhsharma94676@gmail.com');     //Add a recipient
     $mail->addReplyTo('info@travmaxholidays.com', 'Information');
 
     //Content
