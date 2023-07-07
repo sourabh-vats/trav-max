@@ -19,20 +19,6 @@ if ($session->getFlashdata('flash_message')) {
     echo '</div>';
   }
 }
-//print_r($restaurants);
-?>
-<?php
-//form data
-$attributes = array('class' => 'form form-inline', 'id' => '');
-
-//form validation
-// echo validation_errors();
-//print_r($editor);
-
-//echo form_open('admin/category/', $attributes);
-
-
-
 ?>
 
 <style>
@@ -40,9 +26,15 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
     text-align: center;
   }
 </style>
+<div>
+  <?php 
+  for ($i=0; $i < $profile[0]['booking_packages_number']; $i++) { 
+    echo '<a class="btn btn-outline-primary my-3 me-3" href="/admin/installments?package=' . $i . '">Package ' . $i+1 . ' </a>';
+  }
+  ?>
+</div>
 <div class="table-responsive">
   <table id="example" class="table table-bordered table-hover category-table">
-
     <thead>
       <tr>
         <th>Sr. No.</th>

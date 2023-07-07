@@ -686,9 +686,19 @@ class Profile extends BaseController
     {
         $user_model = model('UserModel');
         $id = session()->get('cust_id');
-        $customer_id = session()->get('bliss_id');
+        $customer_id = session()->get('trav_id');
         $data['profile'] = $user_model->profile($id);
-        $data['pin'] = $user_model->get_all_installment($id);
+
+        $package_number = 0;
+        if (!empty($_GET['package'])) {
+            $package_number = $_GET['package'];
+        }
+        $db = db_connect();
+        $query = $db->query('SELECT * FROM purchase where customer_id = "' . $customer_id . '" LIMIT '.$package_number.',1');
+        $row = $query->getRow();
+        $purchase_id = $row->id;
+    
+        $data['pin'] = $user_model->get_installment($purchase_id);
 
         $razorpay = 'false';
 

@@ -364,6 +364,16 @@ class UserModel extends Model
         return $query->getResultArray();
     }
 
+    public function get_installment($id)
+    {
+        $db = db_connect();
+        $builder = $db->table('installment as i');
+        $builder->select('*');
+        $builder->where('i.order_id', $id);
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
     public function add_order($data_to_store)
     {
         $db = db_connect();
