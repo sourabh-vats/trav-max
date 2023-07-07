@@ -31,7 +31,7 @@ $package = $package_data[0];
 
 <body>
     <div class="container">
-        <a class="d-block m-auto text-center my-5" href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
+        <a class="d-block m-auto text-center my-5 " href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
         <div class="row" id="wrapper">
             <div id="content_box">
                 <p class="text_1">
