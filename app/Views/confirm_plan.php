@@ -36,16 +36,17 @@ $package = $package_data[0];
             <div id="content_box">
                 <p class="text_1">
                     <span>You've selected</span>
-                    <span class="heading_1"><?php echo $package["name"]; ?></span><br>
+                    <span class="heading_1"><?php echo $package["name"]; ?> package</span><br>
+                    <span>for</span>
                     <span><?php echo $package["nights"] ." ". $package["days"];?></span>
                     <br>
                     <br>
-                    <span>The Plan you have selected is <span class="heading_1"><?php echo $_GET["plan"]; ?></span></span>
+                    <span>The Partnership you have selected is<br><span class="heading_1"><?php echo $_GET["plan"]; ?></span></span>
                     <br>
                     <br>
-                    <span>You need to make a payment of <span class="heading_1">Rs <?php echo $payment_amount; ?></span></span>
-                    <p class="h4">+GST 5%</p>
-                    <p class="h5">TCS as applicable at the time.</p>
+                    <span>You need to make a payment of <br><span class="heading_1">Rs <?php echo $payment_amount; ?></span></span>
+                    <p class="h4">Plus Taxes</p>
+                    <p class="h5">TCS as applicable.</p>
                 </p>
                 <br>
             </div>
@@ -59,11 +60,11 @@ $package = $package_data[0];
         <input type="hidden" name="package_id" value="<?= $package['id']; ?>">
         <input type="hidden" name="plan" value="<?php echo $_GET["plan"]; ?>">
         <input type="hidden" name="payment_plan" value="<?php echo $_GET["payment_plan"]; ?>">
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center" style="padding-top: 30px;">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                 <label class="form-check-label" for="invalidCheck">
-                    <strong>Agree to <a href="/terms_of_use" target="_blank">terms and conditions</a></strong>
+                    <strong> I Agree to <a href="/terms_of_use" target="_blank">terms and conditions</a></strong>
                 </label>
                 <div class="invalid-feedback">
                     You must agree before submitting.
