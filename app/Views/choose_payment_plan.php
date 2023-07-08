@@ -52,9 +52,9 @@
                     </div>
                     <div class="card-footer">
                         <?php if ($booking_packages_number == 1) {
-                            echo '<h2>₹<span id="travnow_price">' . $package_data[0]['total'] . '</span></h2><p>plus taxes</p>';
+                            echo '<h2>₹<span id="travnow_price">' . $package_data[0]['total'] . '</span></h2><p>Plus Taxes</p>';
                         } else {
-                            echo '<h2>₹<span id="travnow_price">' . $package_data[0]['total'] * $booking_packages_number . '</span></h2><p>plus taxes</p>';
+                            echo '<h2>₹<span id="travnow_price">' . $package_data[0]['total'] * $booking_packages_number . '</span></h2><p>Plus Taxes</p>';
                         } ?>
                     </div>
                 </div>
@@ -71,9 +71,9 @@
                     </div>
                     <div class="card-footer">
                         <?php if ($booking_packages_number == 1) {
-                            echo '<h2 id="travlater_price">₹11000</h2><p>plus taxes</p>';
+                            echo '<h2 id="travlater_price">₹11000</h2><p>Plus Taxes</p>';
                         } else {
-                            echo '<h2 id="travlater_price">₹' . 11000 *  $booking_packages_number .'</h2><p>plus taxes</p>';
+                            echo '<h2 id="travlater_price">₹' . 11000 *  $booking_packages_number .'</h2><p>Plus Taxes</p>';
                         } ?>
 
                     </div>
@@ -91,9 +91,9 @@
                     </div>
                     <div class="card-footer">
                     <?php if ($booking_packages_number == 1) {
-                            echo '<h2 id="travlater_price">₹5500</h2><p>plus taxes</p>';
+                            echo '<h2 id="travlater_price">₹5500</h2><p>Plus Taxes</p>';
                         } else {
-                            echo '<h2 id="travlater_price">₹' . 5500 *  $booking_packages_number . '</h2><p>plus taxes</p>';
+                            echo '<h2 id="travlater_price">₹' . 5500 *  $booking_packages_number . '</h2><p>Plus Taxes</p>';
                         } ?>
                     </div>
                 </div>

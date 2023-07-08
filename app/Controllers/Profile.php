@@ -37,9 +37,7 @@ class Profile extends BaseController
         $data['has_package'] = false;
         $data['package_information'] = $user_model->get_package($id);
         $data['status']= $user_model->status($id); 
-        if (empty($data['status'])) {
-            return redirect()->to('admin/package_selected_successfully');
-        }
+        
         if (empty($data['package_information'])) {
             $data['has_package'] = false;
         } else {
