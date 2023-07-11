@@ -33,6 +33,21 @@
     </script>
     <script src="/lib/jquery/jquery-1.11.1.min.js"></script>
     <script src="/lib/bootstrap-3/bootstrap.min.js"></script>
+    <style>
+       .navbar-collapse {
+        background-color: white !important;
+    }
+         .navbar-toggle {
+        float: right !important;
+
+        background-color: white  !important;
+    }
+    @media (max-width: 800px){
+        .navbar-toggle{
+            margin-top: 6px !important;
+        }
+    }
+    </style>
 </head>
 
 <body>
@@ -40,17 +55,20 @@
         <div class="header-middle">
             <div class="">
                 <div class="row">
-                    <div class="col-md-2"><a href="/"><img class="img-responsive chain" src="/images/logo.png" alt=" "></a>
+                    <div class="col-md-2"><a href="/">
+  <img class="img-responsive" src="/images/logo.png" alt="Logo" width="100" style="max-width: 200px;">
+</a>
+
                     </div>
                     <div class="col-md-10 col-xs-12 mennuu">
                         <div class="menu-bar">
                             <nav class="navbar">
                                 <div class="navbar-header">
                                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                                        <span class="sr-only">Toggle navigation</span>
+<span class="sr-only">Toggle navigation</span>
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>                                        
                                     </button>
 
                                 </div>
@@ -97,7 +115,7 @@
                                             <li class="drop-nav">
                                                 <a id="login_btn" title="Login" href="javascript:;" data-toggle="modal" data-target="#registerLoginModal"><i class="fa fa-sign-in"></i> Login</a>
                                             </li>
-                                            <li class="drop-nav" style="margin-left: 10px;">
+                                            <li class="drop-nav" >
                                                 <a id="" href="/signup">Signup</a>
                                             </li>
                                         <?php } ?>
@@ -114,4 +132,13 @@
         $("#login_btn").click(function() {
             $("#navbar").removeClass("in");
         });
+        $(document).ready(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 10) {
+                $('#navbar-collapse').removeClass('in');
+            }
+        });
+    });
     </script>
+</body>
+</html>
