@@ -746,5 +746,5 @@ class Profile extends BaseController
             $data['main_content'] = 'admin/installment';
             return view('includes/admin/template', $data);
         }
-    }
+    }   
 }

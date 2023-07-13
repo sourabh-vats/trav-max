@@ -41,7 +41,7 @@ if (!$session->has('is_customer_logged_in')) { ?>
                         <form class="form" action="" method="post" id="popup-login-form">
                             <p><label>User ID/Email/Phone</label> <input type="text" required name="user_name" class="form-control input-empty" placeholder=""></p>
                             <p><label>Password</label> <input type="password" required name="password" class="form-control input-empty"></p>
-                            <div class="col-md-12 col-xs-12 keeplogin text-right ferd"><b>Forgot Password?</b></div><br>
+                            <div class="col-md-12 col-xs-12 keeplogin text-right ferd"><a href="<?php echo base_url('forgot_password') ?>"><b>Forgot Password?</b></a></div><br>
                             <p><input type="submit" name="submit" value="Log In" class="btn btn-primary popup-login-button"></p>
                             <p class="rfre">If you don't have an Account <a href="/signup"><span class="svn"><b>Register Free</b></span></a></p>
                         </form>

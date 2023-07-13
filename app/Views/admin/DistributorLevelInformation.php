@@ -35,34 +35,33 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
     <div class="col-md-12 col-sm-12">
         <div class="row">
             <div class="col-md-5">
-                <div class="form-group"><label class="control-label col-md-5">Trav ID :</label>
-                    <div class="col-md-6"><span id="ContentPlaceHolder1_DistributorId" class="form-control" style="font-weight: bold;font-size: 12px; border: none;"><?php echo $profile[0]['customer_id']; ?></span>
-                    </div>
+                <strong><div class="form-group"><label class="control-label " style="text-dec;">Trav ID :  </label></strong><?php echo " ".$profile[0]['customer_id']; ?>
+                    
                 </div>
             </div>
             <div class="col-md-5">
-                <div class="form-group"><label class="control-label col-md-5">Parent Trav ID :</label>
-                    <div class="col-md-6"><span id="ContentPlaceHolder1_lblsponserid" class="form-control" style="font-weight: bold; font-size: 12px; border: none;"><?php echo $profile[0]['parent_customer_id']; ?></span></div>
+                <strong><div class="form-group"><label class="control-label ">Parent Trav ID : </label></strong><?php echo " ".$profile[0]['parent_customer_id']; ?>
+                    <div class="col-md-6"><span id="ContentPlaceHolder1_lblsponserid" class="form-control" style="font-weight: bold; font-size: 12px; border: none;"></span></div>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-5">
-                <div class="form-group"><label class="control-label col-md-5">Partner Name :</label>
-                    <div class="col-md-6"><span id="ContentPlaceHolder1_txtName" class="form-control" style="font-weight: bold;                                    font-size: 12px; border: none;"><?php echo $profile[0]['f_name'] . ' ' . $profile[0]['l_name']; ?></span></div>
+                <strong><div class="form-group"><label class="control-label">Partner Name : </label></strong><?php echo " ".$profile[0]['f_name'] . ' ' . $profile[0]['l_name']; ?>
+                    <div class="col-md-6"><span id="ContentPlaceHolder1_txtName" class="form-control" style="font-weight: bold;                                    font-size: 12px; border: none;"></span></div>
                 </div>
             </div>
             <div class="col-md-5">
-                <div class="form-group"><label class="control-label col-md-5">Parent Name :</label>
-                    <div class="col-md-6"><span id="ContentPlaceHolder1_txtUpName" class="form-control" style="font-weight: bold;font-size: 12px; border: none;"><?php if (!empty($parent_profile)) {
-                                                                                                                                                                        echo $parent_profile[0]['f_name'] . ' ' . $parent_profile[0]['l_name'];
-                                                                                                                                                                    } ?></span></div>
+                <strong><div class="form-group"><label class="control-label">Parent Name : </label></strong><?php if (!empty($parent_profile)) {
+                                                                                                                                                                        echo " ".$parent_profile[0]['f_name'] . ' ' . $parent_profile[0]['l_name'];
+                                                                                                                                                                    } ?>
+                    <div class="col-md-6"><span id="ContentPlaceHolder1_txtUpName" class="form-control" style="font-weight: bold;font-size: 12px; border: none;"></span></div>
                 </div>
             </div>
         </div>
 
-        <h2 class="page-title">Levels</h2>
+        <h2 class="page-title">Circles</h2>
         <div class="col-md-12 col-sm-12">
             <div class="row">
                 <form method="post" action="">
