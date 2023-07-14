@@ -42,7 +42,7 @@ try {
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Account Created';
+    $mail->Subject = 'Congrats ! You are a Travmax Partner';
     $data['name'] =  $profile[0]['f_name'] . ' ' . $profile[0]['l_name'];
     $data['email'] =  $profile[0]['email'];
 

@@ -39,6 +39,8 @@ $routes->get('testimonials', 'Page::testimonials');
 $routes->get('partner', 'Page::partner');
 $routes->get('terms_of_use', 'Page::terms_of_use');
 $routes->get('contact_us', 'Page::contact_us');
+$routes->match(['get', 'post'],'forgot_password', 'User::forgot_password');
+$routes->match(['get', 'post'],'reset_password(:any)', 'User::reset_password/$1');
 $routes->get('signup', 'Page::signup');
 $routes->get('signup/select_package', 'Page::select_package');
 $routes->get('signup/choose_partnership', 'Page::choose_partnership');
