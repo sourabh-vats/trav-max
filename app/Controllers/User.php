@@ -98,13 +98,19 @@ class User extends BaseController
                             'allow_self_signed' => true
                         )
                     );                                         //Send using SMTP
-                    $mail->isSMTP();                                            //Send using SMTP
-                    $mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
-                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                    $mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
-                    $mail->Password   = 'D523B4735BB9E3503EF9C1257E0FBD6AD5BF';                               //SMTP password
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                    $mail->Port       = 465;
+                    //$mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
+                    //$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                    //$mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
+                    //$mail->Password   = 'D523B4735BB9E3503EF9C1257E0FBD6AD5BF';                               //SMTP password
+                    //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                    //$mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+
+                    $mail->isSMTP();
+                    $mail->Host = 'localhost';
+                    $mail->SMTPAuth = false;
+                    $mail->SMTPAutoTLS = false;
+                    $mail->Port = 25;
 
                     //Recipients
                     $mail->setFrom('support@travmaxholidays.com', 'Travmax');
@@ -129,10 +135,10 @@ class User extends BaseController
                 }
                 exit();
             }
-        }else{
+        } else {
 
 
-        return view('forgot_password');
+            return view('forgot_password');
         }
     }
 
@@ -148,8 +154,8 @@ class User extends BaseController
             header("Content-Type: application/json");
             echo json_encode($data);
             exit();
-        }else{
-        return view('reset_password');
+        } else {
+            return view('reset_password');
         }
     }
 }
