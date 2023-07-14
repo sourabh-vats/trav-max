@@ -61,7 +61,7 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
             </div>
         </div>
 
-        <h2 class="page-title">Circles</h2>
+        <h2 class="page-title">Team Circles</h2>
         <div class="col-md-12 col-sm-12">
             <div class="row">
                 <form method="post" action="">

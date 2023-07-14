@@ -64,11 +64,11 @@
         <p class="text_1">My Package</p>
         <hr>
         <div class="box_content">
-            <p class="text_2">Package Name : <span><?php echo $package_data[0]['name']; ?></p>
+            <p class="text_2">Package Name : <span><?php echo $package_data[0]['display_name']; ?></p>
             <p class="text_2">Price : <span>₹ <?php echo $package_data[0]['mrp']; ?></p>
             <p class="text_2">Offered Price : <span>₹ <?php echo $package_data[0]['total']; ?></p>
             <p class="text_2">Type of Partnership : <span> <?php echo $profile[0]['role']; ?></p>
-            <p class="text_2">Travel Member : <span> <?php echo $profile[0]['booking_packages_number']; ?></p>
+            <p class="text_2">No. of Travelers : <span> <?php echo $profile[0]['booking_packages_number']; ?></p>
             <p class="text_2">Payment Plan : <span><?php echo $package_information[0]['payment_type']; ?></p>
             <p class="text_2">Amount Paid : <span>₹ <?php echo $amount_paid; ?></p>
             <p class="text_2">Amount Remains : <span>₹ <?php echo $amount_remaining; ?></p>

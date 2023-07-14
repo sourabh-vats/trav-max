@@ -35,8 +35,8 @@ $package = $package_data[0];
         <div class="row" id="wrapper">
             <div id="content_box">
                 <p class="text_1">
-                    <span>You've selected</span>
-                    <span class="heading_1"><?php echo $package["name"]; ?> package</span><br>
+                    <span>You've selected</span><br>
+                    <span class="heading_1"><?php echo $package["display_name"]; ?> package</span><br>
                     <span>for</span>
                     <span><?php echo $package["nights"] ." ". $package["days"];?></span>
                     <br>
