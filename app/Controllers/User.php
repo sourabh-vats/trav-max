@@ -23,7 +23,7 @@ class User extends BaseController
         if ($is_valid['login'] == 'false') {
             echo '<div class="alert alert-danger">Username or password is wrong.</div>';
         } elseif ($is_valid['login'] == 'true') {
-            $data = array('full_name' => $is_valid['full_name'], 'email' => $is_valid['email'], 'trav_id' => $is_valid['trav_id'],  'cust_id' => $is_valid['cust_id'], 'cust_img' => $is_valid['cust_img'], 'is_customer_logged_in' => true);
+            $data = array('full_name' => $is_valid['full_name'], 'email' => $is_valid['email'], 'trav_id' => $is_valid['trav_id'],  'cust_id' => $is_valid['cust_id'], 'cust_img' => $is_valid['cust_img'], 'booking_packages_number' => $is_valid['booking_packages_number'], 'is_customer_logged_in' => true);
             $session->set($data);
             //$user_model->update_profile($is_valid['trav_id'], array('last_visit' => date('Y-m-d H:i:s')));
             echo '<div class="alert alert-success">Login Successfull</div>';
