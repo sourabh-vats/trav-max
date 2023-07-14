@@ -24,6 +24,7 @@ class UserModel extends Model
             $return['email'] = $row->email;
             $return['trav_id'] = $row->customer_id;
             $return['status'] = $row->status;
+            $return['booking_packages_number'] = $row->booking_packages_number;
             if ($row->image == '') {
                 $return['cust_img'] = '/images/man-person.png';
             } else {

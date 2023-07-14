@@ -223,6 +223,10 @@ p {
     border-left: 15px solid white;
 }
 
+.gradient_parent h3{
+    font-size: 1.7rem !important;
+}
+
 .box_number_data {
     font-size: 2.7rem;
     font-weight: 600;
@@ -251,10 +255,12 @@ p {
     font-size: 1.1rem;
 }
 
-#sidenav_id {
+#sidenav_id,
+#sidenav_partnership_type {
     color: white;
     text-transform: uppercase;
     font-size: 1rem;
+    text-align: center;
 }
 
 #total_partners_number {

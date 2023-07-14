@@ -61,7 +61,8 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                 <div class="pt-3 d-none d-md-flex flex-column align-items-center">
                     <img class="img-fluid" width="90px" src="/images/avatar.png" style="filter: contrast(.1);">
                     <span class="mt-2" id="sidenav_name"><?php echo $full_name; ?></span>
-                    <span id="sidenav_id">Trav ID: <?php echo $session->trav_id; ?></span>
+                    <span id="sidenav_partnership_type">Partnership Type: Pax<?php echo $session->booking_packages_number; ?></span>
+                    <span class="mb-md-3" id="sidenav_id">Trav ID: <?php echo $session->trav_id; ?></span>
                 </div>
                 <div class="position-sticky sidebar-sticky d-flex align-items-center justify-content-center">
                     <ul class="nav flex-column">
