@@ -39,7 +39,7 @@
                             <img class="img-fluid select_package_id" src="/images/<?php echo $package['name']; ?>.jpg" alt="" title="<?php echo $package['id']; ?>">
                         </a>
                         <input type="hidden" name="package_information" class="package_information" value='<?php echo json_encode($package); ?>'>
-                        <p class="package_title"><?php echo $package['name']; ?></p>
+                        <p class="package_title"><?php echo $package['display_name']; ?></p>
                         <a href="/terms_of_use">Terms And Conditions</a>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                             <img class="img-fluid select_package_id" src="/images/<?php echo $package['name']; ?>.jpg" alt="" title="<?php echo $package['id']; ?>">
                         </a>
                         <input type="hidden" name="package_information" class="package_information" value='<?php echo json_encode($package); ?>'>
-                        <p class="package_title"><?php echo $package['name']; ?></p>
+                        <p class="package_title"><?php echo $package['display_name']; ?></p>
                         <a href="/terms_of_use">Terms And Conditions</a>
                     </div>
                 </div>
