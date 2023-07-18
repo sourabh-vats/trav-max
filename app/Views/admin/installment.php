@@ -86,5 +86,5 @@ if ($session->getFlashdata('flash_message')) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const product = urlParams.get('package')
-  $("[myAttribute="+product+"]").addClass("active");
+  $("[title="+product+"]").addClass("active");
 </script>
