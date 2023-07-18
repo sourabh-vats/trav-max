@@ -94,10 +94,10 @@ class Profile extends BaseController
             return redirect()->to('admin/start');
         }
         $db = db_connect();
-        $query = $db->query('SELECT round(SUM(amount, 0), 0) as total FROM `incomes` WHERE user_id = ' . $id . ' and status = "Approved" and pay_type = "travmoney"');
+        $query = $db->query('SELECT SUM(amount, 0) as total FROM `incomes` WHERE user_id = ' . $id . ' and status = "Approved" and pay_type = "travmoney"');
         $row = $query->getRow();
         $data['travmoney'] = $row->total;
-        $query = $db->query('SELECT round(SUM(amount, 0), 0) as total FROM `incomes` WHERE user_id = ' . $id . ' and status = "Approved" and pay_type = "travprofit"');
+        $query = $db->query('SELECT SUM(amount, 0) as total FROM `incomes` WHERE user_id = ' . $id . ' and status = "Approved" and pay_type = "travprofit"');
         $row = $query->getRow();
         $data['travprofit'] = $row->total;
         $data['main_content'] = 'admin/home';
