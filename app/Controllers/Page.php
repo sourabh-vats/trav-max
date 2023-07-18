@@ -258,7 +258,7 @@ class Page extends BaseController
 			$payment_type = $this->request->getPost('payment_plan');
 			$package_data = $user_model->get_package_data($package_id);
 			$package = $package_data[0];
-			$package_amount_with_tax = $package["total"] + ($package["total"] * 0.05);
+			$package_amount_with_tax = $package["total"];
 			//Add packages to user in purchase table
 			for ($i = 1; $i <= $number_of_packages; $i++) {
 				$add_purchase_data = [

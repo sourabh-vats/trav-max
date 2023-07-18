@@ -94,8 +94,10 @@ class Profile extends BaseController
             return redirect()->to('admin/start');
         }
         $db = db_connect();
-        $query = $db->query('SELECT travmoney, travprofit, status FROM customer where customer_id = "' . $customer_id . '" LIMIT 1');
-        $row = $query->getRow();
+        $query = $db->query('SELECT SUM(amount) as total, pay_type FROM `incomes` WHERE user_id = ' . $id . ' and status = "Approved" GROUP BY pay_type');
+        $rows = $query->getResult();
+        var_dump($rows);
+        die();
         $data['travmoney'] = $row->travmoney;
         $data['travprofit'] = $row->travprofit;
         $data['status'] = $row->status;
