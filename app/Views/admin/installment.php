@@ -29,7 +29,7 @@ if ($session->getFlashdata('flash_message')) {
 <div>
   <?php 
   for ($i=0; $i < $profile[0]['booking_packages_number']; $i++) { 
-    echo '<a class="btn btn-outline-primary my-3 me-3" href="/admin/installments?package=' . $i . '">Package ' . $i+1 . ' </a>';
+    echo '<a class="btn btn-outline-primary my-3 me-3" href="/admin/installments?package=' . $i . '">Package ' . ($i+1) . ' </a>';
   }
   ?>
 </div>
