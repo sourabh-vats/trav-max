@@ -94,13 +94,12 @@ class Profile extends BaseController
             return redirect()->to('admin/start');
         }
         $db = db_connect();
-        $query = $db->query('SELECT SUM(amount) as total, pay_type FROM `incomes` WHERE user_id = ' . $id . ' and status = "Approved" GROUP BY pay_type');
-        $rows = $query->getResult();
-        var_dump($rows);
-        die();
-        $data['travmoney'] = $row->travmoney;
-        $data['travprofit'] = $row->travprofit;
-        $data['status'] = $row->status;
+        $query = $db->query('SELECT SUM(amount) as total FROM `incomes` WHERE user_id = ' . $id . ' and status = "Approved" and pay_type = "travmoney"');
+        $row = $query->getRow();
+        $data['travmoney'] = $row->total;
+        $query = $db->query('SELECT SUM(amount) as total FROM `incomes` WHERE user_id = ' . $id . ' and status = "Approved" and pay_type = "travprofit"');
+        $row = $query->getRow();
+        $data['travprofit'] = $row->total;
         $data['main_content'] = 'admin/home';
         return view('includes/admin/template', $data);
     }
