@@ -40,11 +40,11 @@
         <div class="row mb-4 gradient_parent">
             <div class="col text-center py-4">
                 <h3>TRAVEL CENTER</h3>
-                <span class="box_number_data">₹<?php echo $travmoney; ?></span>
+                <span class="box_number_data">₹<?php echo round($travmoney, 0); ?></span>
             </div>
             <div class="col text-center py-4">
                 <h3>BUSSINESS CENTER</h3>
-                <span class="box_number_data">₹<?php echo $travprofit; ?></span>
+                <span class="box_number_data">₹<?php echo round($travprofit, 0); ?></span>
             </div>
         </div>
         <div class="row gradient_parent">
