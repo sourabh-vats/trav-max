@@ -748,4 +748,102 @@ class Profile extends BaseController
             return view('includes/admin/template', $data);
         }
     }   
+
+    public function travelcenter(){
+        $user_model = model('UserModel');
+        $id = session('cust_id');
+        $customer_id = session('trav_id');
+        $data['profile'] = $user_model->profile($id);
+        $db = db_connect();
+        $query   = $db->query('
+        SELECT  incomes.id, incomes.amount,incomes.rdate,incomes.dist_level, customer.customer_id as user_send_by
+        FROM customer
+          LEFT JOIN incomes ON customer.id = incomes.user_send_by
+        WHERE incomes.user_id = '.$id.' and incomes.status = "Approved" and incomes.pay_type = "travmoney";');
+        $result = $query->getResultArray();
+        $data["travelcenter"] = $result;
+
+        $data['main_content'] = 'admin/travelcenter';
+        return view('includes/admin/template', $data);
+    }
+
+    public function businesscenter(){
+        $user_model = model('UserModel');
+        $id = session('cust_id');
+        $customer_id = session('trav_id');
+        $data['profile'] = $user_model->profile($id);
+        $db = db_connect();
+        $query   = $db->query('
+        SELECT  incomes.id, incomes.amount,incomes.rdate,incomes.dist_level, customer.customer_id as user_send_by
+        FROM customer
+          LEFT JOIN incomes ON customer.id = incomes.user_send_by
+        WHERE incomes.user_id = '.$id.' and incomes.status = "Approved" and incomes.pay_type = "travprofit";');
+        $result = $query->getResultArray();
+        $data["travelcenter"] = $result;
+
+        $data['main_content'] = 'admin/businesscenter';
+        return view('includes/admin/template', $data);
+    }
+
+    public function mysales(){
+        $user_model = model('UserModel');
+        $id = session('cust_id');
+        $customer_id = session('trav_id');
+        $data['profile'] = $user_model->profile($id);
+
+        $team = array();
+        $ids = array($customer_id);
+        $p = 0;
+        while ($p < 1) {
+            $myfriends = $user_model->my_friends_in($ids);
+            if (!empty($myfriends)) {
+                $team = array_merge($team, $myfriends);
+                $ids = array_column($myfriends, 'customer_id');
+            } else {
+                $p++;
+            }
+        }
+        
+        $my_sales = array();
+        foreach($team as $member){
+            if ($member["parent_customer_id"] == $customer_id) {
+                array_push($my_sales, $member);
+            }
+        }
+        $data["mysales"] = $my_sales;
+
+        $data['main_content'] = 'admin/mysales';
+        return view('includes/admin/template', $data);
+    }
+
+    public function teamsales(){
+        $user_model = model('UserModel');
+        $id = session('cust_id');
+        $customer_id = session('trav_id');
+        $data['profile'] = $user_model->profile($id);
+
+        $team = array();
+        $ids = array($customer_id);
+        $p = 0;
+        while ($p < 1) {
+            $myfriends = $user_model->my_friends_in($ids);
+            if (!empty($myfriends)) {
+                $team = array_merge($team, $myfriends);
+                $ids = array_column($myfriends, 'customer_id');
+            } else {
+                $p++;
+            }
+        }
+        
+        $team_sales = array();
+        foreach($team as $member){
+            if ($member["parent_customer_id"] != $customer_id) {
+                array_push($team_sales, $member);
+            }
+        }
+        $data["teamsales"] = $team_sales;
+
+        $data['main_content'] = 'admin/teamsales';
+        return view('includes/admin/template', $data);
+    }
 }

@@ -435,6 +435,14 @@ th {
     width: auto;
 }
 
+.gradient_parent a{
+    color: white;
+}
+
+.gradient_parent a:hover{
+    color: lightgoldenrodyellow;
+}
+
 @media(max-width:768px) {
 
     #sidebarMenu,

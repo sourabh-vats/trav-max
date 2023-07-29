@@ -77,6 +77,10 @@ $routes->match(['get', 'post'],'admin/DistributorLevelInformation', 'Distributor
 /*Installments*/
 $routes->get('admin/installments', 'Profile::installments');
 
+$routes->get('admin/travelcenter', 'Profile::travelcenter');
+$routes->get('admin/businesscenter', 'Profile::businesscenter');
+$routes->get('admin/mysales', 'Profile::mysales');
+$routes->get('admin/teamsales', 'Profile::teamsales');
 
 
 /*
