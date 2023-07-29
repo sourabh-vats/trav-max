@@ -24,7 +24,7 @@
                 <span id="total_partners_number"><i class="bi-bar-chart-line-fill me-2"></i><?php echo $my_sales; ?></span>
             </div>
             <div class="col text-end">
-                <a href="" class="my_partners_hero_link">MY SALES<i class="bi-arrow-right-circle-fill ms-2"></i></a>
+                <a href="/admin/mysales" class="my_partners_hero_link">MY SALES<i class="bi-arrow-right-circle-fill ms-2"></i></a>
             </div>
         </div>
         <div class="row container align-items-center mt-md-2">
@@ -32,29 +32,29 @@
                 <span id="total_partners_number"><i class="bi-graph-up-arrow me-2"></i><?php echo $team_sales; ?></span>
             </div>
             <div class="col text-end">
-                <a href="" class="my_partners_hero_link">TEAM SALES<i class="bi-arrow-right-circle-fill ms-2"></i></a>
+                <a href="/admin/teamsales" class="my_partners_hero_link">TEAM SALES<i class="bi-arrow-right-circle-fill ms-2"></i></a>
             </div>
         </div>
     </div>
     <div class="col-md">
         <div class="row mb-4 gradient_parent">
             <div class="col text-center py-4">
-                <h3>TRAVEL CENTER</h3>
-                <span class="box_number_data">₹<?php echo round($travmoney, 0); ?></span>
+            <a href="/admin/travmoney" style="color:white;"><h3>TRAVEL CENTER</h3>
+                <span class="box_number_data">₹<?php echo round($travmoney, 0); ?></span></a>
             </div>
             <div class="col text-center py-4">
-                <h3>BUSSINESS CENTER</h3>
-                <span class="box_number_data">₹<?php echo round($travprofit, 0); ?></span>
+            <a href="/admin/travprofit" style="color:white;"><h3>BUSSINESS CENTER</h3>
+                <span class="box_number_data">₹<?php echo round($travprofit, 0); ?></span></a>
             </div>
         </div>
         <div class="row gradient_parent">
             <div class="col text-center py-4">
-                <h3>MY INCOME</h3>
-                <span class="box_number_data">₹<?php echo $active_income; ?></span>
+                <a href="/admin/myincome" style="color:white;"><h3>MY INCOME</h3>
+                <span class="box_number_data">₹<?php echo $active_income; ?></span></a>
             </div>
             <div class="col text-center py-4">
-                <h3>TEAM INCOME</h3>
-                <span class="box_number_data">₹<?php echo $team_income; ?></span>
+            <a href="/admin/teamincome" style="color:white;"><h3>TEAM INCOME</h3>
+                <span class="box_number_data">₹<?php echo $team_income; ?></span></a>
             </div>
         </div>
     </div>

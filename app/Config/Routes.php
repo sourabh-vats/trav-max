@@ -70,6 +70,13 @@ $routes->match(['get', 'post'],'admin/confirm_plan', 'Profile::confirm_plan');
 $routes->get('admin/package_selected_successfully', 'Profile::package_selected_successfully');
 $routes->match(['get', 'post'],'admin/request-fund', 'Profile::request_fund');
 $routes->match(['get', 'post'],'admin/kyc', 'Profile::kyc');
+$routes->get('admin/mysales', 'Profile::mysales');
+$routes->get('admin/teamsales', 'Profile::teamsales');
+$routes->get('admin/myincome', 'Profile::myincome');
+$routes->get('admin/teamincome', 'Profile::teamincome');
+$routes->get('admin/travmoney', 'Profile::travmoney');
+$routes->get('admin/travprofit', 'Profile::travprofit');
+
 
 /*Distributor Level Information*/
 $routes->match(['get', 'post'],'admin/DistributorLevelInformation', 'DistributorLevelInformation::index');

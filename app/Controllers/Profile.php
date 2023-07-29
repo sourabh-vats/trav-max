@@ -748,4 +748,66 @@ class Profile extends BaseController
             return view('includes/admin/template', $data);
         }
     }   
+
+    public function mysales(){
+        $data['main_content'] = 'admin/mysales';
+        return view('includes/admin/template', $data);
+    }
+
+    public function teamsales(){
+        $data['main_content'] = 'admin/teamsales';
+        return view('includes/admin/template', $data);
+    }
+
+    public function myincome(){
+        $session = session();
+        $id = $session->cust_id;
+        $db = db_connect();
+        $builder = $db->table('incomes');
+        $builder->select('*');
+        $builder->where('id', $id);    
+        $query = $builder->get();
+        $data['query'] = $query->getResult();
+        $data['main_content'] = 'admin/myincome';
+        return view('includes/admin/template', $data);
+    }
+
+    public function teamincome(){
+        $session = session();
+        $id = $session->cust_id;
+        $db = db_connect();
+        $builder = $db->table('incomes');
+        $builder->select('*');
+        $builder->where('user_send_by', $id);
+        $query = $builder->get();
+        $data['query']= $query->getResultArray();
+        $data['main_content'] = 'admin/teamincome';
+        return view('includes/admin/template', $data);
+    }
+
+    public function travmoney(){
+        $session = session();
+        $id = $session->cust_id;
+        $user_model = model('UserModel');
+        $db = db_connect();
+        $query = $db->query('SELECT incomes.*, customer.f_name FROM `incomes`
+        LEFT JOIN `customer` ON incomes.user_send_by = customer.id
+        WHERE incomes.user_id = ' . $id . ' AND incomes.status = "Approved" AND incomes.pay_type = "travmoney"');
+        $data['travmoney'] = $query->getResult();
+        $data['id']=$id;
+        $data['main_content'] = 'admin/travmoney';
+        return view('includes/admin/template', $data);
+    }
+
+    public function travprofit(){
+        $session = session();
+        $id = $session->cust_id;
+        $db = db_connect();
+        $query = $db->query('SELECT incomes.*, customer.f_name FROM `incomes`
+        LEFT JOIN `customer` ON incomes.user_send_by = customer.id
+        WHERE incomes.user_id = ' . $id . ' AND incomes.status = "Approved" AND incomes.pay_type = "travprofit"');
+        $data['travmoney'] = $query->getResult();
+        $data['main_content'] = 'admin/travprofit';
+        return view('includes/admin/template', $data);
+    }
 }
