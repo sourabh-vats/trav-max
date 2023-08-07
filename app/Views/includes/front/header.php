@@ -186,7 +186,6 @@
                     $('#navbar-collapse').removeClass('in');
                 }
             });
-            $(".loader_container").hide();
         });
         window.onload = function() {
             $(".loader_container").hide();
