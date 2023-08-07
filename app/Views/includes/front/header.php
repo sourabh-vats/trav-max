@@ -75,15 +75,16 @@
                 transform: rotate(360deg);
             }
         }
+
         .loader_container {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    background: whitesmoke;
-}
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            background: whitesmoke;
+        }
 
         @media (max-width: 800px) {
             .navbar-toggle {
@@ -187,6 +188,9 @@
             });
             $(".loader_container").hide();
         });
+        window.onload = function() {
+            $(".loader_container").hide();
+        }
     </script>
 </body>
 
