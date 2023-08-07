@@ -34,19 +34,62 @@
     <script src="/lib/jquery/jquery-1.11.1.min.js"></script>
     <script src="/lib/bootstrap-3/bootstrap.min.js"></script>
     <style>
-       .navbar-collapse {
-        background-color: white !important;
-    }
-         .navbar-toggle {
-        float: right !important;
-
-        background-color: white  !important;
-    }
-    @media (max-width: 800px){
-        .navbar-toggle{
-            margin-top: 6px !important;
+        .navbar-collapse {
+            background-color: white !important;
         }
-    }
+
+        .navbar-toggle {
+            float: right !important;
+
+            background-color: white !important;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .loader_container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background: whitesmoke;
+}
+
+        @media (max-width: 800px) {
+            .navbar-toggle {
+                margin-top: 6px !important;
+            }
+        }
     </style>
     <script id="convertful-api" src="https://app.convertful.com/Convertful.js?owner=46759" async></script>
 </head>
@@ -57,8 +100,8 @@
             <div class="">
                 <div class="row">
                     <div class="col-md-2"><a href="/">
-  <img class="img-responsive" src="/images/logo.png" alt="Logo" width="100" style="max-width: 200px;">
-</a>
+                            <img class="img-responsive" src="/images/logo.png" alt="Logo" width="100" style="max-width: 200px;">
+                        </a>
 
                     </div>
                     <div class="col-md-10 col-xs-12 mennuu">
@@ -66,10 +109,10 @@
                             <nav class="navbar">
                                 <div class="navbar-header">
                                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-<span class="sr-only">Toggle navigation</span>
+                                        <span class="sr-only">Toggle navigation</span>
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>                                        
+                                        <span class="icon-bar"></span>
                                     </button>
 
                                 </div>
@@ -101,7 +144,7 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu1 " aria-labelledby="navbarDropdown">
                                                     <a class="dropdown-item" href="/admin">Dashboard</a>
-                                                    
+
                                                     <a class="dropdown-item" href="/invite_friend/<?php echo ucfirst($session->get('trav_id')); ?>">Refer and Earn</a>
                                                     <a class="dropdown-item" href="/admin/logout">Logout</a>
                                                 </div>
@@ -116,7 +159,7 @@
                                             <li class="drop-nav">
                                                 <a id="login_btn" title="Login" href="javascript:;" data-toggle="modal" data-target="#registerLoginModal"><i class="fa fa-sign-in"></i> Login</a>
                                             </li>
-                                            <li class="drop-nav" >
+                                            <li class="drop-nav">
                                                 <a id="" href="/signup">Signup</a>
                                             </li>
                                         <?php } ?>
@@ -129,17 +172,22 @@
             </div>
         </div>
     </header>
+    <div class="loader_container">
+        <div class="loader"></div>
+    </div>
     <script>
         $("#login_btn").click(function() {
             $("#navbar").removeClass("in");
         });
         $(document).ready(function() {
-        $(window).scroll(function() {
-            if ($(this).scrollTop() > 10) {
-                $('#navbar-collapse').removeClass('in');
-            }
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 10) {
+                    $('#navbar-collapse').removeClass('in');
+                }
+            });
+            $(".loader_container").hide();
         });
-    });
     </script>
 </body>
+
 </html>
