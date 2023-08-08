@@ -345,7 +345,7 @@ class UserModel extends Model
                 $session_data = array('full_name' => $f_name, 'email' => $_POST["l_name"], 'trav_id' => $customer_id,  'cust_id' => $insert_id, 'is_customer_logged_in' => true);
                 $session->set($session_data);
                 header("Content-Type: application/json");
-                echo json_encode($session);
+                echo json_encode($data);
                 exit();
             }
         }
