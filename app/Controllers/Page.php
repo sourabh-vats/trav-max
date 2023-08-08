@@ -206,6 +206,12 @@ class Page extends BaseController
 
 		$id = session('cust_id');
 		$customer_id = session('trav_id');
+
+		echo $session->get('trav_id');
+		echo $session->cust_id;
+		echo $customer_id;
+		echo $id;
+
 		$data['profile'] = $user_model->profile($id);
 
 		$package_id = $this->request->getGet('package');
