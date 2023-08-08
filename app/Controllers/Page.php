@@ -122,6 +122,11 @@ class Page extends BaseController
 
 		$trav_id = $session->get('trav_id');
 		$id = $session->cust_id;
+		echo $trav_id;
+		echo $id;
+		echo $session->cust_id;
+		echo $session->get('trav_id');
+		echo $session->trav_id;
 		$user_model = model('UserModel');
 		$data['profile'] = $user_model->profile($id);
 
