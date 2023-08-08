@@ -206,9 +206,6 @@ class Page extends BaseController
 
 		$id = session('cust_id');
 		$customer_id = session('trav_id');
-		echo $session->get('trav_id');
-		echo '::::::';
-		echo session('trav_id');
 		$data['profile'] = $user_model->profile($id);
 
 		$package_id = $this->request->getGet('package');
@@ -272,6 +269,9 @@ class Page extends BaseController
 					'purchase_price' => $package_amount_with_tax,
 					'status' => 'booked',
 				];
+				echo $customer_id;
+				echo ":::";
+				echo $add_purchase_data;
 				$query = $db->table('purchase')->insert($add_purchase_data);
 				$purchase_id = $db->insertID();
 				//installments
