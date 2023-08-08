@@ -331,7 +331,6 @@ class UserModel extends Model
                 ];
                 $query = $db->table('customer')->insert($new_member_insert_data);
                 $insert_id = $db->insertID();
-                dd($insert_id);
                 $f_name = $_POST["f_name"];
                 $phone = $_POST["number"];
                 $customer_n = $insert_id . substr($f_name, 0, 3) . substr($phone, -4);
