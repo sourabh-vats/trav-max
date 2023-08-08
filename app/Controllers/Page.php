@@ -269,9 +269,6 @@ class Page extends BaseController
 					'purchase_price' => $package_amount_with_tax,
 					'status' => 'booked',
 				];
-				echo $customer_id;
-				echo ":::";
-				echo $add_purchase_data;
 				$query = $db->table('purchase')->insert($add_purchase_data);
 				$purchase_id = $db->insertID();
 				//installments
