@@ -420,6 +420,10 @@ class Page extends BaseController
 		return view('confirm_plan', $data);
 	}
 
+	public function test(){
+		var_dump($_SESSION);
+	}
+
 	public function micro_plans()
 	{
 		$data['page_keywords'] = '';

@@ -47,6 +47,7 @@ $routes->get('signup/choose_partnership', 'Page::choose_partnership');
 $routes->get('signup/choose_payment_plan', 'Page::choose_payment_plan');
 $routes->match(['get', 'post'],'signup/confirm_plan', 'Page::confirm_plan');
 $routes->get('signup/successfull', 'Page::successfull');
+$routes->get('signup/test', 'Page::test');
 
 $routes->get('plans', 'Page::plans');
 $routes->get('micro_plans', 'Page::micro_plans');
