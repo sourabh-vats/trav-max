@@ -208,6 +208,7 @@ class Page extends BaseController
 		$customer_id = session('trav_id');
 
 		echo $session->get('trav_id');
+		var_dump($session->get('trav_id'));
 		echo $session->cust_id;
 		echo $customer_id;
 		echo $id;
