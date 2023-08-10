@@ -1,4 +1,5 @@
-<?php $session = session(); ?>
+<?php $session = session(); 
+var_dump($session->get('trav_id'));?>
 <!DOCTYPE html>
 <html lang="en">
 
