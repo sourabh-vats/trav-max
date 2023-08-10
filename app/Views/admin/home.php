@@ -65,19 +65,25 @@
 </div>
 <div class="row gap-5">
     <div class="col-md-5 grey_bg px-4 py-4">
-        <p class="text_1">My Package</p>
-        <hr>
-        <div class="box_content">
-            <p class="text_2">Package Name : <span><?php echo $package_data[0]['display_name']; ?></p>
-            <p class="text_2">Price : <span>₹ <?php echo $package_data[0]['mrp']; ?></p>
-            <p class="text_2">Offered Price : <span>₹ <?php echo $package_data[0]['total']; ?></p>
-            <p class="text_2">Partnership : <span> <?php echo $profile[0]['role']; ?></p>
-            <p class="text_2">No. of Travelers : <span> <?php echo $profile[0]['booking_packages_number']; ?></p>
-            <p class="text_2">Payment Plan : <span><?php echo $package_information[0]['payment_type']; ?></p>
-            <p class="text_2">Amount Paid : <span>₹ <?php echo $amount_paid; ?></p>
-            <p class="text_2">Amount Remains : <span>₹ <?php echo $amount_remaining; ?></p>
-            <p class="text_2">Installments : <span><?php echo $installments_paid . '/' . $installments_total; ?></p>
-        </div>
+        <?php if ($profile[0]["role"] == "Free") {
+            # code...
+        } else {
+            # code...
+        ?>
+            <p class="text_1">My Package</p>
+            <hr>
+            <div class="box_content">
+                <p class="text_2">Package Name : <span><?php echo $package_data[0]['display_name']; ?></p>
+                <p class="text_2">Price : <span>₹ <?php echo $package_data[0]['mrp']; ?></p>
+                <p class="text_2">Offered Price : <span>₹ <?php echo $package_data[0]['total']; ?></p>
+                <p class="text_2">Partnership : <span> <?php echo $profile[0]['role']; ?></p>
+                <p class="text_2">No. of Travelers : <span> <?php echo $profile[0]['booking_packages_number']; ?></p>
+                <p class="text_2">Payment Plan : <span><?php echo $package_information[0]['payment_type']; ?></p>
+                <p class="text_2">Amount Paid : <span>₹ <?php echo $amount_paid; ?></p>
+                <p class="text_2">Amount Remains : <span>₹ <?php echo $amount_remaining; ?></p>
+                <p class="text_2">Installments : <span><?php echo $installments_paid . '/' . $installments_total; ?></p>
+            </div>
+        <?php } ?>
     </div>
     <div class="col-md grey_bg px-4 py-4">
         <p class="text_1">My Income</p>
