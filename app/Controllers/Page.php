@@ -201,21 +201,11 @@ class Page extends BaseController
 		$data['js'] = '/js/confirm_plan.js';
 
 		$user_model = model('UserModel');
-		$session = session();
-		session_start();
-		var_dump($_SESSION);
 		$db = db_connect();
 
-		$id = session('cust_id');
-		$customer_id = session('trav_id');
-
-		echo $session->get('trav_id');
-		var_dump($session->get('trav_id'));
-		echo $session->cust_id;
-		echo $customer_id;
-		echo $id;
-		echo "test id";
-		die();
+		session_start();
+		$id = $_SESSION['cust_id'];
+		$customer_id = $_SESSION['trav_id'];
 
 		$data['profile'] = $user_model->profile($id);
 
@@ -418,10 +408,6 @@ class Page extends BaseController
 		}
 		$data['main_content'] = 'confirm_plan';
 		return view('confirm_plan', $data);
-	}
-
-	public function test(){
-		var_dump($_SESSION);
 	}
 
 	public function micro_plans()

@@ -341,9 +341,12 @@ class UserModel extends Model
                 $builder->where('id', $insert_id);
                 $builder->update();
                 $data = array("status" => "success", "message" => "Account created successfully.");
-                $session = session();
-                $session_data = array('full_name' => $f_name, 'email' => $_POST["l_name"], 'trav_id' => $customer_id,  'cust_id' => $insert_id, 'is_customer_logged_in' => true);
-                $session->set($session_data);
+                session_start();
+                $_SESSION['full_name'] = $f_name;
+                $_SESSION['email'] = $_POST["email"];
+                $_SESSION['trav_id'] = $customer_id;
+                $_SESSION['cust_id'] = $insert_id;
+                $_SESSION['is_customer_logged_in'] = true;
                 header("Content-Type: application/json");
                 echo json_encode($data);
                 exit();
