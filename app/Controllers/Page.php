@@ -211,6 +211,7 @@ class Page extends BaseController
 		echo $session->cust_id;
 		echo $customer_id;
 		echo $id;
+		die();
 
 		$data['profile'] = $user_model->profile($id);
 
