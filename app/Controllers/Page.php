@@ -202,6 +202,8 @@ class Page extends BaseController
 
 		$user_model = model('UserModel');
 		$session = session();
+		session_start();
+		var_dump($_SESSION);
 		$db = db_connect();
 
 		$id = session('cust_id');
