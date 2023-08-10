@@ -78,7 +78,7 @@ class UserModel extends Model
         $db = db_connect();
         $builder = $db->table('customer');
         $builder->select('*');
-        $builder->where('direct_customer_id', $cust_id);
+        $builder->where('parent_customer_id', $cust_id);
         $query = $builder->get();
 
         return $query->getResultArray();
