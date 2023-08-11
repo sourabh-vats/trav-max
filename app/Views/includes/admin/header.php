@@ -84,12 +84,14 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                                 Invite Friends
                             </a>
                         </li>
+                        <?php if ($profile[0]["role"] == "Free"){}else{?>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/admin/installments">
                                 <i class="bi-calendar2-check-fill"></i>
                                 Installments
                             </a>
                         </li>
+                        <?php }?>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/admin/request-fund">
                                 <i class="bi-cash"></i>
