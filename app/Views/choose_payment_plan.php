@@ -1,3 +1,30 @@
+<?php
+$plan = "pax1";
+if (!empty([$_GET["plan"]])) {
+    $plan = $_GET["plan"];
+}
+switch ($plan) {
+    case 'micro1x':
+        $plan = "pax1";
+        break;
+    case 'micro2x':
+        $plan = "pax2";
+        break;
+    case 'micro3x':
+        $plan = "pax3";
+        break;
+    case 'micro4x':
+        $plan = "pax4";
+        break;
+    case 'macro':
+        $plan = "pax5";
+        break;
+
+    default:
+        $plan = "pax1";
+        break;
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -37,17 +64,18 @@
     <div class="container">
         <a class="d-block m-auto text-center my-5" href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
         <div class="row" id="pick_a_plan_section">
-            <h1 class="text-center mb-5">You have selected <span id="pick_a_plan_selected_package_name"><?php echo $package_data[0]["display_name"]; ?></span> package <?php if ($booking_packages_number != 1) {                                                                                                                                          echo 'for ' . $booking_packages_number . ' persons';
-                                                                                                                                                                } ?>.<br> Please select a payment plan.</h1>
+            <h1 class="text-center mb-5">You have selected <span id="pick_a_plan_selected_package_name"><?php echo $package_data[0]["display_name"]; ?></span> package <?php if ($booking_packages_number != 1) {
+                                                                                                                                                                            echo 'for ' . $booking_packages_number . ' persons';
+                                                                                                                                                                        } ?>.<br> Please select a payment plan.</h1>
             <div class="card-group text-left justify-content-center">
                 <div class="card plan_box" id="travnow_plan">
                     <div class="card-body">
                         <h5 class="card-title">trav<span style='color:#ea664f;'>now</h5>
                         <p>Package Name : <?php echo $package_data[0]['display_name']; ?></p>
                         <p>Price : ₹<?php echo $package_data[0]['total']; ?></p>
-                        <p>Plan : <?php echo ucfirst($_GET['plan']); ?></p>
+                        <p>Plan : <?php echo ucfirst($plan); ?></p>
                         <p>No. of Packages : <?php echo $booking_packages_number; ?></p>
-                        <p>Total Amout : ₹<?php echo $package_data[0]['total'] . ' * ' . $booking_packages_number . ' = ' .$package_data[0]['total'] * $booking_packages_number; ?></p>
+                        <p>Total Amout : ₹<?php echo $package_data[0]['total'] . ' * ' . $booking_packages_number . ' = ' . $package_data[0]['total'] * $booking_packages_number; ?></p>
                         <p>Pay Now : ₹<?php echo $package_data[0]['total'] * $booking_packages_number; ?></p>
                     </div>
                     <div class="card-footer">
@@ -63,9 +91,9 @@
                         <h5 class="card-title">trav<span style="color: #ca3813;">later</h5>
                         <p>Package Name : <?php echo $package_data[0]['display_name']; ?></p>
                         <p>Price : ₹<?php echo $package_data[0]['total']; ?></p>
-                        <p>Plan : <?php echo ucfirst($_GET['plan']); ?></p>
+                        <p>Plan : <?php echo ucfirst($plan); ?></p>
                         <p>No. of Packages : <?php echo $booking_packages_number; ?></p>
-                        <p>Total Amout : ₹<?php echo $package_data[0]['total'] . ' * ' . $booking_packages_number . ' = ₹' .$package_data[0]['total'] * $booking_packages_number; ?></p>
+                        <p>Total Amout : ₹<?php echo $package_data[0]['total'] . ' * ' . $booking_packages_number . ' = ₹' . $package_data[0]['total'] * $booking_packages_number; ?></p>
                         <p>Down Payment : ₹11000 per Person</p>
                         <p>Pay Now : ₹<?php echo '11000 * ' . $booking_packages_number . ' = ₹' . 11000 * $booking_packages_number; ?></p>
                     </div>
@@ -73,7 +101,7 @@
                         <?php if ($booking_packages_number == 1) {
                             echo '<h2 id="travlater_price">₹11000</h2><p>Plus Taxes</p>';
                         } else {
-                            echo '<h2 id="travlater_price">₹' . 11000 *  $booking_packages_number .'</h2><p>Plus Taxes</p>';
+                            echo '<h2 id="travlater_price">₹' . 11000 *  $booking_packages_number . '</h2><p>Plus Taxes</p>';
                         } ?>
 
                     </div>
@@ -83,14 +111,14 @@
                         <h5 class="card-title">trav<span style="color: #97030f;">easy</span></h5>
                         <p>Package Name : <?php echo $package_data[0]['display_name']; ?></p>
                         <p>Price : ₹<?php echo $package_data[0]['total']; ?></p>
-                        <p>Plan : <?php echo ucfirst($_GET['plan']); ?></p>
+                        <p>Plan : <?php echo ucfirst($plan); ?></p>
                         <p>No. of Packages : <?php echo $booking_packages_number; ?></p>
-                        <p>Total Amout : ₹<?php echo $package_data[0]['total'] . ' * ' . $booking_packages_number . ' = ₹' .$package_data[0]['total'] * $booking_packages_number; ?></p>
+                        <p>Total Amout : ₹<?php echo $package_data[0]['total'] . ' * ' . $booking_packages_number . ' = ₹' . $package_data[0]['total'] * $booking_packages_number; ?></p>
                         <p>Down Payment : ₹5500 per Person</p>
                         <p>Pay Now : ₹<?php echo '5500 * ' . $booking_packages_number . ' = ₹' . 5500 * $booking_packages_number; ?></p>
                     </div>
                     <div class="card-footer">
-                    <?php if ($booking_packages_number == 1) {
+                        <?php if ($booking_packages_number == 1) {
                             echo '<h2 id="travlater_price">₹5500</h2><p>Plus Taxes</p>';
                         } else {
                             echo '<h2 id="travlater_price">₹' . 5500 *  $booking_packages_number . '</h2><p>Plus Taxes</p>';
