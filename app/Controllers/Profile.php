@@ -88,10 +88,15 @@ class Profile extends BaseController
         $data["team_income"] = $team_income;
 
         $data["package_data"] = "";
-        if ($data['has_package']) {
-            $data["package_data"] = $user_model->get_package_data($data['package_information'][0]['package_id']);
-        } else {
-            return redirect()->to('admin/start');
+
+        if ($data["profile"][0]["role"] == "Free") {
+            # code...
+        }else {
+            if ($data['has_package']) {
+                $data["package_data"] = $user_model->get_package_data($data['package_information'][0]['package_id']);
+            } else {
+                return redirect()->to('admin/start');
+            }
         }
         $db = db_connect();
         $query = $db->query('SELECT SUM(amount) as total FROM `incomes` WHERE user_id = ' . $id . ' and status = "Approved" and pay_type = "travmoney"');

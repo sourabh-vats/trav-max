@@ -61,7 +61,41 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
             </div>
         </div>
 
-        <h2 class="page-title">Team</h2>
+        <h2 class="page-title">Team Circles</h2>
+        <div class="col-md-12 col-sm-12">
+            <div class="row">
+                <form method="post" action="">
+                    <div class="table-responsive">
+                        <table id="ContentPlaceHolder1_rb" class="ver12bldgray" style="width:100%;">
+                            <tbody>
+                                <tr>
+									<td><span class="btn green" style="margin-bottom: 2px;"><label><input onclick="this.form.submit();" type="radio" name="level" value="1" <?php if ($request->getPost('level') == '' || $request->getPost('level') == '1') {
+																																												echo 'checked="checked"';
+																																											} ?>> Circle 1</label></span></td>
+
+									<td><span class="btn green" style="margin-bottom: 2px;"><label><input type="radio" name="level" value="2" onclick="this.form.submit();" <?php if ($request->getPost('level') == '2') {
+																																												echo 'checked="checked"';
+																																											} ?>> Circle 2</label></span></td>
+
+									<td><span class="btn green" style="margin-bottom: 2px;"><label><input <?php if ($request->getPost('level') == '3') {
+																												echo 'checked="checked"';
+																											} ?> type="radio" name="level" value="3" onclick="this.form.submit();"> Circle 3</label></span></td>
+
+									<td><span class="btn green" style="margin-bottom: 2px;"><label><input <?php if ($request->getPost('level') == '4') {
+																												echo 'checked="checked"';
+																											} ?> type="radio" name="level" value="4" onclick="this.form.submit();"> Circle 4</label></span></td>
+
+									<td><span class="btn green" style="margin-bottom: 2px;"><label><input <?php if ($request->getPost('level') == '5') {
+																												echo 'checked="checked"';
+																											} ?> type="radio" name="level" value="5" onclick="this.form.submit();"> Circle 5</label></span></td>
+								</tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+
+        </div>
 
         <!--<div id="ContentPlaceHolder1_List">
 	  <div class="controls-row">

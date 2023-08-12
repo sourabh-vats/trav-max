@@ -316,7 +316,12 @@ class UserModel extends Model
                 exit();
             } else {
                 $booking_packages_number = 1;
-                $partner_type = "micro";
+                
+                if ($_POST["signupType"] == "freeSignup") {
+                    $partner_type = "free";
+                }else{
+                    $partner_type = "micro";
+                }
                 $new_member_insert_data = [
                     'f_name' => $_POST["f_name"],
                     'l_name' => $_POST["l_name"],
@@ -340,7 +345,7 @@ class UserModel extends Model
                 $builder->set('customer_id', $customer_id);
                 $builder->where('id', $insert_id);
                 $builder->update();
-                $data = array("status" => "success", "message" => "Account created successfully.");
+                $data = array("status" => "success", "message" => "Account created successfully." , "signupType" => $partner_type);
                 $session = session();
                 $session_data = array('full_name' => $f_name, 'email' => $_POST["l_name"], 'trav_id' => $customer_id,  'cust_id' => $insert_id, 'is_customer_logged_in' => true);
                 $session->set($session_data);

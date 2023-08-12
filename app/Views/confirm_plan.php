@@ -1,5 +1,30 @@
 <?php
 $package = $package_data[0];
+$plan = "pax1";
+if (!empty([$_GET["plan"]])) {
+    $plan = $_GET["plan"];
+}
+switch ($plan) {
+    case 'micro1x':
+        $plan = "pax1";
+        break;
+    case 'micro2x':
+        $plan = "pax2";
+        break;
+    case 'micro3x':
+        $plan = "pax3";
+        break;
+    case 'micro4x':
+        $plan = "pax4";
+        break;
+    case 'macro':
+        $plan = "pax5";
+        break;
+
+    default:
+        $plan = "pax1";
+        break;
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -41,7 +66,7 @@ $package = $package_data[0];
                     <span><?php echo $package["nights"] ." ". $package["days"];?></span>
                     <br>
                     <br>
-                    <span>The Partnership you have selected is<br><span class="heading_1"><?php echo $_GET["plan"]; ?></span></span>
+                    <span>The Partnership you have selected is<br><span class="heading_1"><?php echo ucfirst($plan); ?></span></span>
                     <br>
                     <br>
                     <span>You need to make a payment of <br><span class="heading_1">Rs <?php echo $payment_amount; ?></span></span>
