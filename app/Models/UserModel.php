@@ -318,9 +318,9 @@ class UserModel extends Model
                 $booking_packages_number = 1;
                 
                 if ($_POST["signupType"] == "freeSignup") {
-                    $partner_type = "free";
-                }else{
                     $partner_type = "micro";
+                }else{
+                    $partner_type = "partner";
                 }
                 $new_member_insert_data = [
                     'f_name' => $_POST["f_name"],
@@ -331,7 +331,7 @@ class UserModel extends Model
                     'pass_word' => md5($_POST["password"]),
                     'parent_customer_id' => $_POST["trav_id"],
                     'direct_customer_id' => $_POST["trav_id"],
-                    'role' => ucfirst($partner_type),
+                    'role' => $partner_type,
                     'booking_packages_number' => $booking_packages_number
                 ];
                 $query = $db->table('customer')->insert($new_member_insert_data);

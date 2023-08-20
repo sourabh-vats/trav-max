@@ -41,7 +41,7 @@
                 <img class="img-fluid" src="/images/plans/features.jpg" alt="">
             </div>
             <div class="col">
-                <a href="/signup/choose_payment_plan?plan=microx<?php echo isset($_GET['package']) ? '&package=' . $_GET['package'] : ''; ?>">
+                <a href="/signup/choose_payment_plan?plan=micro1x<?php echo isset($_GET['package']) ? '&package=' . $_GET['package'] : ''; ?>">
                     <img class="img-fluid plan" src="/images/plans/microx.jpg" alt="">
                 </a>
             </div>

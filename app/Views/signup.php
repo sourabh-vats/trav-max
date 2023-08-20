@@ -34,7 +34,7 @@
             z-index: 10;
         }
 
-        .radio-box{
+        .radio-box {
             border: 1px solid #dee2e6;
             padding: 16px 12px;
         }
@@ -120,9 +120,10 @@
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234" required value="<?php echo isset($_GET['refer_id']) ? $_GET['refer_id'] : ''; ?>">
+                        <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234" <?php echo isset($_GET['refer_id']) ? 'readonly' : ''; ?> value="<?php echo isset($_GET['refer_id']) ? $_GET['refer_id'] : ''; ?>">
                         <label for="trav_id">Referral ID</label>
                     </div>
+
                     <!-- <input type="hidden" name="partner_type" value="<?php //echo $user_type; 
                                                                             ?>"> -->
                     <input type="hidden" name="booking_packages_number" value="<?php //echo $booking_packages_number; 
@@ -137,7 +138,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 <script>
-    $("#freeSignup").click(function(){
+    $("#freeSignup").click(function() {
         $("#trav_id").val("1024BUN7890");
     });
     jQuery("#register-form").submit(function(event) {
@@ -157,7 +158,7 @@
                     jQuery("#signup_error").removeClass("alert-danger");
                     jQuery("#signup_error").addClass("alert-primary");
                     jQuery("#signup_error").text(data.message);
-                    if (data.signupType == "free") {
+                    if (data.signupType == "micro") {
                         window.location.replace("/admin");
                     } else {
                         window.location.replace("/signup/select_package");
