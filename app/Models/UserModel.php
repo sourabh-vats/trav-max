@@ -236,7 +236,7 @@ class UserModel extends Model
     {
         $db = db_connect();
         $builder = $db->table('package');
-        $builder->where('type', 'international'); 
+        $builder->where('type', 'international');
         $query = $builder->get();
         return $query->getResultArray();
     }
@@ -245,7 +245,7 @@ class UserModel extends Model
     {
         $db = db_connect();
         $builder = $db->table('package');
-        $builder->where('type', 'national'); 
+        $builder->where('type', 'national');
         $query = $builder->get();
         return $query->getResultArray();
     }
@@ -316,18 +316,20 @@ class UserModel extends Model
                 exit();
             } else {
                 $booking_packages_number = 1;
-                
+
                 if ($_POST["signupType"] == "freeSignup") {
                     $partner_type = "micro";
-                }else{
+                    $status = "active";
+                } else {
                     $partner_type = "partner";
+                    $status = "hold";
                 }
                 $new_member_insert_data = [
                     'f_name' => $_POST["f_name"],
                     'l_name' => $_POST["l_name"],
                     'email' => $_POST["email"],
                     'phone' => $_POST["number"],
-                    'status' => 'hold',
+                    'status' => $status,
                     'pass_word' => md5($_POST["password"]),
                     'parent_customer_id' => $_POST["trav_id"],
                     'direct_customer_id' => $_POST["trav_id"],
@@ -345,7 +347,28 @@ class UserModel extends Model
                 $builder->set('customer_id', $customer_id);
                 $builder->where('id', $insert_id);
                 $builder->update();
-                $data = array("status" => "success", "message" => "Account created successfully." , "signupType" => $partner_type);
+
+                //Create wallets for the user
+                $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'moneyback')");
+                $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'cashback')");
+                $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'reward')");
+                $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'bonus')");
+                //Add reward
+                if ($partner_type == 'micro') {
+                    $reward_amount = 100;
+                    $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$customer_id' and `wallet_type` = 'reward')");
+                    $db->query("INSERT INTO `transaction` (`user_id`, `wallet_id`, `amount`, `transaction_type`) VALUES ('$customer_id', (select wallet_id from wallet where user_id='$customer_id' and wallet_type = 'reward'), '$reward_amount', 'credit')");
+                    $parent_id = $_POST["trav_id"];
+                    $query = $db->query('select balance from wallet where user_id = "' . $parent_id . '" and wallet_type = "reward"');
+                    $result = $query->getRowArray();
+                    $parent_reward_balance = $result['balance'];
+                    if ($parent_reward_balance < 1100) {
+                        $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$parent_id' and `wallet_type` = 'reward')");
+                        $db->query("INSERT INTO `transaction` (`user_id`, `wallet_id`, `amount`, `transaction_type`) VALUES ('$parent_id', (select wallet_id from wallet where user_id='$parent_id' and wallet_type = 'reward'), '$reward_amount', 'credit')");
+                    }
+                }
+
+                $data = array("status" => "success", "message" => "Account created successfully.", "signupType" => $partner_type);
                 $session = session();
                 $session_data = array('full_name' => $f_name, 'email' => $_POST["l_name"], 'trav_id' => $customer_id,  'cust_id' => $insert_id, 'is_customer_logged_in' => true);
                 $session->set($session_data);

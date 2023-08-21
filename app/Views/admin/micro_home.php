@@ -1,4 +1,58 @@
-<div class="row gap-5 mb-5">
+<div class="row gap-4 mb-5">
+    <div class="col-md">
+        <div class="row mb-4 gradient_parent">
+            <div class="col text-center py-4">
+                <a href="/admin/travelcenter">
+                    <h3>MONEYBACK</h3>
+                    <span class="box_number_data">₹<?php echo round($wallet["moneyback"], 0); ?></span>
+                </a>
+            </div>
+            <div class="col text-center py-4">
+                <a href="/admin/businesscenter">
+                    <h3>CASHBACK</h3>
+                    <span class="box_number_data">₹<?php echo round($wallet["cashback"], 0); ?></span>
+                </a>
+            </div>
+        </div>
+        <div class="row gradient_parent">
+            <div class="col text-center py-4">
+                <h3>BONUS</h3>
+                <span class="box_number_data">₹<?php echo $wallet["bonus"]; ?></span>
+            </div>
+            <div class="col text-center py-4">
+                <h3>REWARD</h3>
+                <span class="box_number_data">₹<?php echo $wallet["reward"]; ?></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="row mb-4 gradient_parent">
+            <div class="col text-center py-4">
+                <a href="/admin/travelcenter">
+                    <h3>TRAVEL CENTER</h3>
+                    <span class="box_number_data">₹<?php echo round($travmoney, 0); ?></span>
+                </a>
+            </div>
+            <div class="col text-center py-4">
+                <a href="/admin/businesscenter">
+                    <h3>BUSSINESS CENTER</h3>
+                    <span class="box_number_data">₹<?php echo round($travprofit, 0); ?></span>
+                </a>
+            </div>
+        </div>
+        <div class="row gradient_parent">
+            <div class="col text-center py-4">
+                <h3>MY INCOME</h3>
+                <span class="box_number_data">₹<?php echo $active_income; ?></span>
+            </div>
+            <div class="col text-center py-4">
+                <h3>TEAM INCOME</h3>
+                <span class="box_number_data">₹<?php echo $team_income; ?></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row gap-5">
     <div class="col-md-5 px-0">
         <div class="row mx-0 mx-md-auto mb-md-2">
             <div class="col-md-auto border-end" id="hero_total_sales">
@@ -35,55 +89,6 @@
                 <a href="/admin/teamsales" class="my_partners_hero_link">TEAM SALES<i class="bi-arrow-right-circle-fill ms-2"></i></a>
             </div>
         </div>
-    </div>
-    <div class="col-md">
-        <div class="row mb-4 gradient_parent">
-            <div class="col text-center py-4">
-                <a href="/admin/travelcenter">
-                    <h3>TRAVEL CENTER</h3>
-                    <span class="box_number_data">₹<?php echo round($travmoney, 0); ?></span>
-                </a>
-            </div>
-            <div class="col text-center py-4">
-                <a href="/admin/businesscenter">
-                    <h3>BUSSINESS CENTER</h3>
-                    <span class="box_number_data">₹<?php echo round($travprofit, 0); ?></span>
-                </a>
-            </div>
-        </div>
-        <div class="row gradient_parent">
-            <div class="col text-center py-4">
-                <h3>MY INCOME</h3>
-                <span class="box_number_data">₹<?php echo $active_income; ?></span>
-            </div>
-            <div class="col text-center py-4">
-                <h3>TEAM INCOME</h3>
-                <span class="box_number_data">₹<?php echo $team_income; ?></span>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row gap-5">
-    <div class="col-md-5 grey_bg px-4 py-4">
-        <?php if ($profile[0]["role"] == "micro") {
-            # code...
-        } else {
-            # code...
-        ?>
-            <p class="text_1">My Package</p>
-            <hr>
-            <div class="box_content">
-                <!-- <p class="text_2">Package Name : <span><?php echo $package_data[0]['display_name']; ?></p> -->
-                <p class="text_2">Price : <span>₹ <?php echo $package_data[0]['mrp']; ?></p>
-                <p class="text_2">Offered Price : <span>₹ <?php echo $package_data[0]['total']; ?></p>
-                <p class="text_2">Partnership : <span> Pax<?php echo $profile[0]['booking_packages_number']; ?></p>
-                <p class="text_2">No. of Travelers : <span> <?php echo $profile[0]['booking_packages_number']; ?></p>
-                <p class="text_2">Payment Plan : <span><?php echo $package_information[0]['payment_type']; ?></p>
-                <p class="text_2">Amount Paid : <span>₹ <?php echo $amount_paid; ?></p>
-                <p class="text_2">Amount Remains : <span>₹ <?php echo $amount_remaining; ?></p>
-                <p class="text_2">Installments : <span><?php echo $installments_paid . '/' . $installments_total; ?></p>
-            </div>
-        <?php } ?>
     </div>
     <div class="col-md grey_bg px-4 py-4">
         <p class="text_1">My Income</p>

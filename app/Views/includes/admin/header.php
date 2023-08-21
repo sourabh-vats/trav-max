@@ -61,7 +61,11 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                 <div class="pt-3 d-none d-md-flex flex-column align-items-center">
                     <img class="img-fluid" width="90px" src="/images/avatar.png" style="filter: contrast(.1);">
                     <span class="mt-2" id="sidenav_name"><?php echo $full_name; ?></span>
-                    <span id="sidenav_partnership_type">Partnership: Pax<?php echo $session->booking_packages_number; ?></span>
+                    <span id="sidenav_partnership_type">Partnership: <?php if ($profile["0"]["role"] == "micro") {
+                                                                            echo "Micro";
+                                                                        } else {
+                                                                            echo "Pax" . $session->booking_packages_number;
+                                                                        } ?></span>
                     <span class="mb-md-3" id="sidenav_id">Trav ID: <?php echo $session->trav_id; ?></span>
                 </div>
                 <div class="position-sticky sidebar-sticky d-flex align-items-center justify-content-center">
@@ -84,14 +88,15 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                                 Invite Friends
                             </a>
                         </li>
-                        <?php if ($profile[0]["role"] == "Free"){}else{?>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/admin/installments">
-                                <i class="bi-calendar2-check-fill"></i>
-                                Installments
-                            </a>
-                        </li>
-                        <?php }?>
+                        <?php if ($profile[0]["role"] == "micro") {
+                        } else { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="/admin/installments">
+                                    <i class="bi-calendar2-check-fill"></i>
+                                    Installments
+                                </a>
+                            </li>
+                        <?php } ?>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/admin/request-fund">
                                 <i class="bi-cash"></i>
