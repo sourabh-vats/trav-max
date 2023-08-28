@@ -88,16 +88,6 @@ class Profile extends BaseController
         $data["team_income"] = $team_income;
 
         $data["package_data"] = "";
-
-        if ($data["profile"][0]["role"] == "Free") {
-            # code...
-        }else {
-            if ($data['has_package']) {
-                $data["package_data"] = $user_model->get_package_data($data['package_information'][0]['package_id']);
-            } else {
-                return redirect()->to('admin/start');
-            }
-        }
         $db = db_connect();
         $query = $db->query('SELECT SUM(amount) as total FROM `incomes` WHERE user_id = ' . $id . ' and status = "Approved" and pay_type = "travmoney"');
         $row = $query->getRow();
@@ -105,6 +95,33 @@ class Profile extends BaseController
         $query = $db->query('SELECT SUM(amount) as total FROM `incomes` WHERE user_id = ' . $id . ' and status = "Approved" and pay_type = "travprofit"');
         $row = $query->getRow();
         $data['travprofit'] = $row->total;
+        //get balances of different wallets
+        $moneyback = $cashback = $reward = $bonus = 0;
+        $query = $db->query('SELECT balance FROM `wallet` WHERE user_id = "' . $customer_id . '" and wallet_type = "moneyback"');
+        $row = $query->getRow();
+        $moneyback = $row->balance;
+        $query = $db->query('SELECT balance FROM `wallet` WHERE user_id = "' . $customer_id . '" and wallet_type = "cashback"');
+        $row = $query->getRow();
+        $cashback = $row->balance;
+        $query = $db->query('SELECT balance FROM `wallet` WHERE user_id = "' . $customer_id . '" and wallet_type = "reward"');
+        $row = $query->getRow();
+        $reward = $row->balance;
+        $query = $db->query('SELECT balance FROM `wallet` WHERE user_id = "' . $customer_id . '" and wallet_type = "bonus"');
+        $row = $query->getRow();
+        $bonus = $row->balance;
+
+        $data["wallet"] = array("moneyback"=>$moneyback, "cashback"=>$cashback, "reward"=>$reward, "bonus"=>$bonus);
+
+        if ($data["profile"][0]["role"] == "micro") {
+            $data['main_content'] = 'admin/micro_home';
+            return view('includes/admin/template', $data);
+        }else {
+            if ($data['has_package']) {
+                $data["package_data"] = $user_model->get_package_data($data['package_information'][0]['package_id']);
+            } else {
+                return redirect()->to('admin/start');
+            }
+        }
         $data['main_content'] = 'admin/home';
         return view('includes/admin/template', $data);
     }
