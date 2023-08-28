@@ -122,7 +122,8 @@ class Profile extends BaseController
                 return redirect()->to('admin/start');
             }
         }
-        $data['main_content'] = 'admin/home';
+        $data['main_content'] = 'admin/micro_home';
+        //$data['main_content'] = 'admin/home';
         return view('includes/admin/template', $data);
     }
 
