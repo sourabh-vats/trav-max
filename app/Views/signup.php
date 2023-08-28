@@ -139,7 +139,7 @@
 </body>
 <script>
     $("#freeSignup").click(function() {
-        $("#trav_id").val("1024BUN7890");
+        $("#trav_id").val("1056JOH7890");
     });
     jQuery("#register-form").submit(function(event) {
         event.preventDefault();
