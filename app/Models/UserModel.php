@@ -354,19 +354,19 @@ class UserModel extends Model
                 $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'reward')");
                 $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'bonus')");
                 //Add reward
-                if ($partner_type == 'micro') {
-                    $reward_amount = 100;
-                    $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$customer_id' and `wallet_type` = 'reward')");
-                    $db->query("INSERT INTO `transaction` (`user_id`, `wallet_id`, `amount`, `transaction_type`) VALUES ('$customer_id', (select wallet_id from wallet where user_id='$customer_id' and wallet_type = 'reward'), '$reward_amount', 'credit')");
-                    $parent_id = $_POST["trav_id"];
-                    $query = $db->query('select balance from wallet where user_id = "' . $parent_id . '" and wallet_type = "reward"');
-                    $result = $query->getRowArray();
-                    $parent_reward_balance = $result['balance'];
-                    if ($parent_reward_balance < 1100) {
-                        $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$parent_id' and `wallet_type` = 'reward')");
-                        $db->query("INSERT INTO `transaction` (`user_id`, `wallet_id`, `amount`, `transaction_type`) VALUES ('$parent_id', (select wallet_id from wallet where user_id='$parent_id' and wallet_type = 'reward'), '$reward_amount', 'credit')");
-                    }
+
+                $reward_amount = 100;
+                $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$customer_id' and `wallet_type` = 'reward')");
+                $db->query("INSERT INTO `transaction` (`user_id`, `wallet_id`, `amount`, `transaction_type`) VALUES ('$customer_id', (select wallet_id from wallet where user_id='$customer_id' and wallet_type = 'reward'), '$reward_amount', 'credit')");
+                $parent_id = $_POST["trav_id"];
+                $query = $db->query('select balance from wallet where user_id = "' . $parent_id . '" and wallet_type = "reward"');
+                $result = $query->getRowArray();
+                $parent_reward_balance = $result['balance'];
+                if ($parent_reward_balance < 1100) {
+                    $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$parent_id' and `wallet_type` = 'reward')");
+                    $db->query("INSERT INTO `transaction` (`user_id`, `wallet_id`, `amount`, `transaction_type`) VALUES ('$parent_id', (select wallet_id from wallet where user_id='$parent_id' and wallet_type = 'reward'), '$reward_amount', 'credit')");
                 }
+
 
                 $data = array("status" => "success", "message" => "Account created successfully.", "signupType" => $partner_type);
                 $session = session();

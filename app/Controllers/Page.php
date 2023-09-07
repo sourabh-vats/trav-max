@@ -71,7 +71,7 @@ class Page extends BaseController
 		$data['page_slug'] = 'partner';
 		$data['page_title'] = 'partner';
 
-		$data['main_content'] = 'partner';
+		$data['main_content'] = 'home_page_old';
 		return view('includes/front/front_template', $data);
 	}
 
