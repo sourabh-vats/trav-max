@@ -138,8 +138,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 <script>
-    $("#freeSignup").click(function() {
-        $("#trav_id").val("1056JOH7890");
+    function getQueryParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    $(document).ready(function () {
+        const referId = getQueryParameter('refer_id');
+
+        if (!referId) {
+            $("#freeSignup").click(function() {
+                $("#trav_id").val("1056JOH7890");
+            });
+        }
     });
     jQuery("#register-form").submit(function(event) {
         event.preventDefault();

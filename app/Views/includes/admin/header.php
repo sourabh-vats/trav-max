@@ -59,7 +59,9 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
                 <div class="pt-3 d-none d-md-flex flex-column align-items-center">
-                    <img class="img-fluid" width="90px" src="/images/avatar.png" style="filter: contrast(.1);">
+                <a href="/admin/profile">
+                    <img class="img-fluid" width="90px" src="/images/user_profile/<?php echo $session->trav_id; ?>.png" alt="Not Found" onerror="this.src='/images/user_profile/avatar.png';">
+                </a>
                     <span class="mt-2" id="sidenav_name"><?php echo $full_name; ?></span>
                     <span id="sidenav_partnership_type">Partnership: <?php if ($profile["0"]["role"] == "micro") {
                                                                             echo "Micro";

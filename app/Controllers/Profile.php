@@ -869,4 +869,30 @@ class Profile extends BaseController
         $data['main_content'] = 'admin/teamsales';
         return view('includes/admin/template', $data);
     }
+    public function profile()
+    {
+        $id = session()->get('trav_id');
+        $session = session();
+
+        if ($this->request->getMethod() === 'post' && isset($_FILES['profile_image'])) {
+            $uploadDir = FCPATH . 'images/user_profile/'; 
+            $profileImage = $_FILES['profile_image'];
+
+            $imageFileType = strtolower(pathinfo($profileImage['name'], PATHINFO_EXTENSION));
+            if (in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
+                $newFileName = $id . '.png';
+
+                if (move_uploaded_file($profileImage['tmp_name'], $uploadDir . $newFileName)) {
+                    $session->setFlashdata('flash_message', 'Profile picture updated successfully');
+                } else {
+                    $session->setFlashdata('flash_message', 'Error uploading the file');
+                }
+            } else {
+                $session->setFlashdata('flash_message', 'Only JPG, JPEG, and PNG files are allowed');
+            }
+        }
+        $data['id']=$id;
+        $data['main_content'] = 'admin/profile';
+        return view('includes/admin/template', $data);
+    }
 }
