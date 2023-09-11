@@ -111,8 +111,6 @@ class Profile extends BaseController
         $bonus = $row->balance;
 
         $data["wallet"] = array("moneyback"=>$moneyback, "cashback"=>$cashback, "reward"=>$reward, "bonus"=>$bonus);
-        print_r($data["profile"][0]["role"]);
-        die();
         if ($data["profile"][0]["role"] == "micro") {
             $data['main_content'] = 'admin/micro_home';
             return view('includes/admin/template', $data);
