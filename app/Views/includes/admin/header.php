@@ -38,6 +38,14 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
         });
     </script>
 </head>
+<style>
+    .profile-picture {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+</style>
 
 <body>
     <header id="header_navbar" class="navbar navbar-light sticky-top flex-md-nowrap p-0">
@@ -59,9 +67,11 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
                 <div class="pt-3 d-none d-md-flex flex-column align-items-center">
-                <a href="/admin/profile">
-                    <img class="img-fluid" width="90px" src="/images/user_profile/<?php echo $session->trav_id; ?>.png" alt="Not Found" onerror="this.src='/images/user_profile/avatar.png';">
-                </a>
+                    <a href="/admin/profile">
+                        <div class="profile-picture-container">
+                            <img class="profile-picture img-fluid" src="/images/user_profile/<?php echo $session->trav_id; ?>.png" alt="Profile Picture" onerror="this.src='/images/user_profile/avatar.png';">
+                        </div>
+                    </a>
                     <span class="mt-2" id="sidenav_name"><?php echo $full_name; ?></span>
                     <span id="sidenav_partnership_type">Partnership: <?php if ($profile["0"]["role"] == "micro") {
                                                                             echo "Micro";
@@ -76,6 +86,12 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                             <a class="nav-link" aria-current="page" href="/admin">
                                 <i class="bi-house-fill"></i>
                                 Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/admin/update_profile">
+                                <i class="bi-person-gear"></i>
+                                Update Profile
                             </a>
                         </li>
                         <li class="nav-item">

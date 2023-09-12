@@ -894,4 +894,44 @@ class Profile extends BaseController
         $data['main_content'] = 'admin/profile';
         return view('includes/admin/template', $data);
     }
+
+    public function update_profile(){
+        $user_model = model('UserModel');
+        $id = session('cust_id');
+        $session = session();
+
+        if ($this->request->getMethod() === 'post') {
+            $validation = \Config\Services::validation();
+            $validation->reset();
+            // field name, error message, validation rules
+            $validation->setRule('first_name', 'first name', 'trim|required|min_length[3]');
+            $validation->setRule('last_name', 'last name', 'trim|required');
+            $validation->setRule('email', 'email', 'trim|required|valid_email');
+    
+            if (!$validation->run($_POST)) {
+                $errors = $validation->getErrors();
+                $value = empty($errors) ? "" : reset($errors);
+                $session->setFlashdata('flash_message', $value);
+            } else {
+                $firstName = $this->request->getPost('first_name');
+                $lastName = $this->request->getPost('last_name');
+                $email = $this->request->getPost('email');
+                $data_to_store = [
+                    'f_name' => $firstName,
+                    'l_name' => $lastName,
+                    'email' => $email
+                ];
+                $return=$user_model->update_profile($id, $data_to_store);
+                if ($return == true) {
+                    $session->setFlashdata('flash_message', 'Profile updated Successfully');
+                } else {
+                    $session->setFlashdata('flash_message', 'Profile not updated Successfully');
+                }
+            }
+    
+        }
+        $data['profile'] = $user_model->profile($id);
+        $data['main_content'] = 'admin/update_profile';
+        return view('includes/admin/template', $data);
+    }
 }

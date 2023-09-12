@@ -71,6 +71,7 @@ $routes->get('admin/package_selected_successfully', 'Profile::package_selected_s
 $routes->match(['get', 'post'],'admin/request-fund', 'Profile::request_fund');
 $routes->match(['get', 'post'],'admin/kyc', 'Profile::kyc');
 $routes->match(['get', 'post'],'admin/profile', 'Profile::profile');
+$routes->match(['get', 'post'],'admin/update_profile', 'Profile::update_profile');
 
 /*Distributor Level Information*/
 $routes->match(['get', 'post'],'admin/DistributorLevelInformation', 'DistributorLevelInformation::index');
