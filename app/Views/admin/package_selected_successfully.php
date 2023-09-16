@@ -56,6 +56,11 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
+if (isset($_SESSION['upgrade']) && $_SESSION['upgrade'] === true) {
+    echo '<div class="alert alert-success">You have successfully upgraded your account and became a partner.</div>';
+    
+    unset($_SESSION['upgrade']);
+}
 ?>
 
 <div class="row d-flex justify-content-center flex-wrap">

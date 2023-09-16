@@ -94,6 +94,14 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                                 Update Profile
                             </a>
                         </li>
+                        <?php if ($profile[0]["role"] == "micro") : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="/signup/select_package?upgrade=true">
+                                <i class="bi-box-arrow-up"></i>                                   
+                                 Upgrade
+                                </a>
+                            </li>
+                        <?php endif; ?>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/admin/kyc">
                                 <i class="bi-bank2"></i>
