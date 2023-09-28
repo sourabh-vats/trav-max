@@ -36,8 +36,8 @@ class Profile extends BaseController
         $data['installments_total'] = $data['installments_paid'] + $data['installments_remaining'];
         $data['has_package'] = false;
         $data['package_information'] = $user_model->get_package($id);
-        $data['status']= $user_model->status($id); 
-        
+        $data['status'] = $user_model->status($id);
+
         if (empty($data['package_information'])) {
             $data['has_package'] = false;
         } else {
@@ -110,11 +110,11 @@ class Profile extends BaseController
         $row = $query->getRow();
         $bonus = $row->balance;
 
-        $data["wallet"] = array("moneyback"=>$moneyback, "cashback"=>$cashback, "reward"=>$reward, "bonus"=>$bonus);
+        $data["wallet"] = array("moneyback" => $moneyback, "cashback" => $cashback, "reward" => $reward, "bonus" => $bonus);
         if ($data["profile"][0]["role"] == "micro") {
             $data['main_content'] = 'admin/micro_home';
             return view('includes/admin/template', $data);
-        }else {
+        } else {
             if ($data['has_package']) {
                 $data["package_data"] = $user_model->get_package_data($data['package_information'][0]['package_id']);
             } else {
@@ -378,7 +378,7 @@ class Profile extends BaseController
             $package = $package_data[0];
             if ($package["name"] == "Goa") {
                 $package_amount_with_tax = $package["total"] + ($package["total"] * 0.05);
-            }else{
+            } else {
                 $package_amount_with_tax = $package["total"] + ($package["total"] * 0.05) + ($package["total"] * 0.05);
             }
             //Add packages to user in purchase table
@@ -715,10 +715,10 @@ class Profile extends BaseController
             $package_number = $_GET['package'];
         }
         $db = db_connect();
-        $query = $db->query('SELECT * FROM purchase where customer_id = "' . $customer_id . '" LIMIT '.$package_number.',1');
+        $query = $db->query('SELECT * FROM purchase where customer_id = "' . $customer_id . '" LIMIT ' . $package_number . ',1');
         $row = $query->getRow();
         $purchase_id = $row->id;
-    
+
         $data['pin'] = $user_model->get_installment($purchase_id);
 
         $razorpay = 'false';
@@ -769,9 +769,10 @@ class Profile extends BaseController
             $data['main_content'] = 'admin/installment';
             return view('includes/admin/template', $data);
         }
-    }   
+    }
 
-    public function travelcenter(){
+    public function travelcenter()
+    {
         $user_model = model('UserModel');
         $id = session('cust_id');
         $customer_id = session('trav_id');
@@ -781,7 +782,7 @@ class Profile extends BaseController
         SELECT  incomes.id, incomes.amount,incomes.rdate,incomes.dist_level, customer.customer_id as user_send_by
         FROM customer
           LEFT JOIN incomes ON customer.id = incomes.user_send_by
-        WHERE incomes.user_id = '.$id.' and incomes.status = "Approved" and incomes.pay_type = "travmoney";');
+        WHERE incomes.user_id = ' . $id . ' and incomes.status = "Approved" and incomes.pay_type = "travmoney";');
         $result = $query->getResultArray();
         $data["travelcenter"] = $result;
 
@@ -789,7 +790,8 @@ class Profile extends BaseController
         return view('includes/admin/template', $data);
     }
 
-    public function businesscenter(){
+    public function businesscenter()
+    {
         $user_model = model('UserModel');
         $id = session('cust_id');
         $customer_id = session('trav_id');
@@ -799,7 +801,7 @@ class Profile extends BaseController
         SELECT  incomes.id, incomes.amount,incomes.rdate,incomes.dist_level, customer.customer_id as user_send_by
         FROM customer
           LEFT JOIN incomes ON customer.id = incomes.user_send_by
-        WHERE incomes.user_id = '.$id.' and incomes.status = "Approved" and incomes.pay_type = "travprofit";');
+        WHERE incomes.user_id = ' . $id . ' and incomes.status = "Approved" and incomes.pay_type = "travprofit";');
         $result = $query->getResultArray();
         $data["travelcenter"] = $result;
 
@@ -807,7 +809,8 @@ class Profile extends BaseController
         return view('includes/admin/template', $data);
     }
 
-    public function mysales(){
+    public function mysales()
+    {
         $user_model = model('UserModel');
         $id = session('cust_id');
         $customer_id = session('trav_id');
@@ -825,9 +828,9 @@ class Profile extends BaseController
                 $p++;
             }
         }
-        
+
         $my_sales = array();
-        foreach($team as $member){
+        foreach ($team as $member) {
             if ($member["parent_customer_id"] == $customer_id) {
                 array_push($my_sales, $member);
             }
@@ -838,7 +841,8 @@ class Profile extends BaseController
         return view('includes/admin/template', $data);
     }
 
-    public function teamsales(){
+    public function teamsales()
+    {
         $user_model = model('UserModel');
         $id = session('cust_id');
         $customer_id = session('trav_id');
@@ -856,9 +860,9 @@ class Profile extends BaseController
                 $p++;
             }
         }
-        
+
         $team_sales = array();
-        foreach($team as $member){
+        foreach ($team as $member) {
             if ($member["parent_customer_id"] != $customer_id) {
                 array_push($team_sales, $member);
             }
@@ -874,7 +878,7 @@ class Profile extends BaseController
         $session = session();
 
         if ($this->request->getMethod() === 'post' && isset($_FILES['profile_image'])) {
-            $uploadDir = FCPATH . 'images/user_profile/'; 
+            $uploadDir = FCPATH . 'images/user_profile/';
             $profileImage = $_FILES['profile_image'];
 
             $imageFileType = strtolower(pathinfo($profileImage['name'], PATHINFO_EXTENSION));
@@ -890,12 +894,13 @@ class Profile extends BaseController
                 $session->setFlashdata('flash_message', 'Only JPG, JPEG, and PNG files are allowed');
             }
         }
-        $data['id']=$id;
+        $data['id'] = $id;
         $data['main_content'] = 'admin/profile';
         return view('includes/admin/template', $data);
     }
 
-    public function update_profile(){
+    public function update_profile()
+    {
         $user_model = model('UserModel');
         $id = session('cust_id');
         $session = session();
@@ -907,7 +912,7 @@ class Profile extends BaseController
             $validation->setRule('first_name', 'first name', 'trim|required|min_length[3]');
             $validation->setRule('last_name', 'last name', 'trim|required');
             $validation->setRule('email', 'email', 'trim|required|valid_email');
-    
+
             if (!$validation->run($_POST)) {
                 $errors = $validation->getErrors();
                 $value = empty($errors) ? "" : reset($errors);
@@ -921,17 +926,36 @@ class Profile extends BaseController
                     'l_name' => $lastName,
                     'email' => $email
                 ];
-                $return=$user_model->update_profile($id, $data_to_store);
+                $return = $user_model->update_profile($id, $data_to_store);
                 if ($return == true) {
                     $session->setFlashdata('flash_message', 'Profile updated Successfully');
                 } else {
                     $session->setFlashdata('flash_message', 'Profile not updated Successfully');
                 }
             }
-    
         }
         $data['profile'] = $user_model->profile($id);
         $data['main_content'] = 'admin/update_profile';
+        return view('includes/admin/template', $data);
+    }
+
+    public function share_products()
+    {
+        $user_model = model('UserModel');
+        $data = [];
+
+        if ($this->request->getMethod() === 'post') {
+            $category = $this->request->getPost('selected_category');
+            if ($category === 'all') {
+                $data['products'] = $user_model->get_all_products();
+            } else {
+                $data['products'] = $user_model->get_products_by_category($category);
+            }
+        } else {
+            $data['products'] = $user_model->get_all_products();
+        }
+
+        $data['main_content'] = 'admin/share_products';
         return view('includes/admin/template', $data);
     }
 }

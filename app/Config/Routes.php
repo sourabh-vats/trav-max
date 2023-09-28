@@ -64,6 +64,7 @@ $routes->get('admin', 'Profile::index');
 $routes->get('admin/logout', 'User::logout');
 $routes->get('admin/start', 'Profile::start');
 $routes->get('admin/select_package', 'Profile::select_package');
+$routes->match(['get', 'post'],'admin/share_products', 'Profile::share_products');
 $routes->get('admin/package', 'Profile::package');
 $routes->get('admin/select_plan', 'Profile::select_plan');
 $routes->match(['get', 'post'],'admin/confirm_plan', 'Profile::confirm_plan');
