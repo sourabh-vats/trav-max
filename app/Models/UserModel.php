@@ -412,4 +412,31 @@ class UserModel extends Model
 
         return $this->db->insertID();
     }
+
+    function get_all_products()
+    {
+        try {
+            $db = db_connect();
+            $query = $db->query("Select * from products");
+            $row = $query->getResultArray();
+            return $row;
+        } catch (\Throwable $th) {
+            $error = $db->error();
+            var_dump($error);
+        }
+    }
+
+    function get_products_by_category($category){
+        try {
+            $db = db_connect();
+            $builder = $db->table('products');
+            $builder->select('*');
+            $builder->where('category', $category);
+            $query = $builder->get();
+            return $query->getResultArray();
+        } catch (\Throwable $th) {
+            $error = $db->error();
+            var_dump($error);
+        }
+    }
 }

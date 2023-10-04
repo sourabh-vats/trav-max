@@ -31,6 +31,9 @@
         <a class="d-block m-auto text-center my-5" href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
         <div class="row d-flex align-items-center justify-content-center flex-wrap" id="select_package_section">
             <h1 class="text-center">Please select a package from the following and continue.</h1>
+            <?php if (isset($_GET['upgrade']) && $_GET['upgrade'] == 'true') : 
+                $_SESSION['upgrade'] = true;
+             endif; ?>
             <h2 class="text-center" style="padding-top: 30px;">International Packages</h2>
             <?php foreach ($international as $package) { ?>
                 <div class="col-md-4 d-flex justify-content-center p-3">

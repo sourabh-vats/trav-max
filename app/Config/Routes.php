@@ -64,6 +64,7 @@ $routes->get('admin', 'Profile::index');
 $routes->get('admin/logout', 'User::logout');
 $routes->get('admin/start', 'Profile::start');
 $routes->get('admin/select_package', 'Profile::select_package');
+$routes->match(['get', 'post'],'admin/share_products', 'Profile::share_products');
 $routes->get('admin/package', 'Profile::package');
 $routes->get('admin/select_plan', 'Profile::select_plan');
 $routes->match(['get', 'post'],'admin/confirm_plan', 'Profile::confirm_plan');
@@ -71,6 +72,7 @@ $routes->get('admin/package_selected_successfully', 'Profile::package_selected_s
 $routes->match(['get', 'post'],'admin/request-fund', 'Profile::request_fund');
 $routes->match(['get', 'post'],'admin/kyc', 'Profile::kyc');
 $routes->match(['get', 'post'],'admin/profile', 'Profile::profile');
+$routes->match(['get', 'post'],'admin/update_profile', 'Profile::update_profile');
 
 /*Distributor Level Information*/
 $routes->match(['get', 'post'],'admin/DistributorLevelInformation', 'DistributorLevelInformation::index');
