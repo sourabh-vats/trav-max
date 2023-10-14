@@ -99,7 +99,7 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
                                     //echo '<a href="'.base_url().'admin/DistributorLevelInformation/'.$friend['customer_id'].'">';
                                     echo $friend['customer_id'] . '<!--/a--></td><td>' . $friend['f_name'] . ' ' . $friend['l_name'] . '</td>';
 
-                                    echo '<td>' . $friend['direct_customer_id'] . '</td><td>' . $status . '</td><td>' . date('d F Y', strtotime($friend['rdate'])) . '</td></tr>';
+                                    echo '<td>' . $friend['direct_customer_id'] . '</td><td>' . $friend['role'] . '</td><td>' . date('d F Y', strtotime($friend['rdate'])) . '</td></tr>';
                                     $i++;
                                 }
                             }
