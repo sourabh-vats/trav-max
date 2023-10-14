@@ -123,7 +123,10 @@
                         <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234" <?php echo isset($_GET['refer_id']) ? 'readonly' : ''; ?> value="<?php echo isset($_GET['refer_id']) ? $_GET['refer_id'] : ''; ?>">
                         <label for="trav_id">Referral ID</label>
                     </div>
-
+                    <div class="form-floating mb-3 d-none" id="otp_field">
+                        <input name="otp" type="text" class="form-control" id="otp" placeholder="Enter The OTP">
+                        <label for="otp">OTP</label>
+                    </div>
                     <!-- <input type="hidden" name="partner_type" value="<?php //echo $user_type; 
                                                                             ?>"> -->
                     <input type="hidden" name="booking_packages_number" value="<?php //echo $booking_packages_number; 
@@ -143,7 +146,7 @@
         return urlParams.get(name);
     }
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         const referId = getQueryParameter('refer_id');
 
         if (!referId) {
@@ -162,8 +165,17 @@
             success: function(data) {
                 // console.log(data);
                 if (data.status == "error") {
-                    jQuery("#signup_error").removeClass("d-none");
-                    jQuery("#signup_error").text(data.message);
+                    if (data.message == "Enter the otp") {
+                        jQuery("#loading_screen").addClass("d-none");
+                        jQuery("#signup_error").removeClass("d-none");
+                        jQuery("#signup_error").removeClass("alert-danger");
+                        jQuery("#signup_error").addClass("alert-primary");
+                        jQuery("#signup_error").text(data.message);
+                        jQuery("#otp_field").removeClass("d-none");
+                    } else {
+                        jQuery("#signup_error").removeClass("d-none");
+                        jQuery("#signup_error").text(data.message);
+                    }
                 } else if (data.status == "success") {
                     jQuery("#signup_error").removeClass("d-none");
                     jQuery("#signup_error").removeClass("alert-danger");

@@ -52,10 +52,89 @@ class User extends BaseController
             header("Content-Type: application/json");
             echo json_encode($data);
             exit();
-        } else {
-            $user_model = model('UserModel');
-            $session = session();
-            $query = $user_model->create_member();
+        } else if ($_POST['otp'] == "") {
+            $otp = random_int(100000, 999999);
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                $mail->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );                                         //Send using SMTP
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
+                $mail->Password   = 'D523B4735BB9E3503EF9C1257E0FBD6AD5BF';                               //SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mail->Port       = 465;
+
+                //Recipients
+                $mail->setFrom('sourabhvats96@gmail.com', 'Travmax');
+                $mail->addAddress($_POST['email']);     //Add a recipient
+                $mail->addReplyTo('info@travmaxholidays.com', 'Information');
+
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'OTP';
+
+
+                // Set the view content as the email body
+                $mail->Body = 'OTP for Completing the registraton is this: ' . $otp;
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                $mail->send();
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+            $data_to_store = [
+                'email' => $_POST['email'],
+                'otp' => $otp
+            ];
+            $db = db_connect();
+            $db->table('otp')->insert($data_to_store);
+            $data = array("status" => "error", "message" => "Enter the otp");
+            header("Content-Type: application/json");
+            echo json_encode($data);
+            exit();
+        }elseif ($this->request->getPost('otp')) {
+            $otp = $this->request->getPost('otp');
+            $email = $this->request->getPost('email');
+            
+            $db = db_connect();
+            $builder = $db->table('customer');
+            $builder->select('*');
+            $builder->where('phone
+            ', $_POST["number"]);
+            $query = $builder->get();
+    
+            if ($query->getNumRows() > 0) {
+                $data = array("status" => "error", "message" => "Phone number already exists.");
+                header("Content-Type: application/json");
+                echo json_encode($data);
+                exit();
+            }
+            $otpRow = $db->table('otp')
+                ->where('email', $email)
+                ->get()
+                ->getRow();
+            
+            if ($otpRow && $otpRow->otp == $otp) {
+                $user_model = model('UserModel');
+                $session = session();
+                $query = $user_model->create_member();
+            } else {
+                $data['status'] = 'error';
+                $data['message'] = 'Invalid OTP';
+                header('Content-Type: application/json');
+                echo json_encode($data);
+                exit();
+            }
         }
     }
 
