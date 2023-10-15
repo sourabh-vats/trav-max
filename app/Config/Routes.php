@@ -85,6 +85,10 @@ $routes->get('admin/businesscenter', 'Profile::businesscenter');
 $routes->get('admin/mysales', 'Profile::mysales');
 $routes->get('admin/teamsales', 'Profile::teamsales');
 
+$routes->get('admin/bonus', 'Profile::bonus');
+$routes->get('admin/reward', 'Profile::reward');
+$routes->get('admin/myincome', 'Profile::myincome');
+$routes->get('admin/teamincome', 'Profile::teamincome');
 
 /*
  * --------------------------------------------------------------------

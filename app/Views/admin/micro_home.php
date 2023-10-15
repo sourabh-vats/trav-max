@@ -16,12 +16,16 @@
         </div>
         <div class="row gradient_parent">
             <div class="col text-center py-4">
-                <h3>BONUS</h3>
-                <span class="box_number_data">₹<?php echo $wallet["bonus"]; ?></span>
+                <a href="/admin/bonus">
+                    <h3>BONUS</h3>
+                    <span class="box_number_data">₹<?php echo $wallet["bonus"]; ?></span>
+                </a>
             </div>
             <div class="col text-center py-4">
-                <h3>REWARD</h3>
-                <span class="box_number_data">₹<?php echo $wallet["reward"]; ?></span>
+                <a href="/admin/reward">
+                    <h3>REWARD</h3>
+                    <span class="box_number_data">₹<?php echo $wallet["reward"]; ?></span>
+                </a>
             </div>
         </div>
     </div>
@@ -42,12 +46,16 @@
         </div>
         <div class="row gradient_parent">
             <div class="col text-center py-4">
-                <h3>MY INCOME</h3>
-                <span class="box_number_data">₹<?php echo $active_income; ?></span>
+                <a href="/admin/myincome">
+                    <h3>MY INCOME</h3>
+                    <span class="box_number_data">₹<?php echo $active_income; ?></span>
+                </a>
             </div>
             <div class="col text-center py-4">
-                <h3>TEAM INCOME</h3>
-                <span class="box_number_data">₹<?php echo $team_income; ?></span>
+                <a href="/admin/teamincome">
+                    <h3>TEAM INCOME</h3>
+                    <span class="box_number_data">₹<?php echo $team_income; ?></span>
+                </a>
             </div>
         </div>
     </div>

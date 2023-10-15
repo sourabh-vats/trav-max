@@ -958,4 +958,52 @@ class Profile extends BaseController
         $data['main_content'] = 'admin/share_products';
         return view('includes/admin/template', $data);
     }
+
+    public function bonus()
+    {
+        $user_model = model('UserModel');
+        $id = session('cust_id');
+        $customer_id = session('trav_id');
+        $data['profile'] = $user_model->profile($id);
+
+
+        $data['main_content'] = 'admin/bonus';
+        return view('includes/admin/template', $data);
+    }
+
+    public function reward()
+    {
+        $user_model = model('UserModel');
+        $id = session('cust_id');
+        $customer_id = session('trav_id');
+        $data['profile'] = $user_model->profile($id);
+
+
+        $data['main_content'] = 'admin/reward';
+        return view('includes/admin/template', $data);
+    }
+
+    public function myincome()
+    {
+        $user_model = model('UserModel');
+        $id = session('cust_id');
+        $customer_id = session('trav_id');
+        $data['profile'] = $user_model->profile($id);
+
+
+        $data['main_content'] = 'admin/myincome';
+        return view('includes/admin/template', $data);
+    }
+
+    public function teamincome()
+    {
+        $user_model = model('UserModel');
+        $id = session('cust_id');
+        $customer_id = session('trav_id');
+        $data['profile'] = $user_model->profile($id);
+
+
+        $data['main_content'] = 'admin/teamincome';
+        return view('includes/admin/template', $data);
+    }
 }
