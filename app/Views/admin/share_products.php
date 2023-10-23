@@ -16,22 +16,97 @@
         left: 50%;
         transform: translate(-50%, -50%);
         background: white;
-        padding: 20px;
-        text-align: center;
+        padding: 20px 30px;
         z-index: 1000;
+        width: 90%;
+        max-width: 400px;
+        text-align: left;
+    }
+
+    .popup-body>a {
+        color: #000;
+        margin-bottom: 20px;
+        display: flex;
+
+    }
+
+    .close-popup {
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    .popup-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .popup-body {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .icon {
+        border: 1px solid gray;
+        border-radius: 25px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .icon>img {
+        height: 15px;
+        width: 15px;
+
     }
 </style>
 <div class="overlay" id="overlay">
     <div class="popup" id="popup">
-        <h3>Share This</h3>
+        <div class="popup-header">
 
-        <a href="#" onclick="shareOnWhatsApp()" class="bi-whatsapp"> WhatsApp </a>
-        <a href="#" onclick="shareOnInstagram()" class="bi-instagram"> Instagram </a>
-        <a href="#" onclick="copyLink()" class="bi-link-45deg"> Copy Link</a>
-        <br><br>
-        <button id="close-popup">Close</button>
+            <h3>Share Via</h3>
+            <span class="close-popup" id="close-popup">&times;</span>
+        </div>
+        <div class="popup-body">
+            <a href="#" onclick="shareOnWhatsApp()">
+                <div style="display: flex; align-items:center">
+                    <div class="icon"><img src="/images/whatsapp.png" /></div>
+                    <div style="margin-left: 10px; ">WhatsApp</div>
+                </div>
+            </a>
+            <a href="#" onclick="shareOnInstagram()">
+                <div style="display: flex; align-items:center">
+                    <div class="icon"><img src="/images/instagram.png" /></div>
+                    <div style="margin-left: 10px;">Instagram </div>
+                </div>
+            </a>
+            <a href="#" onclick="shareOnFacebook()">
+                <div style="display: flex; align-items:center">
+                    <div class="icon"><img src="/images/facebook.png" /></div>
+                    <div style="margin-left: 10px;">Facebook </div>
+                </div>
+            </a>
+            <a href="#" onclick="shareOnTwitter()">
+                <div style="display: flex; align-items:center">
+                    <div class="icon"><img src="/images/twitter.png" /></div>
+                    <div style="margin-left: 10px;">Twitter </div>
+                </div>
+            </a>
+            <a href="#" onclick="copyLink()" style="padding-bottom: 0px;">
+                <div style="display: flex; align-items:center">
+                    <div class="icon"><img src="/images/chain.png" /></div>
+                    <div style="margin-left: 10px;"> Copy Link</div>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
+
 
 <form action="/admin/share_products" method="POST">
     <div class="row">
@@ -55,7 +130,11 @@
     </div>
 </form>
 <div class="row">
-    <?php foreach ($products as $product) : ?>
+    <?php
+
+    use App\Controllers\Profile;
+
+    foreach ($products as $product) : ?>
         <div class="col-md-4 mb-4">
             <div class="card">
                 <img src="<?= $product['photo'] ?>" class="card-img-top" alt="<?= $product['name'] ?>">
@@ -82,7 +161,7 @@
     });
 
     function shareOnWhatsApp() {
-        var shareURL = 'yourShareURL';
+        var shareURL = '<?php echo base_url() ?>signup?refer_id=<?php echo $profile[0]['customer_id']; ?>';
         var imageURL = 'http://localhost:8080/images/addidas.png';
 
         var whatsappURL = 'https://api.whatsapp.com/send?' +
@@ -93,14 +172,14 @@
     }
 
     function shareOnInstagram() {
-        var shareURL = 'yourShareURL';
+        var shareURL = '<?php echo base_url() ?>signup?refer_id=<?php echo $profile[0]['customer_id']; ?>';
         var instagramURL = 'https://www.instagram.com/create/story/' +
             '?url=' + encodeURIComponent(shareURL);
         window.open(instagramURL, '_blank');
     }
 
     function copyLink() {
-        var shareURL = 'yourShareURL';
+        var shareURL = '<?php echo base_url() ?>signup?refer_id=<?php echo $profile[0]['customer_id']; ?>';
         var input = document.createElement('input');
         input.value = shareURL;
         document.body.appendChild(input);

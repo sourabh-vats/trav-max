@@ -2,6 +2,14 @@
 
 namespace App\Controllers;
 
+require 'lib/PHPMailer/src/Exception.php';
+require 'lib/PHPMailer/src/PHPMailer.php';
+require 'lib/PHPMailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 class Profile extends BaseController
 {
     public function __construct()
@@ -917,20 +925,86 @@ class Profile extends BaseController
                 $errors = $validation->getErrors();
                 $value = empty($errors) ? "" : reset($errors);
                 $session->setFlashdata('flash_message', $value);
-            } else {
+            } else if ($_POST['otp'] == "") {
+                $otp = random_int(100000, 999999);
+                $mail = new PHPMailer(true);
+
+                try {
+                    //Server settings
+                    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                    $mail->SMTPOptions = array(
+                        'ssl' => array(
+                            'verify_peer' => false,
+                            'verify_peer_name' => false,
+                            'allow_self_signed' => true
+                        )
+                    );                                         //Send using SMTP
+                    $mail->isSMTP();                                            //Send using SMTP
+                    $mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
+                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                    $mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
+                    $mail->Password   = 'D523B4735BB9E3503EF9C1257E0FBD6AD5BF';                               //SMTP password
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                    $mail->Port       = 465;
+
+                    //Recipients
+                    $mail->setFrom('sourabhvats96@gmail.com', 'Travmax');
+                    $mail->addAddress($_POST['email']);     //Add a recipient
+                    $mail->addReplyTo('info@travmaxholidays.com', 'Information');
+
+                    //Content
+                    $mail->isHTML(true);                                  //Set email format to HTML
+                    $mail->Subject = 'OTP';
+
+
+                    // Set the view content as the email body
+                    $mail->Body = 'OTP for Updating Profile details is this: ' . $otp;
+                    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                    $mail->send();
+                } catch (Exception $e) {
+                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                }
+                $data_to_store = [
+                    'email' => $_POST['email'],
+                    'otp' => $otp
+                ];
+                $db = db_connect();
+                $db->table('otp')->insert($data_to_store);
+                $data = array("status" => "error", "message" => "Enter the otp");
+                header("Content-Type: application/json");
+                echo json_encode($data);
+                exit();
+            } elseif ($this->request->getPost('otp')) {
+                $otp = $this->request->getPost('otp');
+                $email = $this->request->getPost('email');
                 $firstName = $this->request->getPost('first_name');
                 $lastName = $this->request->getPost('last_name');
-                $email = $this->request->getPost('email');
                 $data_to_store = [
                     'f_name' => $firstName,
                     'l_name' => $lastName,
                     'email' => $email
                 ];
-                $return = $user_model->update_profile($id, $data_to_store);
-                if ($return == true) {
-                    $session->setFlashdata('flash_message', 'Profile updated Successfully');
+                $db = db_connect();
+                $otpRow = $db->table('otp')
+                    ->where('email', $email)
+                    ->get()
+                    ->getRow();
+
+                if ($otpRow && $otpRow->otp == $otp) {
+                    $return = $user_model->update_profile($id, $data_to_store);
+                    if ($return == true) {
+                        $data = array("status" => "success", "message" => "Account Updated successfully.");
+                        header("Content-Type: application/json");
+                        echo json_encode($data);
+                        exit();
+                    }
                 } else {
-                    $session->setFlashdata('flash_message', 'Profile not updated Successfully');
+                    $data['status'] = 'error';
+                    $data['message'] = 'Invalid OTP';
+                    header('Content-Type: application/json');
+                    echo json_encode($data);
+                    exit();
                 }
             }
         }
@@ -943,6 +1017,8 @@ class Profile extends BaseController
     {
         $user_model = model('UserModel');
         $data = [];
+        $id = session('cust_id');
+        $data['profile'] = $user_model->profile($id);
 
         if ($this->request->getMethod() === 'post') {
             $category = $this->request->getPost('selected_category');
