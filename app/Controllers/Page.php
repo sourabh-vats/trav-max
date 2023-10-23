@@ -108,6 +108,17 @@ class Page extends BaseController
 		return view('signup', $data);
 	}
 
+	public function login()
+	{
+		$data['page_keywords'] = '';
+		$data['page_description'] = '';
+		$data['page_slug'] = 'Login';
+		$data['page_title'] = 'Login';
+
+		$data['main_content'] = 'Login';
+		return view('login', $data);
+	}
+
 	public function select_package()
 	{
 		$data['page_keywords'] = '';

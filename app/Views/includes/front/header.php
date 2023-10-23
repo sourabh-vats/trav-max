@@ -158,7 +158,7 @@
                                             <li id="logout-btn"><a href="/admin/logout"><i class="fa fa-lock"></i> Logout</a></li>
                                         <?php } else { ?>
                                             <li class="drop-nav">
-                                                <a id="login_btn" title="Login" href="javascript:;" data-toggle="modal" data-target="#registerLoginModal"><i class="fa fa-sign-in"></i> Login</a>
+                                                <a id="login_btn" href="/login_view"></i> Login</a>
                                             </li>
                                             <li class="drop-nav">
                                                 <a id="" href="/signup">Signup</a>
