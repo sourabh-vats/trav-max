@@ -19,17 +19,17 @@
         </thead>
         <tbody>
             <?php
-            // $i = 1;
-            // foreach ($travelcenter as $result) {
-            //     echo '<tr>';
-            //     echo '<td>'.$i.'</td>';
-            //     echo '<td>'.$result["user_send_by"].'</td>';
-            //     echo '<td>'.$result["dist_level"].'</td>';
-            //     echo '<td>'.$result["amount"].'</td>';
-            //     echo '<td>'.$result["rdate"].'</td>';                
-            //     echo '</tr>';
-            //     $i++;
-            // }
+            $i = 1;
+            foreach ($rewards as $reward) {
+                echo '<tr>';
+                echo '<td>'.$i.'</td>';
+                // echo '<td>'.$result["user_send_by"].'</td>';
+                // echo '<td>'.$result["dist_level"].'</td>';
+                // echo '<td>'.$result["amount"].'</td>';
+                // echo '<td>'.$result["rdate"].'</td>';                
+                echo '</tr>';
+                $i++;
+            }
             ?>
         </tbody>
     </table>

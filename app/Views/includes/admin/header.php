@@ -66,7 +66,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
     <div class="container-fluid">
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
-                <div class="pt-3 d-none d-md-flex flex-column align-items-center">
+                <div class="pt-2 pt-md-3 d-flex d-md-flex flex-column align-items-center">
                     <a href="/admin/profile">
                         <div class="profile-picture-container">
                             <img class="profile-picture img-fluid" src="/images/user_profile/<?php echo $session->trav_id; ?>.png" alt="Profile Picture" onerror="this.src='/images/user_profile/avatar.png';">

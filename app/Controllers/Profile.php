@@ -1052,8 +1052,12 @@ class Profile extends BaseController
         $user_model = model('UserModel');
         $id = session('cust_id');
         $customer_id = session('trav_id');
+        $db = db_connect();
         $data['profile'] = $user_model->profile($id);
-
+        $query = $db->query('SELECT balance FROM `wallet` WHERE user_id = "' . $customer_id . '" and wallet_type = "reward"');
+        $row = $query->getRow();
+        $reward = $row->balance;
+        $data['rewards'] = $reward;
 
         $data['main_content'] = 'admin/reward';
         return view('includes/admin/template', $data);
