@@ -39,6 +39,17 @@
             padding: 16px 12px;
         }
 
+        #register_other_options{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #register_other_options a{
+            text-decoration: none;
+        }
+
         @media only screen and (max-width: 768px) {
             #container_div {
                 height: 100%;
@@ -133,6 +144,9 @@
                                                                                 ?>">
                     <button type="submit" class="btn btn-danger w-100 btn-lg">Sign Up</button>
                 </form>
+                <div id="register_other_options">
+                    Already have an account? &nbsp;<a href="/login_view">Login</a>
+                </div>
             </div>
         </div>
         <div class="col-md-6 d-none d-md-block" style="background-image: url(/images/macro.jpg); background-position:center; background-size:cover">

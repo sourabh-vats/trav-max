@@ -39,6 +39,17 @@
             padding: 16px 12px;
         }
 
+        #login_other_options{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            margin-top: 20px;
+        }
+
+        #login_other_options a{
+            text-decoration: none;
+        }
+
         @media only screen and (max-width: 768px) {
             #container_div {
                 height: 100%;
@@ -76,6 +87,11 @@
                     </div>
                     <button type="submit" class="btn btn-danger w-100 btn-lg">Login</button>
                 </form>
+                <div id="login_other_options">
+                    <a href="/signup">Create an account</a>
+                    <span>|</span>
+                    <a href="/forgot_password">I forgot my password</a>
+                </div>
             </div>
         </div>
         <div class="col-md-6 d-none d-md-block" style="background-image: url(/images/macro.jpg); background-position:center; background-size:cover">
