@@ -473,4 +473,8 @@ th {
     .sidebar {
         top: 55px;
     }
+
+    .sidebar {
+        padding: 10px 0 0;
+    }
 }
