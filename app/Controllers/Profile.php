@@ -538,6 +538,38 @@ class Profile extends BaseController
             $booking_packages_number = $result['booking_packages_number'];
             $data['booking_packages_number'] = $booking_packages_number;
         }
+        $mail = new PHPMailer(true);
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+        $mail->isSMTP();
+        $mail->Host = 'localhost';
+        $mail->SMTPAuth = false;
+        $mail->SMTPAutoTLS = false;
+        $mail->Port = 25;
+    
+        //Recipients
+        $mail->setFrom('support@travmaxholidays.com', 'Travmax');
+        $mail->addAddress($data['profile'][0]['email']);     //Add a recipient
+        $mail->addReplyTo('info@travmaxholidays.com', 'Information');
+    
+        //Content
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = 'Congrats ! You are a Travmax Partner';
+        $data['name'] =  $data['profile'][0]['f_name'] . ' ' . $data['profile'][0]['l_name'];
+        $data['email'] =  $data['profile'][0]['email'];
+    
+        $view = view('content', $data);
+    
+        // Set the view content as the email body
+        $mail->Body = $view;
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    
+        $mail->send();
 
         $data['main_content'] = 'admin/package_selected_successfully';
         return view('includes/admin/template', $data);
