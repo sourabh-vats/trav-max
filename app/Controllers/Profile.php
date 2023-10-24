@@ -1054,10 +1054,9 @@ class Profile extends BaseController
         $customer_id = session('trav_id');
         $db = db_connect();
         $data['profile'] = $user_model->profile($id);
-        $query = $db->query('SELECT balance FROM `wallet` WHERE user_id = "' . $customer_id . '" and wallet_type = "reward"');
-        $row = $query->getRow();
-        $reward = $row->balance;
-        $data['rewards'] = $reward;
+        $query = $db->query('SELECT * FROM `transaction` where wallet_id = (SELECT wallet_id FROM `wallet` WHERE user_id = "' . $customer_id . '" AND wallet_type = "reward")');
+        $row = $query->getResultArray();
+        $data['rewards'] = $row;
 
         $data['main_content'] = 'admin/reward';
         return view('includes/admin/template', $data);
