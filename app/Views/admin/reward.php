@@ -11,10 +11,9 @@
         <thead>
             <tr>
                 <th>Sr. No.</th>
-                <th>Send By</th>
-                <th>Circle</th>
+                <th>Transaction ID</th>
                 <th>Amount</th>
-                <th>Date </th>                
+                <th>Type</th>
             </tr>
         </thead>
         <tbody>
@@ -23,10 +22,9 @@
             foreach ($rewards as $reward) {
                 echo '<tr>';
                 echo '<td>'.$i.'</td>';
-                // echo '<td>'.$result["user_send_by"].'</td>';
-                // echo '<td>'.$result["dist_level"].'</td>';
-                // echo '<td>'.$result["amount"].'</td>';
-                // echo '<td>'.$result["rdate"].'</td>';                
+                echo '<td>'.$reward["transaction_id"].'</td>';
+                echo '<td>'.$reward["amount"].'</td>';
+                echo '<td>'.$reward["transaction_type"].'</td>';
                 echo '</tr>';
                 $i++;
             }
