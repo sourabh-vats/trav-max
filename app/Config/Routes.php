@@ -59,6 +59,7 @@ $routes->get('test_mail', 'Page::test_mail');
 
 // Admin Dashboard
 $routes->post('login', 'User::validate_credentials');
+$routes->get('login_view', 'Page::login');
 $routes->post('register', 'User::create_member');
 $routes->get('admin', 'Profile::index');
 $routes->get('admin/logout', 'User::logout');
