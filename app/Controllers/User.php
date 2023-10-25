@@ -90,12 +90,21 @@ class User extends BaseController
             } catch (Exception $e) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
-            $data_to_store = [
-                'email' => $_POST['email'],
-                'otp' => $otp
-            ];
+            $email = $_POST['email'];
             $db = db_connect();
-            $db->table('otp')->insert($data_to_store);
+            $existingRecord = $db->table('otp')->where('email', $email)->get();
+            
+            if ($existingRecord->getNumRows() > 0) {
+                // If a record exists, update the OTP for that email
+                $db->table('otp')->where('email', $email)->update(['otp' => $otp]);
+            } else {
+                // If no record exists, insert a new one
+                $data_to_store = [
+                    'email' => $email,
+                    'otp' => $otp
+                ];
+                $db->table('otp')->insert($data_to_store);
+            }
             $data = array("status" => "error", "message" => "Enter the otp");
             header("Content-Type: application/json");
             echo json_encode($data);
