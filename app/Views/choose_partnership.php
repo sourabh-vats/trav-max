@@ -66,6 +66,9 @@
                 </a>
             </div>
         </div>
+        <div class="w-100 mt-5 text-center">
+            <a href="/signup/select_package" class="secondary_btn">Back</a>
+        </div>
     </div>
     <script>
 
