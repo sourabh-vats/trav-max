@@ -92,6 +92,7 @@ class User extends BaseController
             }
             $email = $_POST['email'];
             $db = db_connect();
+
             $existingRecord = $db->table('otp')->where('email', $email)->get();
             
             if ($existingRecord->getNumRows() > 0) {
@@ -105,7 +106,7 @@ class User extends BaseController
                 ];
                 $db->table('otp')->insert($data_to_store);
             }
-            $data = array("status" => "error", "message" => "Enter the otp");
+            $data = array("status" => "error", "message" => "An OTP has been sent to your registered email. Please check and submit.");
             header("Content-Type: application/json");
             echo json_encode($data);
             exit();
