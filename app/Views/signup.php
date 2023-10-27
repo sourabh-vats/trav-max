@@ -76,8 +76,8 @@
                     <div class="alert alert-danger text-center d-none" id="signup_error" role="alert">
 
                     </div>
-                    <div class="row g-0 g-md-3 mb-3">
-                        <div class="col-md">
+                    <div class="row g-1 g-md-3 mb-3">
+                        <div class="col-5 col-md">
                             <div class="radio-box">
                                 <input class="form-check-input" type="radio" name="signupType" id="freeSignup" value="freeSignup">
                                 <label class="form-check-label" for="freeSignup">
@@ -85,9 +85,9 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-7 col-md">
                             <div class="radio-box">
-                                <input class="form-check-input" type="radio" name="signupType" id="partnerSignup" value="partnerSignup" checked>
+                                <input class="form-check-input" type="radio" name="signupType" id="partnerSignup" value="partnerSignup" checked="">
                                 <label class="form-check-label" for="partnerSignup">
                                     Become A Partner
                                 </label>
@@ -188,6 +188,13 @@
                         jQuery("#signup_error").addClass("alert-primary");
                         jQuery("#signup_error").text(data.message);
                         jQuery("#otp_field").removeClass("d-none");
+                        $("#email").parent().hide();
+                        $("#f_name").parent().hide();
+                        $("#l_name").parent().hide();
+                        $("#phone").parent().hide();
+                        $("#password").parent().hide();
+                        $("#cpassword").parent().hide();
+                        $("#trav_id").parent().hide();
                     } else {
                         jQuery("#signup_error").removeClass("d-none");
                         jQuery("#signup_error").text(data.message);
