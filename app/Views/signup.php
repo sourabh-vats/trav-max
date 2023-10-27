@@ -181,7 +181,7 @@
             success: function(data) {
                 // console.log(data);
                 if (data.status == "error") {
-                    if (data.message == "Enter the otp") {
+                    if (data.message == "An OTP has been sent to your registered email. Please check and submit.") {
                         jQuery("#loading_screen").addClass("d-none");
                         jQuery("#signup_error").removeClass("d-none");
                         jQuery("#signup_error").removeClass("alert-danger");
