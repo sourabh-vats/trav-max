@@ -76,7 +76,7 @@
                     <div class="alert alert-danger text-center d-none" id="signup_error" role="alert">
 
                     </div>
-                    <div class="row g-1 g-md-3 mb-3">
+                    <div class="row g-1 g-md-3 mb-3" id="select_signup_container">
                         <div class="col-5 col-md">
                             <div class="radio-box">
                                 <input class="form-check-input" type="radio" name="signupType" id="freeSignup" value="freeSignup">
@@ -195,6 +195,7 @@
                         $("#password").parent().hide();
                         $("#cpassword").parent().hide();
                         $("#trav_id").parent().hide();
+                        $("#select_signup_container").hide();
                     } else {
                         jQuery("#signup_error").removeClass("d-none");
                         jQuery("#signup_error").text(data.message);

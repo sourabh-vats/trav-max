@@ -6,16 +6,26 @@ if (isset($_SESSION['upgrade']) && $_SESSION['upgrade'] === true) {
 }
 ?>
 
+<style>
+    .heading{
+        color: #326495;
+        font-weight: 700;
+    }
+    .highlight{
+        color: #2E4B69;
+    }
+</style>
+
 <div class="row d-flex justify-content-center flex-wrap">
     <div class="col-md-6 p-5 border-end text-center">
-        <h2 >Congratulations</h2><br><br>
-        <h4 class="text-center">You have selected <?php echo $package_data[0]['display_name']; ?> Package for Rs. <?php echo $package_data[0]['total']; ?> <?php if ($booking_packages_number > 1) {
-                                                                                                                                                                echo 'per person for ' . $booking_packages_number . ' persons';
-                                                                                                                                                            } ?> and have taken the <?php echo $package_information[0]['payment_type']; ?>. Please make a payment of Rs. <?php echo $payment_amount * $booking_packages_number . '(' . $payment_amount . '*' . $booking_packages_number . ')'; ?> and share the proof with us</h4>
+        <h2 class="heading">Congratulations</h2><br><br>
+        <h4 class="text-center">You have selected&nbsp;<span class="highlight"><?php echo $package_data[0]['display_name']; ?></span>&nbsp;Package for &nbsp;<span class="highlight">Rs. <?php echo $package_data[0]['total']; ?> <?php if ($booking_packages_number > 1) {
+                                                                                                                                                                echo 'per person for &nbsp;<span class="highlight">' . $booking_packages_number . ' persons</span>';
+                                                                                                                                                            } ?> and have taken the &nbsp;<span class="highlight"><?php echo $package_information[0]['payment_type']; ?></span>. Please make a payment of &nbsp;<span class="highlight">Rs. <?php echo $payment_amount * $booking_packages_number . '(' . $payment_amount . '*' . $booking_packages_number . ')'; ?></span> and share the proof with us</h4>
         <img src="/images/travel_img.jpeg" alt="" width="100%" style="background-color: grey;">
     </div>
     <div class="col-md-6 p-5 text-center">
-        <h2>Pay Here</h2>
+        <h2 class="heading">Pay Here</h2>
         <br>
         <div style="display: flex;">
         <div class="p-3" style="display: flex; flex-direction: column; align-items: center;">

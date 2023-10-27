@@ -34,7 +34,7 @@
                 cursor: pointer;
             }
         </style>
-        <a class="d-block m-auto text-center my-3" href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
+        <a class="d-block m-auto text-center mx-md-5 my-3" href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
         <h1 class="text-center">Please select your Partnership Plan.</h1>
         <div class="row g-0 my-3" style="margin:auto;display:flex; justify-content:center; align-items:center;">
             <div class="col">
@@ -66,7 +66,7 @@
                 </a>
             </div>
         </div>
-        <div class="w-100 mt-5 text-center">
+        <div class="w-100 mt-3 text-center">
             <a href="/signup/select_package" class="secondary_btn">Back</a>
         </div>
     </div>

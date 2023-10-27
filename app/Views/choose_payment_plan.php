@@ -58,6 +58,11 @@ switch ($plan) {
         font-size: 24px;
         font-weight: 800;
     }
+
+    #pick_a_plan_selected_package_name,
+    #booking_packages_number{
+        color: tomato;
+    }
 </style>
 
 <body>
@@ -65,7 +70,7 @@ switch ($plan) {
         <a class="d-block m-auto text-center my-5" href="/"><img height="30px" src="/images/logo.png" alt="" srcset=""></a>
         <div class="row" id="pick_a_plan_section">
             <h1 class="text-center mb-5">You have selected <span id="pick_a_plan_selected_package_name"><?php echo $package_data[0]["display_name"]; ?></span> package <?php if ($booking_packages_number != 1) {
-                                                                                                                                                                            echo 'for ' . $booking_packages_number . ' persons';
+                                                                                                                                                                            echo 'for&nbsp;<span id="booking_packages_number">' . $booking_packages_number . ' persons</span>';
                                                                                                                                                                         } ?>.<br> Please select a payment plan.</h1>
             <div class="card-group text-left justify-content-center">
                 <div class="card plan_box" id="travnow_plan">
