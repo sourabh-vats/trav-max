@@ -223,7 +223,7 @@ p {
     border-left: 15px solid white;
 }
 
-.gradient_parent h3{
+.gradient_parent h3 {
     font-size: 1.5rem !important;
 }
 
@@ -435,13 +435,33 @@ th {
     width: auto;
 }
 
-.gradient_parent a{
+.gradient_parent a {
     color: white;
 }
 
-.gradient_parent a:hover{
+.gradient_parent a:hover {
     color: lightgoldenrodyellow;
 }
+
+.blinking,
+.blinking i {
+    animation: blinking .8s infinite;
+}
+
+@keyframes blinking {
+    0% {
+        color: white;
+    }
+
+    50% {
+        color: grey;
+    }
+
+    100% {
+        color: white;
+    }
+}
+
 
 @media(max-width:768px) {
 
@@ -450,23 +470,24 @@ th {
         width: -webkit-fill-available;
     }
 
-    #main{
+    #main {
         margin-left: 0px !important;
         padding-bottom: 20px;
     }
 
-    .my_partners_hero_link{
+    .my_partners_hero_link {
         display: none;
     }
 
-    .navbar-toggler-icon{
+    .navbar-toggler-icon {
         filter: invert(1);
     }
-    .navbar-nav{
+
+    .navbar-nav {
         display: none !important;
     }
 
-    #header_navbar{
+    #header_navbar {
         height: 55px;
     }
 
