@@ -450,7 +450,7 @@ th {
 
 @keyframes blinking {
     0% {
-        color: goldenrod;
+        color: white;
     }
 
     50% {
