@@ -19,6 +19,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script src="/lib/jquery/jquery-3.6.4.min.js"></script>
     <script src="/lib/bootstrap5.3/bootstrap.bundle.min.js"></script>
+    <script src="/js/dashboard.js"></script>
     <?php
     if (!empty($js)) {
         echo '<script src="' . $js . '"></script>';
@@ -115,7 +116,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/invite_friend/<?php echo $session->trav_id; ?>">
+                            <a class="nav-link blinking" aria-current="page" href="/invite_friend/<?php echo $session->trav_id; ?>">
                                 <i class="bi-share-fill"></i>
                                 Invite Friends
                             </a>

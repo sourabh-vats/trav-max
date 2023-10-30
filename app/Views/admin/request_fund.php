@@ -8,8 +8,7 @@ $session = session();
 if ($session->getFlashdata('flash_message')) {
   if ($session->getFlashdata('flash_message') == 'updated') {
     echo '<div class="alert alert-success">';
-    echo '<a class="close" data-dismiss="alert">×</a>';
-    echo '<strong>Well done!</strong> Requested Sent successfully.';
+    echo '<strong>Well done!</strong> We have received your request and will confirm it. Our team will contact you within 24 to 48 hours.';
     echo '</div>';
   } else {
     echo '<div class="alert alert-danger">';
@@ -49,7 +48,7 @@ echo form_open_multipart('admin/request-fund', $attributes);
 
       <div class="form-group col-sm-12">
         <label> Payment Mode </label>
-        <select class='form-control cash' name="mode" class="form-control" id="sel1">
+        <select class='form-select cash' name="mode" class="form-control" id="sel1">
           <option value="NEFT">NEFT</option>
           <option value="RTGS">RTGS</option>
           <option value="IMPS">IMPS</option>

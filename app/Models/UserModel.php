@@ -358,6 +358,7 @@ class UserModel extends Model
                 $reward_amount = 100;
                 $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$customer_id' and `wallet_type` = 'reward')");
                 $db->query("INSERT INTO `transaction` (`user_id`, `wallet_id`, `amount`, `transaction_type`) VALUES ('$customer_id', (select wallet_id from wallet where user_id='$customer_id' and wallet_type = 'reward'), '$reward_amount', 'credit')");
+                $db->query("INSERT INTO `notification` (`account_id`, `status`, `message`) VALUES ('$customer_id', 'active', 'Reward')");
                 $parent_id = $_POST["trav_id"];
                 $query = $db->query('select balance from wallet where user_id = "' . $parent_id . '" and wallet_type = "reward"');
                 $result = $query->getRowArray();
@@ -365,12 +366,12 @@ class UserModel extends Model
                 if ($parent_reward_balance < 1100) {
                     $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$parent_id' and `wallet_type` = 'reward')");
                     $db->query("INSERT INTO `transaction` (`user_id`, `wallet_id`, `amount`, `transaction_type`) VALUES ('$parent_id', (select wallet_id from wallet where user_id='$parent_id' and wallet_type = 'reward'), '$reward_amount', 'credit')");
+                    $db->query("INSERT INTO `notification` (`account_id`, `status`, `message`) VALUES ('$parent_id', 'active', 'Reward')");
                 }
-
 
                 $data = array("status" => "success", "message" => "Account created successfully.", "signupType" => $partner_type);
                 $session = session();
-                $session_data = array('full_name' => $f_name, 'email' => $_POST["l_name"], 'trav_id' => $customer_id,  'cust_id' => $insert_id, 'is_customer_logged_in' => true);
+                $session_data = array('full_name' => $f_name, 'email' => $_POST["l_name"], 'trav_id' => $customer_id,  'cust_id' => $insert_id, 'is_customer_logged_in' => true, 'booking_packages_number' => $booking_packages_number);
                 $session->set($session_data);
                 header("Content-Type: application/json");
                 echo json_encode($data);

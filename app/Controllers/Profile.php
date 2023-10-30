@@ -569,7 +569,7 @@ class Profile extends BaseController
         $mail->Body = $view;
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
     
-        $mail->send();
+        //$mail->send();
 
         $data['main_content'] = 'admin/package_selected_successfully';
         return view('includes/admin/template', $data);

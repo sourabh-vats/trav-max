@@ -107,8 +107,8 @@
     </div>
 </div>
 
-
-<form action="/admin/share_products" method="POST">
+<h1>Coming Soon!</h1>
+<!-- <form action="/admin/share_products" method="POST">
     <div class="row">
         <div class="col-md-12 mb-3">
             <label for="categorySelect" class="form-label">Select a Category:</label>
@@ -147,7 +147,7 @@
             </div>
         </div>
     <?php endforeach; ?>
-</div>
+</div> -->
 
 <script>
     $(document).ready(function() {
