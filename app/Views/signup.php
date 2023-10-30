@@ -38,6 +38,11 @@
             border: 1px solid #dee2e6;
             padding: 16px 12px;
         }
+        .dont{
+            cursor: pointer;
+            /* all:unset !important; */
+        }
+    
 
         #register_other_options {
             display: flex;
@@ -130,10 +135,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234" <?php echo isset($_GET['refer_id']) ? 'readonly' : ''; ?> value="<?php echo isset($_GET['refer_id']) ? $_GET['refer_id'] : ''; ?>">
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234"
+                         <?php echo isset($_GET['refer_id']) ? 'readonly' : ''; ?> 
+                         value="<?php echo isset($_GET['refer_id']) ? $_GET['refer_id'] : ''; ?>">
                         <label for="trav_id">Referral ID</label>
                     </div>
+                     <!-- i dont know  -->
+                     <div class="form-floating mb-3">
+                        <span class="dont" id="refergen" >I don`t know</span>
+                    </div>
+
+
                     <div class="form-floating mb-3 d-none" id="otp_field">
                         <input name="otp" type="text" class="form-control" id="otp" placeholder="Enter The OTP">
                         <label for="otp">OTP</label>
@@ -162,15 +175,33 @@
 
     $(document).ready(function() {
         const referId = getQueryParameter('refer_id');
-
-        if (!referId) {
-            $("#freeSignup").click(function() {
+             if(referId){
+                // Disable the "Clear Travel ID" 
+                $("#partnerSignup").off("click");
+                $(".dont").hide();
+                $("#trav_id").val(referId);
+            }
+            else  {
+            $("#refergen").click(function() {
                 const freeRefferalIDs = ["1085MEM3665", "1086MEM3665", "1087MEM3665", "1088MEM3665", "1089MEM3665", "1090MEM3665", "1091MEM3665", "1092MEM3665", "1093MEM3665", "1094MEM3665", "1095MEM3665", "1096MEM3665", "1097MEM3665", "1098MEM3665", "1098MEM3665", "1099MEM3665", "1100MEM3665", "1101MEM3665", "1102MEM3665", "1103MEM3665", "1104MEM3665", "1105MEM3665", "1106MEM3665", "1107MEM3665", "1108MEM3665", "1108MEM3665"];
                 const random = Math.floor(Math.random() * freeRefferalIDs.length);
                 $("#trav_id").val(freeRefferalIDs[random]);
             });
         }
     });
+    // for reset
+    function clearTravId() {
+    $("#trav_id").val('');
+        }
+        $(document).ready(function() {
+            if (!getQueryParameter('refer_id')) {
+        $("#partnerSignup").click(function() {
+        clearTravId();
+        });}else{
+            $("#partnerSignup").off("click");
+        }
+
+});
     jQuery("#register-form").submit(function(event) {
         event.preventDefault();
         jQuery("#loading_screen").removeClass("d-none");
