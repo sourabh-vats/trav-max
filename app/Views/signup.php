@@ -12,6 +12,7 @@
     <title>Signup</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="/lib/jquery/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body {
             height: 100vh;
@@ -53,6 +54,13 @@
 
         #register_other_options a {
             text-decoration: none;
+        }
+        .fa-eye,.fa-eye-slash{
+            position: absolute;
+            top:40%;
+            right:4%;
+            cursor:pointer;
+            color:lightgray;
         }
 
         @media only screen and (max-width: 768px) {
@@ -125,12 +133,14 @@
                         <div class="col-md">
                             <div class="form-floating mb-3">
                                 <input name="password" type="password" class="form-control" id="password" placeholder="*********" required>
+                                <i class="fa-solid fa-eye" id="show-pass-password" onclick="togglePasswordField('password')"></i>
                                 <label for="password">Password</label>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-floating mb-3">
                                 <input name="cpassword" type="password" class="form-control" id="cpassword" placeholder="*********" required>
+                                <i class="fa-solid fa-eye" id="show-pass-cpassword" onclick="togglePasswordField('cpassword')"></i>
                                 <label for="password">Confirm Password</label>
                             </div>
                         </div>
@@ -167,6 +177,22 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
+<script>
+    function togglePasswordField(fieldId) {
+    const passwordInput = document.getElementById(fieldId);
+    const showPassIcon = document.getElementById("show-pass-" + fieldId);
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        showPassIcon.classList.remove("fa-eye");
+        showPassIcon.classList.add("fa-eye-slash");
+    } else {
+        passwordInput.type = "password";
+        showPassIcon.classList.remove("fa-eye-slash");
+        showPassIcon.classList.add("fa-eye");
+    }
+}
+</script>
 <script>
     function getQueryParameter(name) {
         const urlParams = new URLSearchParams(window.location.search);
