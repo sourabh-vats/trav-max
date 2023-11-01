@@ -71,9 +71,38 @@ class User extends BaseController
                 echo json_encode($data);
                 exit();
             }
-            
-            
-            
+            $builder = $db->table('customer');
+            $builder->select('*');
+            $builder->where('email', $email);
+            $query = $builder->get();
+
+            if ($query->getNumRows() > 0) {
+                $data = array("status" => "error", "message" => "Email already exists.");
+                header("Content-Type: application/json");
+                echo json_encode($data);
+                exit();}
+            else
+                {
+                    $db = db_connect();
+                    $builder = $db->table('customer');
+                    $builder->select('*');
+                    $builder->where('customer_id', $_POST["trav_id"]);
+                    $query = $builder->get();
+                    $referralCustomer = $query->getRow();
+                    if ($query->getNumRows() == 0) {
+                        $data = array("status" => "error", "message" => "Referral ID doesn't exist.");
+                        header("Content-Type: application/json");
+                        echo json_encode($data);
+                        exit();
+                    } else  if ($referralCustomer->status != 'active') {
+                        $data = array("status" => "error", "message" => "Referral ID is not active.");
+                        header("Content-Type: application/json");
+                        echo json_encode($data);
+                        exit();
+                    }
+            }
+
+
                 $otpRow = $db->table('otp')
                 ->where('email', $email)
                 ->get()
