@@ -287,34 +287,7 @@ class UserModel extends Model
 
     function create_member()
     {
-        $db = db_connect();
-        $builder = $db->table('customer');
-        $builder->select('*');
-        $builder->where('email', $_POST["email"]);
-        $query = $builder->get();
-        if ($query->getNumRows() > 0) {
-            $data = array("status" => "error", "message" => "Email already exists.");
-            header("Content-Type: application/json");
-            echo json_encode($data);
-            exit();
-        } else {
-            $db = db_connect();
-            $builder = $db->table('customer');
-            $builder->select('*');
-            $builder->where('customer_id', $_POST["trav_id"]);
-            $query = $builder->get();
-            $referralCustomer = $query->getRow();
-            if ($query->getNumRows() == 0) {
-                $data = array("status" => "error", "message" => "Referral ID doesn't exist.");
-                header("Content-Type: application/json");
-                echo json_encode($data);
-                exit();
-            } else  if ($referralCustomer->status != 'active') {
-                $data = array("status" => "error", "message" => "Referral ID is not active.");
-                header("Content-Type: application/json");
-                echo json_encode($data);
-                exit();
-            } else {
+        
                 $booking_packages_number = 1;
 
                 if ($_POST["signupType"] == "freeSignup") {
@@ -376,8 +349,7 @@ class UserModel extends Model
                 header("Content-Type: application/json");
                 echo json_encode($data);
                 exit();
-            }
-        }
+        
     }
 
     public function get_all_installment($id)
