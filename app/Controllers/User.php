@@ -147,7 +147,7 @@ class User extends BaseController
                     $mail->Body = 'OTP for Completing the registraton is this: ' . $otp;
                     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
     
-                    // $mail->send();
+                    $mail->send();
                 } catch (Exception $e) {
                     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                 }
