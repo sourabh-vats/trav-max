@@ -1,6 +1,10 @@
 <hr>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="page-content">
+<div class="col-sm-8">
 <div class="page-heading">
-  <h2>Payment Proof</h2>
+  <h2>Add Payment proof</h2>
 </div>
 <?php
 //flash messages
@@ -32,9 +36,38 @@ echo form_open_multipart('admin/request-fund', $attributes);
 ?>
 
 <div class="pin-box">
-  <div class="col-sm-8">
-    <fieldset>
+  <div class="col-sm-11">
+  <style>
+    .heading {
+        padding: 2px; /* Add padding as desired */
+    }
+    .page-content {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
+    .col-sm-8 {
+        width: 50%;
+        margin-right: 0;
+    }
+
+    .col-sm-4 {
+        width: 20%; /* Set the width to 50% for both columns */
+    }
+
+    @media (max-width: 768px) {
+  .col-sm-8 {
+    width: 100%; /* Use the full width on smaller screens */
+  }
+  .col-sm-4 {
+    display: none; /* Hide the 20% column on smaller screens */
+  }
+}
+
+
+    /* Rest of your CSS rules */
+</style>
+  <fieldset >
       <div class="form-group col-sm-12">
         <label> Amount</label>
         <?php if (!empty($payment_amount)) {
@@ -60,9 +93,19 @@ echo form_open_multipart('admin/request-fund', $attributes);
 
       <div class="form-group col-sm-12 utr">
         <label class='name'> Bank Name</label>
-        <input type="text" class="form-control" name="bank_name" value="<?php if (!empty($_POST['bank_name'])) {
-                                                                          echo $_POST['bank_name'];
-                                                                        }  ?>">
+        <select class='form-select cash' name="mode" class="form-control" id="sel1">
+          <option value="State Bank of India">State Bank of India</option>
+          <option value="HDFC Bank">HDFC Bank</option>
+          <option value="ICICI Bank">ICICI Bank</option>
+          <option value="Punjab National Bank">Punjab National Bank</option>
+          <option value="Bank of Baroda"> Bank of Baroda</option>
+          <option value="Axis Bank">Axis Bank</option>
+        </select>
+
+        <!-- <input type="text" class="form-control" name="bank_name" value="<?php if (!empty($_POST['bank_name'])) {
+            echo $_POST['bank_name'];}  ?>"> -->
+
+        
       </div>
       <!--<div class="form-group col-sm-12">
             <label>Bank branch</label>
@@ -96,12 +139,39 @@ echo form_open_multipart('admin/request-fund', $attributes);
         </div>
       </div>
     </fieldset>
-
-
-
   </div>
+</div>
+</div>
+<!-- / -->
+<div class="col-sm-8">
+<div class="page-heading" style="text-align: center;">
+    <h2>Pay Here</h2>
+  </div>
+  <br>
+  <div style="display: flex; flex-wrap: wrap; flex-direction: column; align-items: center;">
+  <div class="p-3" style="display: flex; flex-direction: column; align-items: center;">
+                <img src="/images/tarvmax_qr_code.jpeg" alt="" width="200px" style="background-color: grey; display: block;">
+                <img src="/images/travmax_vpa.jpeg" alt="" width="200px" style="background-color: grey; display: block; margin-top: 10px;">
+            </div>
+    <div class="p-2" style="text-align: center;">
+      <h5>Travmax Holidays (Current Account)</h5>
+      <h5>Account No: 2221238344613985</h5>
+      <h5>Bank Name: AU Small Finance Bank</h5>
+      <h5>IFSC: AUBL0002383</h5>
+      <h5>Branch: Sector 8, Chandigarh</h5>
+    </div>
+    
+  </div>
+</div>
+
+
 
 </div>
+
+
+
+
+
 
 <?php echo form_close(); ?>
 <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>

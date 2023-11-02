@@ -12,6 +12,7 @@
     <title>Signup</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="/lib/jquery/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body {
             height: 100vh;
@@ -38,6 +39,11 @@
             border: 1px solid #dee2e6;
             padding: 16px 12px;
         }
+        .dont{
+            cursor: pointer;
+            /* all:unset !important; */
+        }
+    
 
         #register_other_options {
             display: flex;
@@ -48,6 +54,13 @@
 
         #register_other_options a {
             text-decoration: none;
+        }
+        .fa-eye,.fa-eye-slash{
+            position: absolute;
+            top:40%;
+            right:4%;
+            cursor:pointer;
+            color:lightgray;
         }
 
         @media only screen and (max-width: 768px) {
@@ -120,20 +133,30 @@
                         <div class="col-md">
                             <div class="form-floating mb-3">
                                 <input name="password" type="password" class="form-control" id="password" placeholder="*********" required>
+                                <i class="fa-solid fa-eye" id="show-pass-password" onclick="togglePasswordField('password')"></i>
                                 <label for="password">Password</label>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-floating mb-3">
                                 <input name="cpassword" type="password" class="form-control" id="cpassword" placeholder="*********" required>
+                                <i class="fa-solid fa-eye" id="show-pass-cpassword" onclick="togglePasswordField('cpassword')"></i>
                                 <label for="password">Confirm Password</label>
                             </div>
                         </div>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234" <?php echo isset($_GET['refer_id']) ? 'readonly' : ''; ?> value="<?php echo isset($_GET['refer_id']) ? $_GET['refer_id'] : ''; ?>">
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234"
+                         <?php echo isset($_GET['refer_id']) ? 'readonly' : ''; ?> 
+                         value="<?php echo isset($_GET['refer_id']) ? $_GET['refer_id'] : ''; ?>">
                         <label for="trav_id">Referral ID</label>
                     </div>
+                     <!-- i dont know  -->
+                     <div class="form-floating mb-3">
+                        <span class="dont" id="refergen" >I don`t know</span>
+                    </div>
+
+
                     <div class="form-floating mb-3 d-none" id="otp_field">
                         <input name="otp" type="text" class="form-control" id="otp" placeholder="Enter The OTP">
                         <label for="otp">OTP</label>
@@ -155,6 +178,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 <script>
+    function togglePasswordField(fieldId) {
+    const passwordInput = document.getElementById(fieldId);
+    const showPassIcon = document.getElementById("show-pass-" + fieldId);
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        showPassIcon.classList.remove("fa-eye");
+        showPassIcon.classList.add("fa-eye-slash");
+    } else {
+        passwordInput.type = "password";
+        showPassIcon.classList.remove("fa-eye-slash");
+        showPassIcon.classList.add("fa-eye");
+    }
+}
+</script>
+<script>
     function getQueryParameter(name) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(name);
@@ -162,15 +201,33 @@
 
     $(document).ready(function() {
         const referId = getQueryParameter('refer_id');
-
-        if (!referId) {
-            $("#freeSignup").click(function() {
+             if(referId){
+                // Disable the "Clear Travel ID" 
+                $("#partnerSignup").off("click");
+                $(".dont").hide();
+                $("#trav_id").val(referId);
+            }
+            else  {
+            $("#refergen").click(function() {
                 const freeRefferalIDs = ["1085MEM3665", "1086MEM3665", "1087MEM3665", "1088MEM3665", "1089MEM3665", "1090MEM3665", "1091MEM3665", "1092MEM3665", "1093MEM3665", "1094MEM3665", "1095MEM3665", "1096MEM3665", "1097MEM3665", "1098MEM3665", "1098MEM3665", "1099MEM3665", "1100MEM3665", "1101MEM3665", "1102MEM3665", "1103MEM3665", "1104MEM3665", "1105MEM3665", "1106MEM3665", "1107MEM3665", "1108MEM3665", "1108MEM3665"];
                 const random = Math.floor(Math.random() * freeRefferalIDs.length);
                 $("#trav_id").val(freeRefferalIDs[random]);
             });
         }
     });
+    // for reset
+    function clearTravId() {
+    $("#trav_id").val('');
+        }
+        $(document).ready(function() {
+            if (!getQueryParameter('refer_id')) {
+        $("#partnerSignup").click(function() {
+        clearTravId();
+        });}else{
+            $("#partnerSignup").off("click");
+        }
+
+});
     jQuery("#register-form").submit(function(event) {
         event.preventDefault();
         jQuery("#loading_screen").removeClass("d-none");

@@ -52,65 +52,9 @@ class User extends BaseController
             header("Content-Type: application/json");
             echo json_encode($data);
             exit();
-        } else if ($_POST['otp'] == "") {
-            $otp = random_int(100000, 999999);
-            $mail = new PHPMailer(true);
-
-            try {
-                //Server settings
-                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-                $mail->SMTPOptions = array(
-                    'ssl' => array(
-                        'verify_peer' => false,
-                        'verify_peer_name' => false,
-                        'allow_self_signed' => true
-                    )
-                );
-                $mail->isSMTP();
-                $mail->Host = 'localhost';
-                $mail->SMTPAuth = false;
-                $mail->SMTPAutoTLS = false;
-                $mail->Port = 25;
-            
-                //Recipients
-                $mail->setFrom('support@travmaxholidays.com', 'Travmax');
-                $mail->addAddress($_POST['email']);     //Add a recipient
-                $mail->addReplyTo('info@travmaxholidays.com', 'Information');
-                
-                //Content
-                $mail->isHTML(true);                                  //Set email format to HTML
-                $mail->Subject = 'OTP';
-
-
-                // Set the view content as the email body
-                $mail->Body = 'OTP for Completing the registraton is this: ' . $otp;
-                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-                $mail->send();
-            } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            }
-            $email = $_POST['email'];
-            $db = db_connect();
-
-            $existingRecord = $db->table('otp')->where('email', $email)->get();
-            
-            if ($existingRecord->getNumRows() > 0) {
-                // If a record exists, update the OTP for that email
-                $db->table('otp')->where('email', $email)->update(['otp' => $otp]);
-            } else {
-                // If no record exists, insert a new one
-                $data_to_store = [
-                    'email' => $email,
-                    'otp' => $otp
-                ];
-                $db->table('otp')->insert($data_to_store);
-            }
-            $data = array("status" => "error", "message" => "An OTP has been sent to your registered email. Please check and submit.");
-            header("Content-Type: application/json");
-            echo json_encode($data);
-            exit();
-        }elseif ($this->request->getPost('otp')) {
+        } 
+        else  {
+            $number = $_POST["number"];
             $otp = $this->request->getPost('otp');
             $email = $this->request->getPost('email');
             
@@ -127,7 +71,39 @@ class User extends BaseController
                 echo json_encode($data);
                 exit();
             }
-            $otpRow = $db->table('otp')
+            $builder = $db->table('customer');
+            $builder->select('*');
+            $builder->where('email', $email);
+            $query = $builder->get();
+
+            if ($query->getNumRows() > 0) {
+                $data = array("status" => "error", "message" => "Email already exists.");
+                header("Content-Type: application/json");
+                echo json_encode($data);
+                exit();}
+            else
+                {
+                    $db = db_connect();
+                    $builder = $db->table('customer');
+                    $builder->select('*');
+                    $builder->where('customer_id', $_POST["trav_id"]);
+                    $query = $builder->get();
+                    $referralCustomer = $query->getRow();
+                    if ($query->getNumRows() == 0) {
+                        $data = array("status" => "error", "message" => "Referral ID doesn't exist.");
+                        header("Content-Type: application/json");
+                        echo json_encode($data);
+                        exit();
+                    } else  if ($referralCustomer->status != 'active') {
+                        $data = array("status" => "error", "message" => "Referral ID is not active.");
+                        header("Content-Type: application/json");
+                        echo json_encode($data);
+                        exit();
+                    }
+            }
+
+
+                $otpRow = $db->table('otp')
                 ->where('email', $email)
                 ->get()
                 ->getRow();
@@ -136,13 +112,76 @@ class User extends BaseController
                 $user_model = model('UserModel');
                 $session = session();
                 $query = $user_model->create_member();
-            } else {
+            } 
+            else if ($_POST['otp'] == "") {
+                $otp = random_int(100000, 999999);
+                $mail = new PHPMailer(true);
+    
+                try {
+                    //Server settings
+                    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                    $mail->SMTPOptions = array(
+                        'ssl' => array(
+                            'verify_peer' => false,
+                            'verify_peer_name' => false,
+                            'allow_self_signed' => true
+                        )
+                    );
+                    $mail->isSMTP();
+                    $mail->Host = 'localhost';
+                    $mail->SMTPAuth = false;
+                    $mail->SMTPAutoTLS = false;
+                    $mail->Port = 25;
+                
+                    //Recipients
+                    $mail->setFrom('support@travmaxholidays.com', 'Travmax');
+                    $mail->addAddress($_POST['email']);     //Add a recipient
+                    $mail->addReplyTo('info@travmaxholidays.com', 'Information');
+                    
+                    //Content
+                    $mail->isHTML(true);                                  //Set email format to HTML
+                    $mail->Subject = 'OTP';
+    
+    
+                    // Set the view content as the email body
+                    $mail->Body = 'OTP for Completing the registraton is this: ' . $otp;
+                    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    
+                    $mail->send();
+                } catch (Exception $e) {
+                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                }
+    
+                $email = $_POST['email'];
+                $db = db_connect();
+    
+                $existingRecord = $db->table('otp')->where('email', $email)->get();
+                
+                if ($existingRecord->getNumRows() > 0) {
+                    // If a record exists, update the OTP for that email
+                    $db->table('otp')->where('email', $email)->update(['otp' => $otp]);
+                } else {
+                    // If no record exists, insert a new one
+                    $data_to_store = [
+                        'email' => $email,
+                        'otp' => $otp
+                    ];
+                    $db->table('otp')->insert($data_to_store);
+                }
+                $data = array("status" => "error", "message" => "An OTP has been sent to your registered email. Please check and submit.");
+                header("Content-Type: application/json");
+                echo json_encode($data);
+                exit();
+                
+            }
+            else {
                 $data['status'] = 'error';
                 $data['message'] = 'Invalid OTP';
                 header('Content-Type: application/json');
                 echo json_encode($data);
                 exit();
             }
+            
         }
     }
 
