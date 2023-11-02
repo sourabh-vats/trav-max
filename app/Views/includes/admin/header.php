@@ -133,7 +133,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/admin/request-fund">
                                 <i class="bi-cash"></i>
-                                Payment Proof
+                                Payment
                             </a>
                         </li>
                         <li class="nav-item">
