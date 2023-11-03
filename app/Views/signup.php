@@ -62,6 +62,19 @@
             cursor:pointer;
             color:lightgray;
         }
+        #resend-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        #resend-otp {
+            cursor: pointer;
+            color: blue;
+        }
+        #resend-otp.disabled {
+            color: gray;
+            pointer-events: none;
+        }
 
         @media only screen and (max-width: 768px) {
             #container_div {
@@ -161,6 +174,12 @@
                         <input name="otp" type="text" class="form-control" id="otp" placeholder="Enter The OTP">
                         <label for="otp">OTP</label>
                     </div>
+
+                    <div class=" "id="resend-container">
+                    <span id="resend-otp" onclick="startTimer(120)">Resend OTP</span>
+                    <span id="timer"></span>
+                    </div>
+
                     <!-- <input type="hidden" name="partner_type" value="<?php //echo $user_type; 
                                                                             ?>"> -->
                     <input type="hidden" name="booking_packages_number" value="<?php //echo $booking_packages_number; 
@@ -228,6 +247,38 @@
         }
 
 });
+        //for resend otp 
+        let countdown;
+
+        function startTimer(seconds) {
+            const resendOtpSpan = document.getElementById('resend-otp');
+            const timerSpan = document.getElementById('timer');
+            resendOtpSpan.classList.add('disabled');
+            countdown = seconds;
+
+            function updateTimer() {
+                if (countdown === 0) {
+                    clearInterval(timerInterval);
+                    resendOtpSpan.classList.remove('disabled');
+                    timerSpan.innerText = '';
+                } else {
+                    const minutes = Math.floor(countdown / 60);
+                    const seconds = countdown % 60;
+                    const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                    resendOtpSpan.innerText = 'Resend OTP';
+                    timerSpan.innerText = `(${formattedTime})`;
+                    countdown--;
+                }
+            }
+            updateTimer();
+            const timerInterval = setInterval(updateTimer, 1000);
+        }
+            //working 
+        jQuery("#resend-otp").click(function() {
+            jQuery("#register-form").submit();
+            });
+
+
     jQuery("#register-form").submit(function(event) {
         event.preventDefault();
         jQuery("#loading_screen").removeClass("d-none");
@@ -245,10 +296,12 @@
                         jQuery("#signup_error").addClass("alert-primary");
                         jQuery("#signup_error").text(data.message);
                         jQuery("#otp_field").removeClass("d-none");
+                        jQuery("#resend-container").removeClass("d-none");
                         $("#email").parent().hide();
                         $("#f_name").parent().hide();
                         $("#l_name").parent().hide();
                         $("#phone").parent().hide();
+                        $(".dont").hide();
                         $("#password").parent().hide();
                         $("#cpassword").parent().hide();
                         $("#trav_id").parent().hide();
