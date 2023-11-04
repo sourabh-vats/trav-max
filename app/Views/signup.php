@@ -175,7 +175,7 @@
                         <label for="otp">OTP</label>
                     </div>
 
-                    <div class=" "id="resend-container">
+                    <div class="d-none "id="resend-container">
                     <span id="resend-otp" onclick="startTimer(120)">Resend OTP</span>
                     <span id="timer"></span>
                     </div>

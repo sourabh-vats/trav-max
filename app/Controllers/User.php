@@ -183,8 +183,10 @@ class User extends BaseController
             }
             
         }
+    
     }
 
+    
     function __encrip_password($password)
     {
         return md5($password);
