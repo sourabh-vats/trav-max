@@ -54,7 +54,6 @@
                             <a href="/terms_of_use">Terms And Conditions</a>
                             <div class="w-100 mt-3 text-center">
                             <a onclick="handleContinueClick()" id="confirm_btn" class="primary_btn" style="display: none">Continue</a>
-                            <a href="/signup/select_package" class="secondary_btn" style="display: none">Back</a>
                             </div>
                         </div>
                     </div>
@@ -72,7 +71,6 @@
                             <a href="/terms_of_use">Terms And Conditions</a>
                             <div class="w-100 mt-3 text-center">
                             <a onclick="handleContinueClick()" id="confirm_btn" class="primary_btn" style="display: none" >Continue</a>
-                            <a href="/signup/select_package" class="secondary_btn" style="display: none">Back</a>
                         </div>
                         </div>
                         
@@ -92,18 +90,13 @@
         const packageCards = document.querySelectorAll('.package_card');
         packageCards.forEach(packageCard => {
         const confirmBtn = packageCard.querySelector('#confirm_btn');
-        const backBtn = packageCard.querySelector('.secondary_btn');
 
         confirmBtn.style.display = 'none';
-        backBtn.style.display = 'none';
-
         packageCard.addEventListener('click', event => {
             if (highlightedPackageCard) {
                 highlightedPackageCard.querySelector('#confirm_btn').style.display = 'none';
-                highlightedPackageCard.querySelector('.secondary_btn').style.display = 'none';
                 }
         confirmBtn.style.display = 'inline-block';
-        backBtn.style.display = 'inline-block';
         highlightedPackageCard = packageCard;
     });
 
