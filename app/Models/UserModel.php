@@ -286,8 +286,8 @@ class UserModel extends Model
     }
 
     function create_member()
-    {
-        
+    {   
+                $db = db_connect();
                 $booking_packages_number = 1;
 
                 if ($_POST["signupType"] == "freeSignup") {
