@@ -166,7 +166,7 @@
                     </div>
                      <!-- i dont know  -->
                      <div class="form-floating mb-3">
-                        <span class="dont" id="refergen" >I don`t know</span>
+                        <span class="dont" id="refergen" >I don't know</span>
                     </div>
 
 
