@@ -15,20 +15,24 @@ class API extends BaseController
 
     public function get_partnership()
     {
-        $db = db_connect();
-        $query = $db->query('select * from partnership where user_id = "' . $_POST["userId"] . '"');
-        $row = $query->getRowArray();
-        if ($row != null) {
-            $data = [
-                'status' => "success",
-                'data' => $row,
-            ];
-        } else {
-            $data = [
-                'status' => "fail",
-                'data' => "No partnership found for the user.",
-            ];
-        }
+        $data = [
+            'status' => "fail",
+            'data' => "No partnership found for the user.",
+        ];
+        // $db = db_connect();
+        // $query = $db->query('select * from partnership where user_id = "' . $_POST["userId"] . '"');
+        // $row = $query->getRowArray();
+        // if ($row != null) {
+        //     $data = [
+        //         'status' => "success",
+        //         'data' => $row,
+        //     ];
+        // } else {
+        //     $data = [
+        //         'status' => "fail",
+        //         'data' => "No partnership found for the user.",
+        //     ];
+        // }
 
         return $this->response->setJSON($data);
     }
