@@ -643,71 +643,70 @@ class Profile extends BaseController
 
     public function kyc()
     {
-        $user_model = model('UserModel');
+        $userModel = model('UserModel'); 
         $session = session();
         $validation = \Config\Services::validation();
         $id = $session->get('cust_id');
         $customer_id = $session->get('bliss_id');
-
+    
         if ($this->request->getMethod() === 'post') {
-            $validation->setRules([
+            $rules = [
+                'pancard' =>'regex_match[/[A-Z]{5}[0-9]{4}[A-Z]{1}$/]' ,
+                'aadhar' =>'regex_match[/^\d{4}\s\d{4}\s\d{4}$/]' ,
                 'bank_name' => 'required|trim',
-                //'branch' => 'required|trim',
                 'account_name' => 'required',
-                //'account_type' => 'required|trim',
-                'account_no' => 'required|trim',
+                'account_no' => 'required|trim|regex_match[/^\d{9,18}$/]',
                 'ifsc' => 'required'
-            ]);
-
-            if ($validation->withRequest($this->request)->run()) {
+            ];
+    
+            if ($this->validate($rules)) {
+                $applied_pan='no';
                 $panimage = '';
                 $uploadConfig = [
-                    'path' => 'images/user/',
-                    'allowed_types' => 'gif|jpg|png|jpeg',
-                    'max_width' => 1024,
-                    'max_height' => 1024
+                    'path' => WRITEPATH . 'images/user/', 
+                    'allowedTypes' => 'gif|jpg|png|jpeg',
+                    'maxSize' => 1024
                 ];
-                $upload = $this->upload->withConfig($uploadConfig);
-
-                if ($panimageFile = $this->request->getFile('panimage')) {
-                    if ($this->request->getPost('panimage_old') != '') {
-                        unlink('images/user/' . $this->request->getPost('panimage_old'));
-                    }
-
-                    if ($upload->doUpload('panimage')) {
-                        $panimage = $upload->getName();
-                    } else {
-                        $panimage = $this->request->getPost('panimage_old');
+                $file = $this->request->getFile('panimage');
+                $applied_pan=$this->request->getPost('applied_pan');
+                if ($file->isValid() && !$file->hasMoved()) {
+                    if ($file->move($uploadConfig['path'], $file->getName())) {
+                        $panimage = $file->getName();
                     }
                 }
-
+                $applied_aadhar='no';
                 $aadharimage = '';
-                if ($aadharimageFile = $this->request->getFile('aadharimage')) {
-                    if ($this->request->getPost('aadharimage_old') != '') {
-                        unlink('images/user/' . $this->request->getPost('aadharimage_old'));
-                    }
+                $uploadConfig = [
+                    'path' => WRITEPATH . 'images/user/', 
+                    'allowedTypes' => 'gif|jpg|png|jpeg',
+                    'maxSize' => 1024 
+                ];
+                $file = $this->request->getFile('aadharimage');
+                $applied_aadhar=$this->request->getPost('applied_aadhar');
 
-                    if ($upload->doUpload('aadharimage')) {
-                        $aadharimage = $upload->getName();
-                    } else {
-                        $aadharimage = $this->request->getPost('aadharimage_old');
+                if ($file->isValid() && !$file->hasMoved()) {
+                    if ($file->move($uploadConfig['path'], $file->getName())) {
+                        $aadharimage = $file->getName();
                     }
                 }
 
                 $cheque_img = '';
-                if ($chequeImgFile = $this->request->getFile('cheque_img')) {
-                    if ($this->request->getPost('cheque_img_old') != '') {
-                        unlink('images/user/' . $this->request->getPost('cheque_img_old'));
-                    }
-
-                    if ($upload->doUpload('cheque_img')) {
-                        $cheque_img = $upload->getName();
-                    } else {
-                        $cheque_img = $this->request->getPost('cheque_img_old');
+                $uploadConfig = [
+                    'path' => WRITEPATH . 'images/user/', 
+                    'allowedTypes' => 'gif|jpg|png|jpeg',
+                    'maxSize' => 1024 
+                ];
+                $file = $this->request->getFile('cheque_img');
+    
+                if ($file->isValid() && !$file->hasMoved()) {
+                    if ($file->move($uploadConfig['path'], $file->getName())) {
+                        $cheque_img = $file->getName();
                     }
                 }
+                $var_status='no';
+                $var_status=$this->request->getPost('var_status');
 
-                $data_to_store = [
+                $dataToStore = [
                     'pancard' => $this->request->getPost('pancard'),
                     'applied_pan' => $applied_pan,
                     'panimage' => $panimage,
@@ -726,22 +725,30 @@ class Profile extends BaseController
                     'ifsc' => $this->request->getPost('ifsc'),
                     'var_status' => $var_status
                 ];
-
-                $return = $user_model->update_profile($id, $data_to_store);
-
-                if ($return == true) {
+    
+                $return = $userModel->update_profile($id, $dataToStore); 
+    
+                if ($return) {
                     $session->setFlashdata('flash_message', 'updated');
-                    return redirect()->to(base_url() . 'admin/kyc');
+                    return redirect()->to(base_url('admin/kyc'));
                 } else {
                     $session->setFlashdata('flash_message', 'not_updated');
                 }
+            } else{
+                $errors = $validation->getErrors();
+                $value = empty($errors) ? "" : reset($errors);
+                $data = array("status" => "error", "message" => $value);
+                $session->setFlashdata('flash_message', $value);
+                return redirect()->to(base_url('admin/kyc'));
+                
             }
         }
-
-        $data['profile'] = $user_model->profile($id);
+    
+        $data['profile'] = $userModel->profile($id);
         $data['main_content'] = 'admin/kyc';
         return view('includes/admin/template', $data);
     }
+    
 
     public function installments()
     {
