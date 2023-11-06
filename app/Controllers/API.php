@@ -15,6 +15,8 @@ class API extends BaseController
 
     public function get_partnership()
     {
+        echo "test";
+        die();
         $data = [
             'status' => "fail",
             'data' => "No partnership found for the user.",
@@ -34,7 +36,7 @@ class API extends BaseController
         //     ];
         // }
 
-        return $this->response->setJSON($data);
+        //return $this->response->setJSON($data);
     }
 
     public function set_partnership()
