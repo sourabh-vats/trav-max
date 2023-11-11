@@ -3,7 +3,7 @@
     <?php if($profile[0]["status"] == "hold") {
         echo '
         <div class="alert alert-primary" role="alert">
-            <strong>Your confirmation is pending we are working on it.</strong>
+            <strong>Your confirmation is pending and we are working on it.</strong>
         </div>';
     } ?>
     <?= $this->include($main_content); ?>
