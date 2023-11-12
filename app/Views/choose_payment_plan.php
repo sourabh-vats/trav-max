@@ -60,7 +60,7 @@ switch ($plan) {
     }
 
     #pick_a_plan_selected_package_name,
-    #booking_packages_number{
+    #booking_packages_number {
         color: tomato;
     }
 </style>
@@ -151,8 +151,37 @@ switch ($plan) {
             link = original_link;
             link = link + planName;
             $("#confirm_btn").attr("href", link);
+            $("#confirm_btn").attr("plan", planName);
             $("#confirm_btn").removeClass("d-none");
-        })
+        });
+        $("#confirm_btn").click(function(event) {
+            event.preventDefault();
+            let searchParams = new URLSearchParams(window.location.search)
+            let package = searchParams.get('package');
+            let partnership = searchParams.get('plan');
+            $.ajax('/api/set_partnership', {
+                dataType: 'json',
+                type: 'POST', // http method
+                data: {
+                    packageId: package,
+                    partnership: partnership,
+                    plan: $("#confirm_btn").attr("plan")
+                }, // data to submit
+                success: function(response, status, xhr) {
+                    console.log(response);
+                    if (response.status == "success") {
+                        window.location.replace($("#confirm_btn").attr("href"));
+                    } else if (response.status == "fail") {
+                        alert("Unable to handle request 1.")
+                    } else {
+                        alert("Unable to handle request 2.")
+                    }
+                },
+                error: function(jqXhr, textStatus, errorMessage) {
+                    console.log(errorMessage);
+                }
+            });
+        });
     </script>
 </body>
 

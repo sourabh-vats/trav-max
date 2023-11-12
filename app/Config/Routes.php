@@ -75,11 +75,12 @@ $routes->match(['get', 'post'],'admin/kyc', 'Profile::kyc');
 $routes->match(['get', 'post'],'admin/profile', 'Profile::profile');
 $routes->match(['get', 'post'],'admin/update_profile', 'Profile::update_profile');
 
+
 /*Distributor Level Information*/
 $routes->match(['get', 'post'],'admin/DistributorLevelInformation', 'DistributorLevelInformation::index');
 
-/*Installments*/
 $routes->get('admin/installments', 'Profile::installments');
+$routes->get('admin/mypurchases', 'Profile::mypurchases');
 
 $routes->get('admin/travelcenter', 'Profile::travelcenter');
 $routes->get('admin/businesscenter', 'Profile::businesscenter');
@@ -94,6 +95,8 @@ $routes->get('admin/teamincome', 'Profile::teamincome');
 
 // APIs
 $routes->get('admin/get_notification', 'Profile::teamincome');
+$routes->post('api/get_partnership', 'Api::get_partnership');
+$routes->post('api/set_partnership', 'Api::set_partnership');
 
 /*
  * --------------------------------------------------------------------

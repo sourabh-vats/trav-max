@@ -40,24 +40,29 @@
             padding: 16px 12px;
         }
 
-        #login_other_options{
+        #login_other_options {
             display: flex;
             align-items: center;
             justify-content: space-evenly;
             margin-top: 20px;
         }
 
-        #login_other_options a{
+        #login_other_options a {
             text-decoration: none;
         }
 
-       
-        .fa-eye,.fa-eye-slash{
+
+        .fa-eye,
+        .fa-eye-slash {
             position: absolute;
-            top:40%;
-            right:4%;
-            cursor:pointer;
-            color:lightgray;
+            top: 40%;
+            right: 4%;
+            cursor: pointer;
+            color: lightgray;
+        }
+
+        #error {
+            display: none;
         }
 
         @media only screen and (max-width: 768px) {
@@ -81,6 +86,9 @@
                     <a href="/">
                         <img height="40px" src="/images/logo.png" alt="">
                     </a>
+                </div>
+                <div id="error" class="alert alert-danger" role="alert">
+                    A simple danger alert—check it out!
                 </div>
                 <form id="login-form" action="" method="POST">
                     <div class="alert alert-danger text-center d-none" id="login_error" role="alert">
@@ -110,20 +118,20 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script>
-    function togglePass() {
-    const passwordInput = document.getElementById("password");
-    const showPassIcon = document.getElementById("show-pass");
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        showPassIcon.classList.remove("fa-eye");
-        showPassIcon.classList.add("fa-eye-slash");
-    } else {
-        passwordInput.type = "password";
-        showPassIcon.classList.remove("fa-eye-slash");
-        showPassIcon.classList.add("fa-eye");
-    }
-}
-</script>
+        function togglePass() {
+            const passwordInput = document.getElementById("password");
+            const showPassIcon = document.getElementById("show-pass");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                showPassIcon.classList.remove("fa-eye");
+                showPassIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                showPassIcon.classList.remove("fa-eye-slash");
+                showPassIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
 
 </body>
 
@@ -142,12 +150,46 @@
             url: "/login",
             data: jQuery("#login-form").serialize(),
             success: function(data) {
-                console.log(data);
-                if (data.indexOf("alert alert-success") == -1) {
-                    jQuery("#loading_screen").addClass("d-none");
-                    jQuery("#login-msg-div").html(data);
+                data = JSON.parse(data);
+                if (data.login == "true") {
+                    if (data.role != "partner") {
+                        window.location.replace("/admin");
+                    } else {
+                        $.ajax('/api/get_partnership', {
+                            dataType: 'json',
+                            type: 'POST', // http method
+                            data: {
+                                userId: data.id
+                            }, // data to submit
+                            success: function(response, status, xhr) {
+                                if (response.status == "success") {
+                                    if (response.data.type == "") {
+                                        window.location.replace("/signup/choose_partnership?package=" + response.data.package_id);
+                                    } else if (response.data.plan == "") {
+                                        window.location.replace("/signup/choose_payment_plan?plan=" + response.data.type + "&package=" + response.data.package_id);
+                                    }else{
+                                        window.location.replace("/signup/confirm_plan?package="+response.data.package_id+"&plan="+response.data.type+"&payment_plan="+response.data.plan);
+                                    }
+                                } else if (response.status == "fail") {
+                                    window.location.replace("/signup/select_package");
+                                } else {
+                                    console.log("Some error happend. Please come back.");
+                                }
+                            },
+                            error: function(jqXhr, textStatus, errorMessage) {
+                                console.log(errorMessage);
+                            }
+                        });
+
+                    }
+                } else if (data.login == "false") {
+                    $("#error").text("The username or password you entered is incorrect.");
+                    $("#error").show();
+                    $("#loading_screen").addClass("d-none");
                 } else {
-                    window.location.replace("/admin");
+                    $("#error").text("Some error occurred. Please try again later.");
+                    $("#error").show();
+                    $("#loading_screen").addClass("d-none");
                 }
             }
         });

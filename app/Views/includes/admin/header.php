@@ -49,6 +49,8 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
 </style>
 
 <body>
+    <input type="hidden" id="user_role" value="<?= $profile["0"]["role"] ?>">
+    <input type="hidden" id="user_id" value="<?= $profile["0"]["id"] ?>">
     <header id="header_navbar" class="navbar navbar-light sticky-top flex-md-nowrap p-0">
         <a class="navbar-brand text-center col-md-3 col-lg-2 me-0 px-3 fs-6" href="/"><img class="img-fluid" width="200" src="/images/logo_white.png"></a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,7 +123,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                                 Invite Friends
                             </a>
                         </li>
-                        <?php if ($profile[0]["role"] == "micro") {
+                        <!-- <?php if ($profile[0]["role"] == "micro") {
                         } else { ?>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="/admin/installments">
@@ -129,7 +131,13 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                                     Installments
                                 </a>
                             </li>
-                        <?php } ?>
+                        <?php } ?> -->
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/admin/mypurchases">
+                                <i class="bi-cash"></i>
+                                My Purchases
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/admin/request-fund">
                                 <i class="bi-cash"></i>
