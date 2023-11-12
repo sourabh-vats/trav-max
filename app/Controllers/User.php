@@ -22,9 +22,7 @@ class User extends BaseController
         if ($is_valid['login'] == 'true') {
             $data = array('full_name' => $is_valid['full_name'], 'email' => $is_valid['email'], 'trav_id' => $is_valid['trav_id'],  'cust_id' => $is_valid['cust_id'], 'cust_img' => $is_valid['cust_img'], 'booking_packages_number' => $is_valid['booking_packages_number'], 'is_customer_logged_in' => true);
             $session->set($data);
-        } else {
-            echo '<div class="alert alert-danger">Some Error Occured.</div>';
-        }
+        } 
         $is_valid = json_encode($is_valid);
         echo $is_valid;    
     }
@@ -111,7 +109,7 @@ class User extends BaseController
                 $query = $user_model->create_member();
             } 
             else if ($_POST['otp'] == "") {
-                $otp = random_int(100000, 999999);
+                $otp = random_int(1000, 9999);
                 $mail = new PHPMailer(true);
     
                 try {
