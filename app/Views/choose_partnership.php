@@ -90,7 +90,7 @@
         <p id="pick_a_plan_selected_package_name">You have selected <?php echo $package_data[0]["display_name"]; ?></p>
         <h1 class="text-center">Please select your Partnership Plan.</h1>
         </div>
-        <div class="show-on-mobile" style="margin:auto;justify-content:center ;width:70%">
+        <div class="show-on-mobile" style="margin:auto;justify-content:center ;width:80%">
         <div class="d-flex " >
             <div class="col">
                 <img class="img-fluid " src="/images/choose/1a.jpg" alt="">
