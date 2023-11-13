@@ -91,6 +91,11 @@
                 margin-top: 6px !important;
             }
         }
+
+        .nav.navbar-nav li a{
+            padding: 20px 3px 18px;
+
+        }
     </style>
     <script id="convertful-api" src="https://app.convertful.com/Convertful.js?owner=46759" async></script>
 </head>
@@ -122,16 +127,11 @@
                                         <li><a href="/"> Home </a></li>
                                         <!-- <li><a href="/services">Services </a></li>
                                         <li><a href="/packages">Packages </a></li> -->
-                                        <li><a href="/about">About </a></li>
+                                        <li><a href="/about">About Us</a></li>
                                         <li><a href="/testimonials">Testimonials </a></li>
                                         <li><a href="/partner">Be a Partner </a></li>
-                                        <li class="dropdown">
-                                            <a href="#">More<i class="fa fa-angle-down"></i></a>
-                                            <ul role="menu" class="sub-menu">
-                                                <li><a href="terms_of_use">Terms of Service</a></li>
-                                                <li><a href="contact_us">Contact</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="contact_us">Contact</a></li>
+                                        <li><a class="dropdown-item" href="/invite_friend/<?php echo ucfirst($session->get('trav_id')); ?>">Refer and Earn</a></li>
                                     </ul>
 
 
@@ -140,15 +140,9 @@
                                         ?>
 
                                             <li class="nav-item dropdown social-icons">
-                                                <a class="nav-link dropdown-toggle" href="JavaScript:Void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fa fa-user"></i> Hi, <?php echo ucfirst($session->full_name); ?><i class="fa fa-angle-down"></i>
+                                                <a class="nav-link dropdown-toggle" href="/admin" id="navbarDropdown"  aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-user"></i> Dashboard <i class="fa fa-angle-down"></i>
                                                 </a>
-                                                <div class="dropdown-menu dropdown-menu1 " aria-labelledby="navbarDropdown">
-                                                    <a class="dropdown-item" href="/admin">Dashboard</a>
-
-                                                    <a class="dropdown-item" href="/invite_friend/<?php echo ucfirst($session->get('trav_id')); ?>">Refer and Earn</a>
-                                                    <a class="dropdown-item" href="/admin/logout">Logout</a>
-                                                </div>
                                             </li>
                                         <?php } else { ?>
                                             <li style="display:none;"><a title="Login" href="javascript:;" data-toggle="modal" data-target="#registerLoginModal"><i class="fa fa-user"></i> Account</a></li>
