@@ -52,6 +52,11 @@ switch ($plan) {
 </head>
 <style>
 
+
+.form-check-input {
+    background-color: #a1b3e3; /* Hide the default checkbox */
+        }
+
 </style>
 
 <body>
