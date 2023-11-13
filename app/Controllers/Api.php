@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class API extends BaseController
+class Api extends BaseController
 {
     public function __construct()
     {
