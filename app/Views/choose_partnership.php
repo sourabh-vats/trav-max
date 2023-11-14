@@ -105,8 +105,8 @@
                 <img class="img-fluid" src="/images/choose/4a.jpg" alt="">
             </div>
         </div>
-        <a href="/signup/choose_payment_plan?plan=micro1x<?php echo isset($_GET['package']) ? '&package=' . $_GET['package'] : ''; ?> " onclick="handleImageClick(event)">
-        <div class="d-flex img-fluid plan " >
+        <a href="/signup/choose_payment_plan?plan=micro1x<?php echo isset($_GET['package']) ? '&package=' . $_GET['package'] : ''; ?> " >
+        <div class="d-flex img-fluid plan " onclick="handleImageClick(event)" >
             <div class="col">
                 <img class="img-fluid " id="myImage" src="/images/choose/1x.jpg" >
             </div>
