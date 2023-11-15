@@ -142,6 +142,72 @@
             padding-left: 0rem !important;
         }
     }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1030;
+    }
+
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px 30px;
+        z-index: 1000;
+        width: 90%;
+        max-width: 400px;
+        text-align: left;
+    }
+
+    .popup-body>a {
+        color: #000;
+        margin-bottom: 20px;
+        display: flex;
+
+    }
+
+    .close-popup {
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    .popup-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .popup-body {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .icon {
+        border: 1px solid gray;
+        border-radius: 25px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .icon>img {
+        height: 15px;
+        width: 15px;
+
+    }
 </style>
 <div class="alert alert-success d-none" role="alert" id="copy_success">
     Link Copied Successfully!
@@ -154,12 +220,50 @@
                 <h3 class="refer-meta-data">Invite Friends &amp; Earn Points For Every Friend</h3>
             </header>
             <div class="hero-img-container"><img src="/images/Referral-image-Desktop.webp" loading="eager"></div>
-            <!-- <div class="referral-code"><span class="">Referral Code:</span>
-            <?php echo $cust_id; ?>
-            </div> -->
+            <div class="overlay" id="overlay">
+                <div class="popup" id="popup">
+                    <div class="popup-header">
+
+                        <h3>Share Via</h3>
+                        <span class="close-popup" id="close-popup">&times;</span>
+                    </div>
+                    <div class="popup-body">
+                        <a href="#" onclick="shareOnWhatsApp()">
+                            <div style="display: flex; align-items:center">
+                                <div class="icon"><img src="/images/whatsapp.png" /></div>
+                                <div style="margin-left: 10px; ">WhatsApp</div>
+                            </div>
+                        </a>
+                        <a href="#" onclick="shareOnInstagram()">
+                            <div style="display: flex; align-items:center">
+                                <div class="icon"><img src="/images/instagram.png" /></div>
+                                <div style="margin-left: 10px;">Instagram </div>
+                            </div>
+                        </a>
+                        <a href="#" onclick="shareOnFacebook()">
+                            <div style="display: flex; align-items:center">
+                                <div class="icon"><img src="/images/facebook.png" /></div>
+                                <div style="margin-left: 10px;">Facebook </div>
+                            </div>
+                        </a>
+                        <a href="#" onclick="shareOnTwitter()">
+                            <div style="display: flex; align-items:center">
+                                <div class="icon"><img src="/images/twitter.png" /></div>
+                                <div style="margin-left: 10px;">Twitter </div>
+                            </div>
+                        </a>
+                        <a href="#" onclick="copyLink()" style="padding-bottom: 0px;">
+                            <div style="display: flex; align-items:center">
+                                <div class="icon"><img src="/images/chain.png" /></div>
+                                <div style="margin-left: 10px;"> Copy Link</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="referral-code"><span class="">Referral Code:</span>
                 <input id="the_text" type="hidden" value="<?php echo base_url() ?>signup?refer_id=<?php echo $cust_id; ?>" size="50">
-                <h2><?php echo $cust_id; ?></h2><button type="button" onclick="copyById('the_text')"><img class="referral-sm-icons" src="/images/copy.png" alt="Copy icon"><span>copy</span></button><button type="button"><img class="referral-sm-icons" src="/images/share.png" alt="Share icon"><span>share</span></button>
+                <h2><?php echo $cust_id; ?></h2><button type="button" onclick="copyById('the_text')"><img class="referral-sm-icons" src="/images/copy.png" alt="Copy icon"><span>copy</span></button><button type="button" class="share-button"><img class="referral-sm-icons" src="/images/share.png" alt="Share icon"><span>share</span></button>
             </div>
         </div>
     </main>
@@ -201,5 +305,43 @@
         textarea.remove()
         $("#copy_success").removeClass("d-none");
 
+    }
+    $(document).ready(function() {
+        $(".share-button").click(function() {
+            $("#overlay").fadeIn();
+        });
+
+        $("#close-popup").click(function() {
+            $("#overlay").fadeOut();
+        });
+    });
+
+    function shareOnWhatsApp() {
+        var shareURL = '<?php echo base_url() ?>signup?refer_id=<?php echo $profile[0]['customer_id']; ?>';
+        var imageURL = 'http://localhost:8080/images/addidas.png';
+
+        var whatsappURL = 'https://api.whatsapp.com/send?' +
+            'text=' + encodeURIComponent(shareURL) +
+            '&media=' + encodeURIComponent(imageURL);
+
+        window.open(whatsappURL, '_blank');
+    }
+
+    function shareOnInstagram() {
+        var shareURL = '<?php echo base_url() ?>signup?refer_id=<?php echo $profile[0]['customer_id']; ?>';
+        var instagramURL = 'https://www.instagram.com/create/story/' +
+            '?url=' + encodeURIComponent(shareURL);
+        window.open(instagramURL, '_blank');
+    }
+
+    function copyLink() {
+        var shareURL = '<?php echo base_url() ?>signup?refer_id=<?php echo $profile[0]['customer_id']; ?>';
+        var input = document.createElement('input');
+        input.value = shareURL;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        alert('Link copied to clipboard');
     }
 </script>
