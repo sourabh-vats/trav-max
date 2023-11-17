@@ -54,6 +54,7 @@ $routes->get('mega', 'Page::mega');
 $routes->get('logout', 'User::logout');
 $routes->match(['get', 'post'],'feedback', 'Page::feedback');
 $routes->match(['get', 'post'],'invite_friend/(:any)', 'Page::invite_friend/$1');
+$routes->match(['get', 'post'],'admin/refer_and_earn/(:any)', 'Profile::refer_and_earn/$1');
 $routes->get('test_mail', 'Page::test_mail');
 
 
@@ -97,6 +98,7 @@ $routes->get('admin/teamincome', 'Profile::teamincome');
 $routes->get('admin/get_notification', 'Profile::teamincome');
 $routes->post('api/get_partnership', 'Api::get_partnership');
 $routes->post('api/set_partnership', 'Api::set_partnership');
+$routes->post('api/notification', 'Api::notification');
 
 /*
  * --------------------------------------------------------------------

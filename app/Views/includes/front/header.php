@@ -92,6 +92,43 @@
             }
         }
 
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .close-button {
+            color: white;
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #floating-text {
+            padding: 3px 10px;
+        }
+
+        .floating-div {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 999;
+            display: flex;
+            /* display: none; Initially hide the div */
+        }
+
         .nav.navbar-nav li a{
             padding: 20px 3px 18px;
 
@@ -134,6 +171,10 @@
                                         <li><a class="dropdown-item" href="/invite_friend/<?php echo ucfirst($session->get('trav_id')); ?>">Refer and Earn</a></li>
                                     </ul>
 
+                                    <div id="floatingDiv" class="floating-div">
+                                        <div id="floating-text">Floating Div</div>
+                                        <span class="close-button" onclick="this.parentElement.style.display='none';">&times;</span>
+                                    </div>
 
                                     <ul class="nav navbar-nav navbar-right ">
                                         <?php if ($session->has('is_customer_logged_in')) {
@@ -194,6 +235,32 @@
                     }
                 });
             }
+        });
+
+        function showNotification(content) {
+            var notification = document.getElementById("floating-text");
+            notification.textContent = content;
+            $('#floatingDiv').show();
+        }
+
+        $(document).ready(function() {
+            $('#floatingDiv').hide();
+            <?php if ($session->has('is_customer_logged_in')) : ?>
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/notification',
+                    success: function(data) {
+                        if (data.status == "success") {
+                            showNotification(data.data.notify_msg);
+                        }else{
+                            console.log(data.data)
+                        }
+                    },
+                    error: function(error) {
+                        console.log('Error fetching notification content:', error);
+                    }
+                });
+            <?php endif; ?>
         });
     </script>
 </body>

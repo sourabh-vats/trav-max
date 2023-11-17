@@ -118,9 +118,9 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link blinking" aria-current="page" href="/invite_friend/<?php echo $session->trav_id; ?>">
+                            <a class="nav-link blinking" aria-current="page" href="/admin/refer_and_earn/<?php echo $session->trav_id; ?>">
                                 <i class="bi-share-fill"></i>
-                                Invite Friends
+                                Refer & Earn
                             </a>
                         </li>
                         <!-- <?php if ($profile[0]["role"] == "micro") {

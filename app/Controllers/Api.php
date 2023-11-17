@@ -71,4 +71,24 @@ class Api extends BaseController
 
         return $this->response->setJSON($data);
     }
+    public function notification()
+    {
+        $session = session();
+        $userId = $session->get("trav_id");       
+        $db = db_connect();
+        $query = $db->query('select notify_msg from notify where cust_id = "' . $userId . '"');
+        $row = $query->getRowArray();
+        if ($row != null) {
+            $data = [
+                'status' => "success",
+                'data' => $row,
+            ];
+        } else {
+            $data = [
+                'status' => "fail",
+                'data' => "No Notification found for the user.",
+            ];
+        }
+        return $this->response->setJSON($data);
+    }
 }
