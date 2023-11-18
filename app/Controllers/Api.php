@@ -74,7 +74,7 @@ class Api extends BaseController
     public function notification()
     {
         $session = session();
-        $userId = $session->get("trav_id");       
+        $userId = $session->get("trav_id");
         $db = db_connect();
         $query = $db->query('select notify_msg from notify where cust_id = "' . $userId . '"');
         $row = $query->getRowArray();
@@ -89,6 +89,29 @@ class Api extends BaseController
                 'data' => "No Notification found for the user.",
             ];
         }
+        return $this->response->setJSON($data);
+    }
+    
+    public function delete_notification()
+    {
+        $session = session();
+        $userId = $session->get("trav_id");
+
+        $db = db_connect();
+        $query = $db->query("DELETE FROM notify WHERE cust_id = '$userId'");
+
+        if ($query) {
+            $data = [
+                'status' => 'success',
+                'message' => 'Data deleted successfully.'
+            ];
+        } else {
+            $data = [
+                'status' => 'error',
+                'message' => 'Error deleting data from the database.'
+            ];
+        }
+
         return $this->response->setJSON($data);
     }
 }
