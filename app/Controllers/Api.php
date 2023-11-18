@@ -1,6 +1,13 @@
 <?php
 
 namespace App\Controllers;
+require 'lib/PHPMailer/src/Exception.php';
+require 'lib/PHPMailer/src/PHPMailer.php';
+require 'lib/PHPMailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class Api extends BaseController
 {
@@ -112,6 +119,73 @@ class Api extends BaseController
             ];
         }
 
+        return $this->response->setJSON($data);
+    }
+
+    public function send_mail(){
+
+        $to = $this->request->getPost('to');
+        $subject = $this->request->getPost('subject');
+        $message = $this->request->getPost('message');
+        $mail = new PHPMailer(true);
+        try {
+            //Server settings
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            
+            //for server settings
+            // $mail->isSMTP();
+            // $mail->Host = 'localhost';
+            // $mail->SMTPAuth = false;
+            // $mail->SMTPAutoTLS = false;
+            // $mail->Port = 25;
+        
+            // //Recipients
+            // $mail->setFrom('support@travmaxholidays.com', 'Travmax');
+            // $mail->addAddress($to);     //Add a recipient
+            // $mail->addReplyTo('info@travmaxholidays.com', 'Information');
+            //end of server settings
+
+            //For local settings
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
+            $mail->Password   = 'D523B4735BB9E3503EF9C1257E0FBD6AD5BF';                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;
+
+            //Recipients
+            $mail->setFrom('sourabhvats96@gmail.com', 'Travmax');
+            $mail->addAddress($to);     //Add a recipient
+            $mail->addReplyTo('info@travmaxholidays.com', 'Information');
+            //end of local settings
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = $subject;
+
+
+            // Set the view content as the email body
+            $mail->Body = $message;
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+            $data = [
+                'status' => 'success',
+                'message' => 'Email sent successfully.'
+            ];
+        } catch (Exception $e) {
+            $data = [
+                'status' => 'error',
+                'message' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"
+            ];       
+         }
         return $this->response->setJSON($data);
     }
 }
