@@ -44,8 +44,6 @@ function send_sms($numbers, $message, $apiKey = "NGYzMzQ2NGU3MjQxNmYzMjRlNTQ2OTc
     $response = curl_exec($ch);
     curl_close($ch);
     $result = json_decode($response, true);
-    var_dump($result);
-    die();
     if ($result && isset($result['status'])) {
         if ($result['status'] == 'success') {
             // SMS sent successfully
