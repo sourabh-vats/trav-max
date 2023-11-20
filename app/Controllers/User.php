@@ -115,11 +115,7 @@ class User extends BaseController
                 $result = send_sms($numbers, $message);
 
                 if ($result === true) {
-                    echo 'SMS sent successfully.';
-                } elseif ($result === 'Insufficient credits') {
-                    echo 'Failed to send SMS: Insufficient credits.';
-                } elseif ($result === 'Invalid number') {
-                    echo 'Failed to send SMS: Invalid number.';
+                    
                 } else {
                     echo 'Failed to send SMS: ' . $result;
                 }
@@ -176,7 +172,7 @@ class User extends BaseController
                     ];
                     $db->table('otp')->insert($data_to_store);
                 }
-                $data = array("status" => "error", "message" => "An OTP has been sent to your registered email. Please check and submit.");
+                $data = array("status" => "error", "message" => "An OTP has been sent to your registered email and mobile number. Please check and submit.");
                 header("Content-Type: application/json");
                 echo json_encode($data);
                 exit();
