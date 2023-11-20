@@ -99,6 +99,7 @@ $routes->get('admin/get_notification', 'Profile::teamincome');
 $routes->post('api/get_partnership', 'Api::get_partnership');
 $routes->post('api/set_partnership', 'Api::set_partnership');
 $routes->post('api/notification', 'Api::notification');
+$routes->get('api/get_otp', 'Api::get_otp');
 
 /*
  * --------------------------------------------------------------------

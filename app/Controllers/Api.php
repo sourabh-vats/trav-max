@@ -2,16 +2,18 @@
 
 namespace App\Controllers;
 
+helper('common');
+
 class Api extends BaseController
 {
-    public function __construct()
-    {
-        $session = session();
-        if (!$session->is_customer_logged_in) {
-            header('Location: /');
-            die();
-        }
-    }
+    // public function __construct()
+    // {
+    //     $session = session();
+    //     if (!$session->is_customer_logged_in) {
+    //         header('Location: /');
+    //         die();
+    //     }
+    // }
 
     public function get_partnership()
     {
@@ -74,7 +76,7 @@ class Api extends BaseController
     public function notification()
     {
         $session = session();
-        $userId = $session->get("trav_id");       
+        $userId = $session->get("trav_id");
         $db = db_connect();
         $query = $db->query('select notify_msg from notify where cust_id = "' . $userId . '"');
         $row = $query->getRowArray();
@@ -90,5 +92,24 @@ class Api extends BaseController
             ];
         }
         return $this->response->setJSON($data);
+    }
+
+    public function get_otp()
+    {
+        $otp = generate_otp();
+        $numbers = '919996250495';
+        $message = $otp .' is your travmax account verification code.';
+
+        $result = send_sms($numbers, $message);
+
+        if ($result === true) {
+            echo 'SMS sent successfully.';
+        } elseif ($result === 'Insufficient credits') {
+            echo 'Failed to send SMS: Insufficient credits.';
+        } elseif ($result === 'Invalid number') {
+            echo 'Failed to send SMS: Invalid number.';
+        } else {
+            echo 'Failed to send SMS: ' . $result;
+        }
     }
 }
