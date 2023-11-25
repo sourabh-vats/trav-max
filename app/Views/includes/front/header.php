@@ -193,10 +193,10 @@
                                             <li id="logout-btn"><a href="/admin/logout"><i class="fa fa-lock"></i> Logout</a></li>
                                         <?php } else { ?>
                                             <li class="drop-nav">
-                                                <a id="login_btn" href="/login_view"></i> Login</a>
+                                                <a id="login_btn" href="https://app.travmaxholidays.com/login_view"></i> Login</a>
                                             </li>
                                             <li class="drop-nav">
-                                                <a id="" href="/signup">Signup</a>
+                                                <a id="" href="https://app.travmaxholidays.com/signup">Signup</a>
                                             </li>
                                         <?php } ?>
                                     </ul>
