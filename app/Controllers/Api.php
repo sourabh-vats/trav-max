@@ -9,16 +9,18 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+helper('common');
+
 class Api extends BaseController
 {
-    public function __construct()
-    {
-        $session = session();
-        if (!$session->is_customer_logged_in) {
-            header('Location: /');
-            die();
-        }
-    }
+    // public function __construct()
+    // {
+    //     $session = session();
+    //     if (!$session->is_customer_logged_in) {
+    //         header('Location: /');
+    //         die();
+    //     }
+    // }
 
     public function get_partnership()
     {
@@ -98,94 +100,23 @@ class Api extends BaseController
         }
         return $this->response->setJSON($data);
     }
-    
-    public function delete_notification()
+
+    public function get_otp()
     {
-        $session = session();
-        $userId = $session->get("trav_id");
+        $otp = generate_otp();
+        $numbers = '919996250495';
+        $message = $otp .' is your travmax account verification code.';
 
-        $db = db_connect();
-        $query = $db->query("DELETE FROM notify WHERE cust_id = '$userId'");
+        $result = send_sms($numbers, $message);
 
-        if ($query) {
-            $data = [
-                'status' => 'success',
-                'message' => 'Data deleted successfully.'
-            ];
+        if ($result === true) {
+            echo 'SMS sent successfully.';
+        } elseif ($result === 'Insufficient credits') {
+            echo 'Failed to send SMS: Insufficient credits.';
+        } elseif ($result === 'Invalid number') {
+            echo 'Failed to send SMS: Invalid number.';
         } else {
-            $data = [
-                'status' => 'error',
-                'message' => 'Error deleting data from the database.'
-            ];
+            echo 'Failed to send SMS: ' . $result;
         }
-
-        return $this->response->setJSON($data);
-    }
-
-    public function send_mail(){
-
-        $to = $this->request->getPost('to');
-        $subject = $this->request->getPost('subject');
-        $message = $this->request->getPost('message');
-        $mail = new PHPMailer(true);
-        try {
-            //Server settings
-            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-            $mail->SMTPOptions = array(
-                'ssl' => array(
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                    'allow_self_signed' => true
-                )
-            );
-            
-            //for server settings
-            // $mail->isSMTP();
-            // $mail->Host = 'localhost';
-            // $mail->SMTPAuth = false;
-            // $mail->SMTPAutoTLS = false;
-            // $mail->Port = 25;
-        
-            // //Recipients
-            // $mail->setFrom('support@travmaxholidays.com', 'Travmax');
-            // $mail->addAddress($to);     //Add a recipient
-            // $mail->addReplyTo('info@travmaxholidays.com', 'Information');
-            //end of server settings
-
-            //For local settings
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
-            $mail->Password   = 'D523B4735BB9E3503EF9C1257E0FBD6AD5BF';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $mail->Port       = 465;
-
-            //Recipients
-            $mail->setFrom('sourabhvats96@gmail.com', 'Travmax');
-            $mail->addAddress($to);     //Add a recipient
-            $mail->addReplyTo('info@travmaxholidays.com', 'Information');
-            //end of local settings
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = $subject;
-
-
-            // Set the view content as the email body
-            $mail->Body = $message;
-            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-            $mail->send();
-            $data = [
-                'status' => 'success',
-                'message' => 'Email sent successfully.'
-            ];
-        } catch (Exception $e) {
-            $data = [
-                'status' => 'error',
-                'message' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"
-            ];       
-         }
-        return $this->response->setJSON($data);
     }
 }

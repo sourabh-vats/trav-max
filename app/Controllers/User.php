@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+helper('common');
+
 require 'lib/PHPMailer/src/Exception.php';
 require 'lib/PHPMailer/src/PHPMailer.php';
 require 'lib/PHPMailer/src/SMTP.php';
@@ -22,9 +24,9 @@ class User extends BaseController
         if ($is_valid['login'] == 'true') {
             $data = array('full_name' => $is_valid['full_name'], 'email' => $is_valid['email'], 'trav_id' => $is_valid['trav_id'],  'cust_id' => $is_valid['cust_id'], 'cust_img' => $is_valid['cust_img'], 'booking_packages_number' => $is_valid['booking_packages_number'], 'is_customer_logged_in' => true);
             $session->set($data);
-        } 
+        }
         $is_valid = json_encode($is_valid);
-        echo $is_valid;    
+        echo $is_valid;
     }
 
     function create_member()
@@ -47,19 +49,18 @@ class User extends BaseController
             header("Content-Type: application/json");
             echo json_encode($data);
             exit();
-        } 
-        else  {
+        } else {
             $number = $_POST["number"];
             $otp = $this->request->getPost('otp');
             $email = $this->request->getPost('email');
-            
+
             $db = db_connect();
             $builder = $db->table('customer');
             $builder->select('*');
             $builder->where('phone
             ', $_POST["number"]);
             $query = $builder->get();
-    
+
             if ($query->getNumRows() > 0) {
                 $data = array("status" => "error", "message" => "Phone number already exists.");
                 header("Content-Type: application/json");
@@ -75,43 +76,51 @@ class User extends BaseController
                 $data = array("status" => "error", "message" => "Email already exists.");
                 header("Content-Type: application/json");
                 echo json_encode($data);
-                exit();}
-            else
-                {
-                    $db = db_connect();
-                    $builder = $db->table('customer');
-                    $builder->select('*');
-                    $builder->where('customer_id', $_POST["trav_id"]);
-                    $query = $builder->get();
-                    $referralCustomer = $query->getRow();
-                    if ($query->getNumRows() == 0) {
-                        $data = array("status" => "error", "message" => "Referral ID doesn't exist.");
-                        header("Content-Type: application/json");
-                        echo json_encode($data);
-                        exit();
-                    } else  if ($referralCustomer->status != 'active') {
-                        $data = array("status" => "error", "message" => "Referral ID is not active.");
-                        header("Content-Type: application/json");
-                        echo json_encode($data);
-                        exit();
-                    }
+                exit();
+            } else {
+                $db = db_connect();
+                $builder = $db->table('customer');
+                $builder->select('*');
+                $builder->where('customer_id', $_POST["trav_id"]);
+                $query = $builder->get();
+                $referralCustomer = $query->getRow();
+                if ($query->getNumRows() == 0) {
+                    $data = array("status" => "error", "message" => "Referral ID doesn't exist.");
+                    header("Content-Type: application/json");
+                    echo json_encode($data);
+                    exit();
+                } else  if ($referralCustomer->status != 'active') {
+                    $data = array("status" => "error", "message" => "Referral ID is not active.");
+                    header("Content-Type: application/json");
+                    echo json_encode($data);
+                    exit();
+                }
             }
 
 
-                $otpRow = $db->table('otp')
+            $otpRow = $db->table('otp')
                 ->where('email', $email)
                 ->get()
                 ->getRow();
-            
+
             if ($otpRow && $otpRow->otp == $otp) {
                 $user_model = model('UserModel');
                 $session = session();
                 $query = $user_model->create_member();
-            } 
-            else if ($_POST['otp'] == "") {
-                $otp = random_int(1000, 9999);
+            } else if ($_POST['otp'] == "") {
+                $otp = generate_otp();
+                $numbers = '91' . $_POST["number"];
+                $message = $otp . ' is your travmax account verification code.';
+
+                $result = send_sms($numbers, $message);
+
+                if ($result === true) {
+                    
+                } else {
+                    echo 'Failed to send SMS: ' . $result;
+                }
                 $mail = new PHPMailer(true);
-    
+
                 try {
                     //Server settings
                     // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
@@ -127,31 +136,31 @@ class User extends BaseController
                     $mail->SMTPAuth = false;
                     $mail->SMTPAutoTLS = false;
                     $mail->Port = 25;
-                
+
                     //Recipients
                     $mail->setFrom('support@travmaxholidays.com', 'Travmax');
                     $mail->addAddress($_POST['email']);     //Add a recipient
                     $mail->addReplyTo('info@travmaxholidays.com', 'Information');
-                    
+
                     //Content
                     $mail->isHTML(true);                                  //Set email format to HTML
                     $mail->Subject = 'OTP';
-    
-    
+
+
                     // Set the view content as the email body
                     $mail->Body = 'OTP for Completing the registraton is this: ' . $otp;
                     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-    
+
                     $mail->send();
                 } catch (Exception $e) {
                     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                 }
-    
+
                 $email = $_POST['email'];
                 $db = db_connect();
-    
+
                 $existingRecord = $db->table('otp')->where('email', $email)->get();
-                
+
                 if ($existingRecord->getNumRows() > 0) {
                     // If a record exists, update the OTP for that email
                     $db->table('otp')->where('email', $email)->update(['otp' => $otp]);
@@ -163,25 +172,21 @@ class User extends BaseController
                     ];
                     $db->table('otp')->insert($data_to_store);
                 }
-                $data = array("status" => "error", "message" => "An OTP has been sent to your registered email. Please check and submit.");
+                $data = array("status" => "error", "message" => "An OTP has been sent to your registered email and mobile number. Please check and submit.");
                 header("Content-Type: application/json");
                 echo json_encode($data);
                 exit();
-                
-            }
-            else {
+            } else {
                 $data['status'] = 'error';
                 $data['message'] = 'Invalid OTP';
                 header('Content-Type: application/json');
                 echo json_encode($data);
                 exit();
             }
-            
         }
-    
     }
 
-    
+
     function __encrip_password($password)
     {
         return md5($password);
