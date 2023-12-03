@@ -129,7 +129,7 @@
             /* display: none; Initially hide the div */
         }
 
-        .nav.navbar-nav li a{
+        .nav.navbar-nav li a {
             padding: 20px 3px 18px;
 
         }
@@ -173,7 +173,7 @@
 
                                     <div id="floatingDiv" class="floating-div">
                                         <div id="floating-text">Floating Div</div>
-                                        <span class="close-button" onclick="this.parentElement.style.display='none';">&times;</span>
+                                        <span class="close-button" onclick="delete_notification();">&times;</span>
                                     </div>
 
                                     <ul class="nav navbar-nav navbar-right ">
@@ -181,7 +181,7 @@
                                         ?>
 
                                             <li class="nav-item dropdown social-icons">
-                                                <a class="nav-link dropdown-toggle" href="/admin" id="navbarDropdown"  aria-haspopup="true" aria-expanded="false">
+                                                <a class="nav-link dropdown-toggle" href="/admin" id="navbarDropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fa fa-user"></i> Dashboard <i class="fa fa-angle-down"></i>
                                                 </a>
                                             </li>
@@ -193,10 +193,10 @@
                                             <li id="logout-btn"><a href="/admin/logout"><i class="fa fa-lock"></i> Logout</a></li>
                                         <?php } else { ?>
                                             <li class="drop-nav">
-                                                <a id="login_btn" href="https://app.travmaxholidays.com/login_view"></i> Login</a>
+                                                <a id="login_btn" href="/login_view"></i> Login</a>
                                             </li>
                                             <li class="drop-nav">
-                                                <a id="" href="https://app.travmaxholidays.com/signup">Signup</a>
+                                                <a id="" href="/signup">Signup</a>
                                             </li>
                                         <?php } ?>
                                     </ul>
@@ -252,7 +252,7 @@
                     success: function(data) {
                         if (data.status == "success") {
                             showNotification(data.data.notify_msg);
-                        }else{
+                        } else {
                             console.log(data.data)
                         }
                     },
@@ -262,6 +262,20 @@
                 });
             <?php endif; ?>
         });
+
+        function delete_notification() {
+            $.ajax({
+                type: 'POST',
+                url: '/api/delete_notification', 
+                success: function(response) {
+                    console.log(response);
+                    $("#floatingDiv").hide();
+                },
+                error: function(error) {
+                    console.error("Error deleting from the database", error);
+                }
+            });
+        }
     </script>
 </body>
 
