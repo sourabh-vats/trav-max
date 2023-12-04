@@ -11,6 +11,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="/lib/bootstrap5.3/bootstrap.min.css">
     <link rel="stylesheet" href="/css/admin_style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
