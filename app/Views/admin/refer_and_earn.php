@@ -219,7 +219,7 @@
                 <h1>Invite Friends &amp; Earn</h1>
                 <h3 class="refer-meta-data">Invite Friends &amp; Earn Points For Every Friend</h3>
             </header>
-            <div class="hero-img-container"><img src="/images/Referral-image-Desktop.webp" loading="eager"></div>
+            <div class="hero-img-container"><img src="/images/refer-image.webp" loading="eager"></div>
             <div class="overlay" id="overlay">
                 <div class="popup" id="popup">
                     <div class="popup-header">
