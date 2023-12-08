@@ -321,7 +321,7 @@ class UserModel extends Model
                 $builder->set('customer_id', $customer_id);
                 $builder->where('id', $insert_id);
                 $builder->update();
-                $db->query("INSERT INTO `notify` (`title`, `notify_msg`,`cust_id`) VALUES ('login','You have successfully created your account Welcome to travmax','$customer_id')");
+                //$db->query("INSERT INTO `notify` (`title`, `notify_msg`,`cust_id`) VALUES ('login','You have successfully created your account Welcome to travmax','$customer_id')");
 
                 //Create wallets for the user
                 $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'moneyback')");
