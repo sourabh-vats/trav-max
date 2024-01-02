@@ -125,38 +125,46 @@ class UserModel extends Model
 
     function get_amount_paid($id)
     {
-        $db = db_connect();
-        $builder = $db->table('installment');
-        $builder->select('SUM(amount) as total');
-        $builder->where('user_id', $id);
-        $builder->where('status', 'Paid');
-        $query = $builder->get();
-        return $query->getrow()->total;
+        // TODO: Fix this
+        // $db = db_connect();
+        // $builder = $db->table('installment');
+        // $builder->select('SUM(amount_paid) as total');
+        // $builder->where('user_id', $id);
+        // $builder->where('status', 'Paid');
+        // $query = $builder->get();
+        //return $query->getrow()->total;
+        return "0";
     }
 
     function get_amount_remaining($id)
     {
-        $db = db_connect();
-        $builder = $db->table('installment');
-        $builder->select('SUM(amount) as total');
-        $builder->where('user_id', $id);
-        $builder->where('status', 'Active');
-        $query = $builder->get();
-        return $query->getrow()->total;
+        // TODO: Fix this
+        // $db = db_connect();
+        // $builder = $db->table('installment');
+        // $builder->select('SUM(amount) as total');
+        // $builder->where('user_id', $id);
+        // $builder->where('status', 'Active');
+        // $query = $builder->get();
+        // return $query->getrow()->total;
+        return "0";
     }
 
     function get_installments_paid($id)
     {
-        $db = db_connect();
-        $query = $db->query('SELECT * FROM installment where user_id = ' . $id . ' and status = "Paid"');
-        return $query->getNumRows();
+        // TODO: Fix this
+        // $db = db_connect();
+        // $query = $db->query('SELECT * FROM installment where user_id = ' . $id . ' and status = "Paid"');
+        // return $query->getNumRows();
+        return "0";
     }
 
     function get_installments_remaining($id)
     {
-        $db = db_connect();
-        $query = $db->query('SELECT * FROM installment where user_id = ' . $id . ' and status = "Active"');
-        return $query->getNumRows();
+        // TODO: Fix this
+        // $db = db_connect();
+        // $query = $db->query('SELECT * FROM installment where user_id = ' . $id . ' and status = "Active"');
+        // return $query->getNumRows();
+        return "0";
     }
 
     function get_package($id)
@@ -253,17 +261,16 @@ class UserModel extends Model
 
     public function get_payment_amount($id)
     {
-        $db = db_connect();
-        $query = $db->table('installment')
-            ->select('amount')
-            ->where('user_id', $id)
-            ->where('status', 'Active')
-            ->get();
+        // $db = db_connect();
+        // $query = $db->table('installment')
+        //     ->select('amount')
+        //     ->where('user_id', $id)
+        //     ->where('status', 'Active')
+        //     ->get();
 
-        if ($query->getNumRows() > 0) {
-            return $query->getRow()->amount;
-        }
-
+        // if ($query->getNumRows() > 0) {
+        //     return $query->getRow()->amount;
+        // }
         return null;
     }
 
@@ -287,71 +294,63 @@ class UserModel extends Model
     }
 
     function create_member()
-    {   
-                $db = db_connect();
-                $booking_packages_number = 1;
-
-                if ($_POST["signupType"] == "freeSignup") {
-                    $partner_type = "micro";
-                    $status = "active";
-                } else {
-                    $partner_type = "partner";
-                    $status = "hold";
-                }
-                $new_member_insert_data = [
-                    'f_name' => $_POST["f_name"],
-                    'l_name' => $_POST["l_name"],
-                    'email' => $_POST["email"],
-                    'phone' => $_POST["number"],
-                    'status' => $status,
-                    'pass_word' => md5($_POST["password"]),
-                    'parent_customer_id' => $_POST["trav_id"],
-                    'direct_customer_id' => $_POST["trav_id"],
-                    'role' => $partner_type,
-                    'booking_packages_number' => $booking_packages_number
-                ];
-                $query = $db->table('customer')->insert($new_member_insert_data);
-                $insert_id = $db->insertID();
-                $f_name = $_POST["f_name"];
-                $phone = $_POST["number"];
-                $customer_n = $insert_id . substr($f_name, 0, 3) . substr($phone, -4);
-                $customer_id = strtoupper($customer_n);
-
-                $builder = $db->table('customer');
-                $builder->set('customer_id', $customer_id);
-                $builder->where('id', $insert_id);
-                $builder->update();
-                //$db->query("INSERT INTO `notify` (`title`, `notify_msg`,`cust_id`) VALUES ('login','You have successfully created your account Welcome to travmax','$customer_id')");
-
-                //Create wallets for the user
-                $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'moneyback')");
-                $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'cashback')");
-                $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'reward')");
-                $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'bonus')");
-                //Add reward
-
-                $reward_amount = 100;
-                $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$customer_id' and `wallet_type` = 'reward')");
-                $db->query("INSERT INTO `transaction` (`user_id`, `wallet_id`, `amount`, `transaction_type`) VALUES ('$customer_id', (select wallet_id from wallet where user_id='$customer_id' and wallet_type = 'reward'), '$reward_amount', 'credit')");
-                $db->query("INSERT INTO `notification` (`account_id`, `status`, `message`) VALUES ('$customer_id', 'active', 'Reward')");
-                $parent_id = $_POST["trav_id"];
-                $query = $db->query('select balance from wallet where user_id = "' . $parent_id . '" and wallet_type = "reward"');
-                $result = $query->getRowArray();
-                $parent_reward_balance = $result['balance'];
-                if ($parent_reward_balance < 1100) {
-                    $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$parent_id' and `wallet_type` = 'reward')");
-                    $db->query("INSERT INTO `transaction` (`user_id`, `wallet_id`, `amount`, `transaction_type`) VALUES ('$parent_id', (select wallet_id from wallet where user_id='$parent_id' and wallet_type = 'reward'), '$reward_amount', 'credit')");
-                    $db->query("INSERT INTO `notification` (`account_id`, `status`, `message`) VALUES ('$parent_id', 'active', 'Reward')");
-                }
-
-                $data = array("status" => "success", "message" => "Account created successfully.", "signupType" => $partner_type);
-                $session = session();
-                $session_data = array('full_name' => $f_name, 'email' => $_POST["l_name"], 'trav_id' => $customer_id,  'cust_id' => $insert_id, 'is_customer_logged_in' => true, 'booking_packages_number' => $booking_packages_number);
-                $session->set($session_data);
-                header("Content-Type: application/json");
-                echo json_encode($data);
-                exit();
+    {
+        $db = db_connect();
+        $new_member_insert_data = [
+            'f_name' => $_POST["f_name"],
+            'l_name' => $_POST["l_name"],
+            'email' => $_POST["email"],
+            'phone' => $_POST["number"],
+            'status' => "active",
+            'pass_word' => md5($_POST["password"]),
+            'parent_customer_id' => $_POST["trav_id"],
+            'direct_customer_id' => $_POST["trav_id"],
+            'role' => $_POST["signupType"]
+        ];
+        $query = $db->table('customer')->insert($new_member_insert_data);
         
+        //Creating customer id
+        $insert_id = $db->insertID();
+        $f_name = $_POST["f_name"];
+        $phone = $_POST["number"];
+        $customer_n = $insert_id . substr($f_name, 0, 3) . substr($phone, -4);
+        $customer_id = strtoupper($customer_n);
+        
+        //Updating customer id
+        $builder = $db->table('customer');
+        $builder->set('customer_id', $customer_id);
+        $builder->where('id', $insert_id);
+        $builder->update();
+
+        //Create wallets for the user
+        $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'moneyback')");
+        $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'cashback')");
+        $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'reward')");
+        $db->query("INSERT INTO `wallet` (`user_id`, `wallet_type`) VALUES ('$customer_id', 'bonus')");
+        
+        //Add reward
+        $reward_amount = 100;
+        $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$customer_id' and `wallet_type` = 'reward')");
+        $db->query("INSERT INTO `wallet_transaction` (`wallet_id`, `transaction_type`, `amount`, `transaction_date`) VALUES ((select wallet_id from wallet where user_id='$customer_id' and wallet_type = 'reward'), 'credit', '$reward_amount', now())");
+        $parent_id = $_POST["trav_id"];
+        
+        //Add reward to parent
+        $query = $db->query('select balance from wallet where user_id = "' . $parent_id . '" and wallet_type = "reward"');
+        $result = $query->getRowArray();
+        $parent_reward_balance = $result['balance'];
+        if ($parent_reward_balance < 1100) {
+            $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$parent_id' and `wallet_type` = 'reward')");
+            $db->query("INSERT INTO `wallet_transaction` (`wallet_id`, `transaction_type`, `amount`, `transaction_date`) VALUES ((select wallet_id from wallet where user_id='$parent_id' and wallet_type = 'reward'), 'credit', '$reward_amount', now())");
+        }
+        
+        //Set session
+        $data = array("status" => "success", "message" => "Account created successfully.", "signupType" => $_POST["signupType"]);
+        $session = session();
+        $session_data = array('full_name' => $f_name, 'email' => $_POST["l_name"], 'trav_id' => $customer_id,  'cust_id' => $insert_id, 'is_customer_logged_in' => true);
+        $session->set($session_data);
+        header("Content-Type: application/json");
+        echo json_encode($data);
+        exit();
     }
 
     public function get_all_installment($id)
@@ -401,7 +400,8 @@ class UserModel extends Model
         }
     }
 
-    function get_products_by_category($category){
+    function get_products_by_category($category)
+    {
         try {
             $db = db_connect();
             $builder = $db->table('products');

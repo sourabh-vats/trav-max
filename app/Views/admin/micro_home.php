@@ -99,6 +99,42 @@
         </div>
     </div>
     <div class="col-md grey_bg px-4 py-4">
+        <div class="mb-4 col-md-12">
+            <div class="h-100 card">
+                <div class="d-flex align-items-center card-body">
+                    <div class="gy-5 flex-fill row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="text-lg col-sm-2">
+                                    <i class="bi bi-calendar-date text-danger" style="font-size:30px"></i>
+                                </div>
+                                <div class="col-sm-10">
+                                    <h2><?= $remaining_days ?> Days</h2>
+                                    <h6 class="text-muted fw-normal p-b-20 p-t-10">Left To Due Date</h6>
+                                    <div class="progress">
+                                        <div role="progressbar" class="progress-bar bg-danger" style="width:<?= $remaining_days_percentage ?>%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="text-lg col-sm-2">
+                                    <i class="bi bi-cash-coin text-success" style="font-size:30px"></i>
+                                </div>
+                                <div class="col-sm-10">
+                                    <h2>Rs. <?= $amount_due ?></h2>
+                                    <h6 class="text-muted fw-normal p-b-20 p-t-10">Remaining to Pay</h6>
+                                    <div class="progress">
+                                        <div role="progressbar" class="progress-bar bg-success" style="width:<?= $amount_due_percentage ?>%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <p class="text_1">My Income</p>
         <hr>
         <div class="box_content">

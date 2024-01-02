@@ -39,11 +39,12 @@
             border: 1px solid #dee2e6;
             padding: 16px 12px;
         }
-        .dont{
+
+        .dont {
             cursor: pointer;
             /* all:unset !important; */
         }
-    
+
 
         #register_other_options {
             display: flex;
@@ -55,22 +56,27 @@
         #register_other_options a {
             text-decoration: none;
         }
-        .fa-eye,.fa-eye-slash{
+
+        .fa-eye,
+        .fa-eye-slash {
             position: absolute;
-            top:40%;
-            right:4%;
-            cursor:pointer;
-            color:lightgray;
+            top: 40%;
+            right: 4%;
+            cursor: pointer;
+            color: lightgray;
         }
+
         #resend-container {
             display: flex;
             align-items: center;
             justify-content: flex-end;
         }
+
         #resend-otp {
             cursor: pointer;
             color: blue;
         }
+
         #resend-otp.disabled {
             color: gray;
             pointer-events: none;
@@ -105,7 +111,7 @@
                     <div class="row g-1 g-md-3 mb-3" id="select_signup_container">
                         <div class="col-5 col-md">
                             <div class="radio-box">
-                                <input class="form-check-input" type="radio" name="signupType" id="freeSignup" value="freeSignup">
+                                <input class="form-check-input" type="radio" name="signupType" id="freeSignup" value="micro">
                                 <label class="form-check-label" for="freeSignup">
                                     Free Signup
                                 </label>
@@ -113,7 +119,7 @@
                         </div>
                         <div class="col-7 col-md">
                             <div class="radio-box">
-                                <input class="form-check-input" type="radio" name="signupType" id="partnerSignup" value="partnerSignup" checked="">
+                                <input class="form-check-input" type="radio" name="signupType" id="partnerSignup" value="partner" checked="">
                                 <label class="form-check-label" for="partnerSignup">
                                     Become A Partner
                                 </label>
@@ -159,14 +165,12 @@
                         </div>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234"
-                         <?php echo isset($_GET['refer_id']) ? 'readonly' : ''; ?> 
-                         value="<?php echo isset($_GET['refer_id']) ? $_GET['refer_id'] : ''; ?>">
+                        <input type="text" class="form-control" id="trav_id" name="trav_id" placeholder="01234" <?php echo isset($_GET['refer_id']) ? 'readonly' : ''; ?> value="<?php echo isset($_GET['refer_id']) ? $_GET['refer_id'] : ''; ?>">
                         <label for="trav_id">Referral ID</label>
                     </div>
-                     <!-- i dont know  -->
-                     <div class="form-floating mb-3">
-                        <span class="dont" id="refergen" >I don't know</span>
+                    <!-- i dont know  -->
+                    <div class="form-floating mb-3">
+                        <span class="dont" id="refergen">I don't know</span>
                     </div>
 
 
@@ -175,9 +179,9 @@
                         <label for="otp">OTP</label>
                     </div>
 
-                    <div class="d-none "id="resend-container">
-                    <span id="resend-otp" onclick="startTimer(120)">Resend OTP</span>
-                    <span id="timer"></span>
+                    <div class="d-none " id="resend-container">
+                        <span id="resend-otp" onclick="startTimer(120)">Resend OTP</span>
+                        <span id="timer"></span>
                     </div>
 
                     <!-- <input type="hidden" name="partner_type" value="<?php //echo $user_type; 
@@ -198,19 +202,19 @@
 </body>
 <script>
     function togglePasswordField(fieldId) {
-    const passwordInput = document.getElementById(fieldId);
-    const showPassIcon = document.getElementById("show-pass-" + fieldId);
+        const passwordInput = document.getElementById(fieldId);
+        const showPassIcon = document.getElementById("show-pass-" + fieldId);
 
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        showPassIcon.classList.remove("fa-eye");
-        showPassIcon.classList.add("fa-eye-slash");
-    } else {
-        passwordInput.type = "password";
-        showPassIcon.classList.remove("fa-eye-slash");
-        showPassIcon.classList.add("fa-eye");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            showPassIcon.classList.remove("fa-eye");
+            showPassIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            showPassIcon.classList.remove("fa-eye-slash");
+            showPassIcon.classList.add("fa-eye");
+        }
     }
-}
 </script>
 <script>
     function getQueryParameter(name) {
@@ -220,13 +224,12 @@
 
     $(document).ready(function() {
         const referId = getQueryParameter('refer_id');
-             if(referId){
-                // Disable the "Clear Travel ID" 
-                $("#partnerSignup").off("click");
-                $(".dont").hide();
-                $("#trav_id").val(referId);
-            }
-            else  {
+        if (referId) {
+            // Disable the "Clear Travel ID" 
+            $("#partnerSignup").off("click");
+            $(".dont").hide();
+            $("#trav_id").val(referId);
+        } else {
             $("#refergen").click(function() {
                 const freeRefferalIDs = ["1085MEM3665", "1086MEM3665", "1087MEM3665", "1088MEM3665", "1089MEM3665", "1090MEM3665", "1091MEM3665", "1092MEM3665", "1093MEM3665", "1094MEM3665", "1095MEM3665", "1096MEM3665", "1097MEM3665", "1098MEM3665", "1098MEM3665", "1099MEM3665", "1100MEM3665", "1101MEM3665", "1102MEM3665", "1103MEM3665", "1104MEM3665", "1105MEM3665", "1106MEM3665", "1107MEM3665", "1108MEM3665", "1108MEM3665"];
                 const random = Math.floor(Math.random() * freeRefferalIDs.length);
@@ -236,47 +239,48 @@
     });
     // for reset
     function clearTravId() {
-    $("#trav_id").val('');
-        }
-        $(document).ready(function() {
-            if (!getQueryParameter('refer_id')) {
-        $("#partnerSignup").click(function() {
-        clearTravId();
-        });}else{
+        $("#trav_id").val('');
+    }
+    $(document).ready(function() {
+        if (!getQueryParameter('refer_id')) {
+            $("#partnerSignup").click(function() {
+                clearTravId();
+            });
+        } else {
             $("#partnerSignup").off("click");
         }
 
-});
-        //for resend otp 
-        let countdown;
+    });
+    //for resend otp 
+    let countdown;
 
-        function startTimer(seconds) {
-            const resendOtpSpan = document.getElementById('resend-otp');
-            const timerSpan = document.getElementById('timer');
-            resendOtpSpan.classList.add('disabled');
-            countdown = seconds;
+    function startTimer(seconds) {
+        const resendOtpSpan = document.getElementById('resend-otp');
+        const timerSpan = document.getElementById('timer');
+        resendOtpSpan.classList.add('disabled');
+        countdown = seconds;
 
-            function updateTimer() {
-                if (countdown === 0) {
-                    clearInterval(timerInterval);
-                    resendOtpSpan.classList.remove('disabled');
-                    timerSpan.innerText = '';
-                } else {
-                    const minutes = Math.floor(countdown / 60);
-                    const seconds = countdown % 60;
-                    const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-                    resendOtpSpan.innerText = 'Resend OTP';
-                    timerSpan.innerText = `(${formattedTime})`;
-                    countdown--;
-                }
+        function updateTimer() {
+            if (countdown === 0) {
+                clearInterval(timerInterval);
+                resendOtpSpan.classList.remove('disabled');
+                timerSpan.innerText = '';
+            } else {
+                const minutes = Math.floor(countdown / 60);
+                const seconds = countdown % 60;
+                const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                resendOtpSpan.innerText = 'Resend OTP';
+                timerSpan.innerText = `(${formattedTime})`;
+                countdown--;
             }
-            updateTimer();
-            const timerInterval = setInterval(updateTimer, 1000);
         }
-            //working 
-        jQuery("#resend-otp").click(function() {
-            jQuery("#register-form").submit();
-            });
+        updateTimer();
+        const timerInterval = setInterval(updateTimer, 1000);
+    }
+    //working 
+    jQuery("#resend-otp").click(function() {
+        jQuery("#register-form").submit();
+    });
 
 
     jQuery("#register-form").submit(function(event) {
@@ -287,7 +291,6 @@
             url: "/register",
             data: jQuery("#register-form").serialize(),
             success: function(data) {
-                // console.log(data);
                 if (data.status == "error") {
                     if (data.message == "An OTP has been sent to your registered email and mobile number. Please check and submit.") {
                         jQuery("#loading_screen").addClass("d-none");

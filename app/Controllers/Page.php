@@ -270,59 +270,53 @@ class Page extends BaseController
 			$package_data = $user_model->get_package_data($package_id);
 			$package = $package_data[0];
 			$package_amount_with_tax = $package["total"];
-			//Add packages to user in purchase table
+
 			for ($i = 1; $i <= $number_of_packages; $i++) {
+				// Add purchase to user in purchase table
 				$add_purchase_data = [
-					'customer_id' => $customer_id,
-					'type' => 'package',
-					'item_id' => $package_id,
-					'purchase_date' => date('d-M-Y H:i:s'),
-					'purchase_price' => $package_amount_with_tax,
-					'status' => 'booked',
+					'user_id' => $id,
+					'purchase_type' => 'membership',
+					'product_id' => $package_id,
+					'purchase_date' => date('Y-m-d H:i:s'),
+					'total_amount' => $package_amount_with_tax,
+					'purchase_status' => 'pending',
 				];
-				$query = $db->table('purchase')->insert($add_purchase_data);
+				$db->table('purchase')->insert($add_purchase_data);
 				$purchase_id = $db->insertID();
-				//installments
+
+				// Add installment to user in installment table
 				if ($payment_type == 'traveasy_plan') {
 					$intallment_amount_left = $package_amount_with_tax;
 					$installment_amount = 5500;
-					$installment_number = 1;
-					$insdate = date('Y-m-d');
-					$pay_date = date('Y-m-d');
+					$due_date = date('Y-m-d H:i:s');
 					$add_installment = [
-						'user_id' => $id,
-						'amount' => $installment_amount,
-						'description' => $insdate,
-						'pay_date' => $pay_date,
-						'installment_no' => $installment_number,
-						'status' => 'Active',
-						'order_id' => $purchase_id
+						'purchase_id' => $purchase_id,
+						'amount_due' => $installment_amount,
+						'due_date' => $due_date,
+						'amount_paid' => 0,
+						'payment_date' => null,
+						'installment_status' => 'pending'
 					];
 					$user_model->add_installment($add_installment);
-					$insdate = $pay_date;
-					$intallment_amount_left -= 5500;
-					$installment_number += 1;
+					$intallment_amount_left -= $installment_amount;
 					if ($intallment_amount_left > 5500) {
 						$installment_amount = 5500;
 					} else {
 						$installment_amount = $intallment_amount_left;
 					}
-					$installment_amount = 5500;
+					//$installment_amount = 5500;
 					while ($intallment_amount_left > 0) {
-						$pay_date = date('Y-m-d', strtotime("+ 1 month", strtotime($insdate)));
+						$due_date = date('Y-m-d H:i:s', strtotime("+ 1 month", strtotime($due_date)));
 						$add_installment = [
-							'user_id' => $id,
-							'amount' => $installment_amount,
-							'description' => $insdate,
-							'pay_date' => $pay_date,
-							'installment_no' => $installment_number,
-							'status' => 'Active',
-							'order_id' => $purchase_id
+							'purchase_id' => $purchase_id,
+							'amount_due' => $installment_amount,
+							'due_date' => $due_date,
+							'amount_paid' => 0,
+							'payment_date' => null,
+							'installment_status' => 'pending'
 						];
 						$user_model->add_installment($add_installment);
-						$insdate = $pay_date;
-						$intallment_amount_left -= 5500;
-						$installment_number += 1;
+						$intallment_amount_left -= $installment_amount;
 						if ($intallment_amount_left > 5500) {
 							$installment_amount = 5500;
 						} else {
@@ -393,7 +387,6 @@ class Page extends BaseController
 					}
 				}
 			}
-
 			$data_to_store = [
 				'user_id' => $id,
 				'package_id' => $package_id,
@@ -403,10 +396,6 @@ class Page extends BaseController
 			$return = $user_model->add_user_package($data_to_store);
 			$data_to_store = [
 				'role' => $partner_type,
-				'status' => 'hold',
-				'booking_packages_number' => $number_of_packages
-
-				
 			];
 			$return = $user_model->update_profile($id, $data_to_store);
 			if ($return == true) {

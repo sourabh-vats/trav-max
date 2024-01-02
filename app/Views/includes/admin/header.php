@@ -80,7 +80,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                     <span id="sidenav_partnership_type">Partnership: <?php if ($profile["0"]["role"] == "micro") {
                                                                             echo "Micro";
                                                                         } else {
-                                                                            echo "Pax" . $session->booking_packages_number;
+                                                                            echo "Pax" . substr($profile["0"]["role"], -2, -1); ;
                                                                         } ?></span>
                     <span class="mb-md-3" id="sidenav_id">Trav ID: <?php echo $session->trav_id; ?></span>
                 </div>
@@ -119,7 +119,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link blinking" aria-current="page" href="/admin/refer_and_earn/<?php echo $session->trav_id; ?>">
+                            <a class="nav-link" aria-current="page" href="/admin/refer_and_earn/<?php echo $session->trav_id; ?>">
                                 <i class="bi-share-fill"></i>
                                 Refer & Earn
                             </a>

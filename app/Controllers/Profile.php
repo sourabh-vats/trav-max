@@ -44,7 +44,7 @@ class Profile extends BaseController
         $data['installments_total'] = $data['installments_paid'] + $data['installments_remaining'];
         $data['has_package'] = false;
         $data['package_information'] = $user_model->get_package($id);
-        $data['status'] = $user_model->status($id);
+        //$data['status'] = $user_model->status($id);
 
         if (empty($data['package_information'])) {
             $data['has_package'] = false;
@@ -129,6 +129,26 @@ class Profile extends BaseController
                 return redirect()->to('admin/start');
             }
         }
+        $query = $db->query('   SELECT I.installment_id, I.due_date, DATEDIFF(I.due_date, CURDATE()) AS days_left, I.amount_due
+                                FROM installment I
+                                JOIN purchase P ON I.purchase_id = P.purchase_id
+                                WHERE   I.installment_status = "pending" 
+                                    and I.purchase_id in (select purchase_id from purchase where user_id = ' . $id . ')
+                                    and P.user_id = ' . $id . '
+                                ORDER BY I.due_date
+                                LIMIT 2');
+        $result = $query->getResultArray();
+       
+        $remaining_days = array_column($result, 'days_left');
+        $data['remaining_days'] = $remaining_days[1];
+        $remaining_days_percentage = $data['remaining_days']/31*100;
+        $data['remaining_days_percentage'] = $remaining_days_percentage;
+        $amount_due = $result[0]['amount_due'] + $result[1]['amount_due'];
+        $data['amount_due'] = $amount_due;
+        $amount_due_percentage = $amount_due/11000*100;
+        $data['amount_due_percentage'] = $amount_due_percentage;
+        // var_dump($data['amount_due']);
+        // die();
         $data['main_content'] = 'admin/micro_home';
         //$data['main_content'] = 'admin/home';
         return view('includes/admin/template', $data);
@@ -522,54 +542,20 @@ class Profile extends BaseController
         $id = session('cust_id');
         $customer_id = session('trav_id');
         $data['profile'] = $user_model->profile($id);
-        $data['has_package'] = false;
-        $data['package_information'] = $user_model->get_package($id);
-        if (empty($data['package_information'])) {
-            $data['has_package'] = false;
-            return redirect()->to(base_url('admin/select_package'));
-        } else {
-            $data['has_package'] = true;
-            $package_id = $data['package_information'][0]['package_id'];
-            $data['package_data'] = $user_model->get_package_data($package_id);
-            $data['payment_amount'] = $user_model->get_payment_amount($id);
-            $db = db_connect();
-            $query   = $db->query('select booking_packages_number from customer where customer_id = "' . $customer_id . '"');
-            $result = $query->getRowArray();
-            $booking_packages_number = $result['booking_packages_number'];
-            $data['booking_packages_number'] = $booking_packages_number;
-        }
-        $mail = new PHPMailer(true);
-        $mail->SMTPOptions = array(
-            'ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            )
-        );
-        $mail->isSMTP();
-        $mail->Host = 'localhost';
-        $mail->SMTPAuth = false;
-        $mail->SMTPAutoTLS = false;
-        $mail->Port = 25;
+        
+        $db = db_connect();
+        $sql = "select p.total, p.name , pr.type, pr.plan from package p
+                inner join partnership pr on pr.package_id = p.id
+                where pr.user_id = $id ;";
+        $query = $db->query($sql)->getResultArray();
+        $result = $query[0];
 
-        //Recipients
-        $mail->setFrom('support@travmaxholidays.com', 'Travmax');
-        $mail->addAddress($data['profile'][0]['email']);     //Add a recipient
-        $mail->addReplyTo('info@travmaxholidays.com', 'Information');
-
-        //Content
-        $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = 'Congrats ! You are a Travmax Partner';
-        $data['name'] =  $data['profile'][0]['f_name'] . ' ' . $data['profile'][0]['l_name'];
-        $data['email'] =  $data['profile'][0]['email'];
-
-        $view = view('content', $data);
-
-        // Set the view content as the email body
-        $mail->Body = $view;
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-        //$mail->send();
+        $data['total'] = $result['total'];
+        $data['package_name'] = $result['name'];
+        $data['type'] = $result['type'];
+        $data['plan'] = $result['plan'];
+        $data['booking_packages_number'] = substr($result['type'], -2, -1);
+        $data['payment_amount'] = $result['total'] * $data['booking_packages_number'];
 
         $data['main_content'] = 'admin/package_selected_successfully';
         return view('includes/admin/template', $data);
@@ -637,6 +623,14 @@ class Profile extends BaseController
         }
 
         $data['profile'] = $user_model->profile($id);
+
+        $db = db_connect();
+        $sql = "select p.total, p.name , pr.type, pr.plan from package p
+                inner join partnership pr on pr.package_id = p.id
+                where pr.user_id = $id ;";
+        $query = $db->query($sql)->getResultArray();
+        $result = $query[0];
+        
         $data['main_content'] = 'admin/request_fund';
         return view('includes/admin/template', $data);
     }

@@ -22,11 +22,11 @@ if (isset($_SESSION['upgrade']) && $_SESSION['upgrade'] === true) {
         <div class="col-md-6 p-3 p-md-5 border-end text-center">
             <h2 class="heading">Congratulations!</h2>
             <br>
-            <h4>You have selected <span class="highlight"><?= $package_data[0]['display_name']; ?></span> Package for <span class="highlight">Rs. <?= $package_data[0]['total']; ?></span>
+            <h4>You have selected <span class="highlight"><?= $package_name ?></span> Package for <span class="highlight">Rs. <?= $total ?></span>
                 <?php if ($booking_packages_number > 1) {
                     echo ' per person for <span class="highlight">' . $booking_packages_number . ' persons</span>';
-                } ?> and have taken the <span class="highlight"><?= $package_information[0]['payment_type']; ?></span>.
-                Please make a payment of <span class="highlight">Rs. <?= $payment_amount * $booking_packages_number ?> (<?= $payment_amount . ' * ' . $booking_packages_number ?>)</span>
+                } ?> and have taken the <span class="highlight"><?= $plan ?></span>.
+                Please make a payment of <span class="highlight">Rs. <?= $payment_amount ?> (<?= $total . ' * ' . $booking_packages_number ?>)</span>
                 and share the proof with us</h4>
             <img src="/images/travel_img.jpeg" alt="" class="img-fluid" style="background-color: grey;">
         </div>
