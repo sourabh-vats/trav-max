@@ -2,24 +2,24 @@
     <div class="col-md">
         <div class="row mb-4 gradient_parent">
             <div class="col text-center py-4">
-                <a href="/admin/travelcenter">
+                <!-- <a href="/admin/travelcenter"> -->
                     <h3>MONEYBACK</h3>
                     <span class="box_number_data">₹<?php echo round($wallet["moneyback"], 0); ?></span>
-                </a>
+                <!-- </a> -->
             </div>
             <div class="col text-center py-4">
-                <a href="/admin/businesscenter">
+                <!-- <a href="/admin/businesscenter"> -->
                     <h3>CASHBACK</h3>
                     <span class="box_number_data">₹<?php echo round($wallet["cashback"], 0); ?></span>
-                </a>
+                <!-- </a> -->
             </div>
         </div>
         <div class="row gradient_parent">
             <div class="col text-center py-4">
-                <a href="/admin/bonus">
+                <!-- <a href="/admin/bonus"> -->
                     <h3>BONUS</h3>
                     <span class="box_number_data">₹<?php echo $wallet["bonus"]; ?></span>
-                </a>
+                <!-- </a> -->
             </div>
             <div class="col text-center py-4">
                 <a href="/admin/reward">

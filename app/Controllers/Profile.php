@@ -1087,7 +1087,9 @@ class Profile extends BaseController
         $customer_id = session('trav_id');
         $db = db_connect();
         $data['profile'] = $user_model->profile($id);
-        $query = $db->query('SELECT * FROM `transaction` where wallet_id = (SELECT wallet_id FROM `wallet` WHERE user_id = "' . $customer_id . '" AND wallet_type = "reward")');
+        $query = $db->query('   select wt.*, concat(c.f_name, " ", c.l_name) as name from wallet_transaction wt, customer c
+                                where wt.wallet_id = (select wallet_id from wallet where user_id = '.$id.' and wallet_type = "reward")
+                                and c.id = '.$id.';');
         $row = $query->getResultArray();
         $data['rewards'] = $row;
 

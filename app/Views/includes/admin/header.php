@@ -62,7 +62,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                 <p class="px-1" id="header_date"><i class="bi-calendar-fill"></i> <?php echo strtoupper(date("l, d M")); ?></p>
             </div>
             <div class="nav-item text-nowrap">
-                <a class="nav-link px-3" id="header_right_btn" href="/admin/logout">Logout<i class="bi-person-fill-gear"></i></a>
+                <a class="nav-link px-3" id="header_right_btn" href="/admin/update_profile">Profile<i class="bi-person-fill-gear"></i></a>
             </div>
         </div>
     </header>
@@ -90,12 +90,6 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                             <a class="nav-link" aria-current="page" href="/admin">
                                 <i class="bi-house-fill"></i>
                                 Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/admin/update_profile">
-                                <i class="bi-person-gear"></i>
-                                Update Profile
                             </a>
                         </li>
                         <?php if ($profile[0]["role"] == "micro") : ?>
