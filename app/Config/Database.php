@@ -29,7 +29,7 @@ class Database extends Config
         'hostname' => 'localhost',
         'username' => 'dev-travmax',
         'password' => 'i]!27Nb0iuPm',
-        'database' => 'dev-travmax',
+        'database' => 'trav-max',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
