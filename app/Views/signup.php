@@ -311,6 +311,7 @@
                         $("#trav_id").parent().hide();
                         $("#select_signup_container").hide();
                     } else {
+                        jQuery("#loading_screen").addClass("d-none");
                         jQuery("#signup_error").removeClass("d-none");
                         jQuery("#signup_error").text(data.message);
                     }
