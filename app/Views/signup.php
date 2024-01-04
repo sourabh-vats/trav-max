@@ -291,6 +291,7 @@
             url: "/register",
             data: jQuery("#register-form").serialize(),
             success: function(data) {
+                console.log(data);
                 if (data.status == "error") {
                     if (data.message == "An OTP has been sent to your registered email and mobile number. Please check and submit.") {
                         jQuery("#loading_screen").addClass("d-none");
