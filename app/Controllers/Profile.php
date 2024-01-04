@@ -573,8 +573,6 @@ class Profile extends BaseController
         $neft = $this->request->getPost('neft');
         if ($this->request->getMethod() === 'post') {
 
-            $data['request_pin'] = $user_model->get_neft($neft);
-
             $validationRules = [
                 'amount' => 'required',
             ];
@@ -596,20 +594,13 @@ class Profile extends BaseController
                     $errors = $imageFile->getErrorString() . ' (' . $imageFile->getError() . ')';
                     $image = '';
                 }
-                //----- end file upload -----------
+                //----- end file upload --------------//
 
-                $data_to_store = [
-                    'user_id' => $id,
-                    'amount' => $this->request->getPost('amount'),
-                    'mode' => $this->request->getPost('mode'),
-                    'subject' => $this->request->getPost('subject'),
-                    'neft' => $this->request->getPost('neft'),
-                    'description' => $this->request->getPost('description'),
-                    'status' => 'Pending',
-                    'image' => $image
-                ];
+                $db = db_connect();
+                $sql = "insert into payment_proof (user_id, amount, proof_file_path) values ($id, " . $this->request->getPost('amount') . ", '" . $image . "');";
+                $query = $db->query($sql);
 
-                if ($user_model->insert_fund_request($data_to_store)) {
+                if ($query) {
                     session()->setFlashdata('flash_message', 'updated');
                     return redirect()->to('/admin/request-fund');
                 } else {
