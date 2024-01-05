@@ -330,13 +330,12 @@ class Page extends BaseController
 					$insdate = date('Y-m-d');
 					$pay_date = date('Y-m-d');
 					$add_installment = [
-						'user_id' => $id,
-						'amount' => $installment_amount,
-						'description' => $insdate,
-						'pay_date' => $pay_date,
-						'installment_no' => $installment_number,
-						'status' => 'Active',
-						'order_id' => $purchase_id
+						'purchase_id' => $purchase_id,
+						'amount_due' => $installment_amount,
+						'due_date' => $pay_date,
+						'amount_paid' => 0,
+						'payment_date' => null,
+						'installment_status' => 'pending'
 					];
 					$user_model->add_installment($add_installment);
 				} elseif ($payment_type == 'travlater_plan') {
@@ -346,14 +345,13 @@ class Page extends BaseController
 					$insdate = date('Y-m-d');
 					$pay_date = date('Y-m-d');
 					$add_installment = [
-						'user_id' => $id,
-						'amount' => $installment_amount,
-						'description' => $insdate,
-						'pay_date' => $pay_date,
-						'installment_no' => $installment_number,
-						'status' => 'Active',
-						'order_id' => $purchase_id
-					];
+						'purchase_id' => $purchase_id,
+						'amount_due' => $installment_amount,
+						'due_date' => $pay_date,
+						'amount_paid' => 0,
+						'payment_date' => null,
+						'installment_status' => 'pending'
+					];					
 					$user_model->add_installment($add_installment);
 					$insdate = $pay_date;
 					$intallment_amount_left -= 11000;
@@ -367,13 +365,12 @@ class Page extends BaseController
 					while ($intallment_amount_left > 0) {
 						$pay_date = date('Y-m-d', strtotime("+ 1 month", strtotime($insdate)));
 						$add_installment = [
-							'user_id' => $id,
-							'amount' => $installment_amount,
-							'description' => $insdate,
-							'pay_date' => $pay_date,
-							'installment_no' => $installment_number,
-							'status' => 'Active',
-							'order_id' => $purchase_id
+							'purchase_id' => $purchase_id,
+							'amount_due' => $installment_amount,
+							'due_date' => $pay_date,
+							'amount_paid' => 0,
+							'payment_date' => null,
+							'installment_status' => 'pending'
 						];
 						$user_model->add_installment($add_installment);
 						$insdate = $pay_date;
