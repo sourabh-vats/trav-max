@@ -181,7 +181,7 @@ class UserModel extends Model
     {
         $db = db_connect();
         $builder = $db->table('customer');
-        $builder->select('id,customer_id,f_name,l_name,rdate,direct_customer_id,parent_customer_id,macro,consume,role');
+        $builder->select('id,customer_id,f_name,image,l_name,rdate,direct_customer_id,parent_customer_id,macro,consume,role');
         $builder->whereIn('parent_customer_id', $cust_id);
         $query = $builder->get();
         return $query->getResultArray();
