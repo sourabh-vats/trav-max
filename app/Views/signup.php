@@ -321,7 +321,7 @@
                         $("#f_name").parent().hide();
                         $("#l_name").parent().hide();
                         $("#phone").parent().hide();
-                        $(".dont").hide();
+                        $(".dont").parent().hide();
                         $("#password").parent().hide();
                         $("#cpassword").parent().hide();
                         $("#trav_id").parent().hide();
