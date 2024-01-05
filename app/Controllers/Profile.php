@@ -119,16 +119,16 @@ class Profile extends BaseController
         $bonus = $row->balance;
 
         $data["wallet"] = array("moneyback" => $moneyback, "cashback" => $cashback, "reward" => $reward, "bonus" => $bonus);
-        if ($data["profile"][0]["role"] == "micro") {
-            $data['main_content'] = 'admin/micro_home';
-            return view('includes/admin/template', $data);
-        } else {
-            if ($data['has_package']) {
-                $data["package_data"] = $user_model->get_package_data($data['package_information'][0]['package_id']);
-            } else {
-                return redirect()->to('admin/start');
-            }
-        }
+        // if ($data["profile"][0]["role"] == "micro") {
+        //     $data['main_content'] = 'admin/micro_home';
+        //     return view('includes/admin/template', $data);
+        // } else {
+        //     if ($data['has_package']) {
+        //         $data["package_data"] = $user_model->get_package_data($data['package_information'][0]['package_id']);
+        //     } else {
+        //         return redirect()->to('admin/start');
+        //     }
+        // }
         $query = $db->query('   SELECT I.installment_id, I.due_date, DATEDIFF(I.due_date, CURDATE()) AS days_left, I.amount_due
                                 FROM installment I
                                 JOIN purchase P ON I.purchase_id = P.purchase_id
@@ -557,6 +557,9 @@ class Profile extends BaseController
         $data['plan'] = $result['plan'];
         $data['booking_packages_number'] = (int)substr($result['type'], -2, -1);
         $data['payment_amount'] = $result['total'] * $data['booking_packages_number'];
+
+        $installmentController = new InstallmentController();
+        $data['amount_due'] = (int)$installmentController->get_remaining_amount();
 
         $data['main_content'] = 'admin/package_selected_successfully';
         return view('includes/admin/template', $data);
