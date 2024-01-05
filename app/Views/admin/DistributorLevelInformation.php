@@ -98,6 +98,8 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
                         $status = 'Pending';
                     } else if ($partner['role'] == "micro") {
                         $status = 'Free';
+                    } else if ($partner['role'] == "macro") {
+                        $status = 'Pax 5';
                     } else {
                         $status = "Pax " . substr($partner['role'], -2, -1);
                     }
