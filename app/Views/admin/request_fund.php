@@ -83,7 +83,7 @@
             </div>
             <div>
               <p>Booking Amount Remaining</p>
-              <p class="h4">Rs 11000</p>
+              <p class="h4">Rs <?= $amount_due?></p>
             </div>
           </div>
 

@@ -631,6 +631,9 @@ class Profile extends BaseController
         $query = $db->query($sql)->getResultArray();
         $result = $query[0];
 
+        $installmentController = new InstallmentController();
+        $data['amount_due'] = (int)$installmentController->get_remaining_amount();
+
         $data['main_content'] = 'admin/request_fund';
         return view('includes/admin/template', $data);
     }
