@@ -555,7 +555,7 @@ class Profile extends BaseController
         $data['package_name'] = $result['name'];
         $data['type'] = $result['type'];
         $data['plan'] = $result['plan'];
-        $data['booking_packages_number'] = substr($result['type'], -2, -1);
+        $data['booking_packages_number'] = (int)substr($result['type'], -2, -1);
         $data['payment_amount'] = $result['total'] * $data['booking_packages_number'];
 
         $data['main_content'] = 'admin/package_selected_successfully';
