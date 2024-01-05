@@ -77,8 +77,8 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                         </div>
                     </a>
                     <span class="mt-2" id="sidenav_name"><?php echo $full_name; ?></span>
-                    <span id="sidenav_partnership_type">Partnership: <?php if ($profile["0"]["role"] == "micro") {
-                                                                            echo "Micro";
+                    <span id="sidenav_partnership_type">Partnership: <?php if ($profile["0"]["role"] == "macro") {
+                                                                            echo "Pax 5";
                                                                         } else {
                                                                             echo "Pax" . substr($profile["0"]["role"], -2, -1); ;
                                                                         } ?></span>
