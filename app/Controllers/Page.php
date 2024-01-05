@@ -385,13 +385,6 @@ class Page extends BaseController
 				}
 			}
 			$data_to_store = [
-				'user_id' => $id,
-				'package_id' => $package_id,
-				'payment_type' => $payment_type,
-				'amount_remaining' => $package_amount_with_tax
-			];
-			$return = $user_model->add_user_package($data_to_store);
-			$data_to_store = [
 				'role' => $partner_type,
 			];
 			$return = $user_model->update_profile($id, $data_to_store);
