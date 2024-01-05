@@ -32,7 +32,7 @@
                     ?>
                     <tr>
                         <td><?= $i++; ?></td>
-                        <td><img class="partner_img" src="<?= base_url('/images/user_profile/' . $partner['image']); ?>" width="50" height="50" /></td>
+                        <td><img class="partner_img" src="<?= base_url('/images/user_profile/' . $partner['customer_id']); ?>" width="50" height="50" /></td>
                         <td><?= $partner['customer_id']; ?></td>
                         <td><?= $partner['f_name'] . ' ' . $partner['l_name']; ?></td>
                         <td><?= $status; ?></td>
