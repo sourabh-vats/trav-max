@@ -482,6 +482,10 @@ thead {
     border-radius: 50%;
 }
 
+tr{
+    vertical-align: middle;
+}
+
 @keyframes blinking {
     0% {
         color: white;
