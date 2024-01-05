@@ -556,9 +556,9 @@ class Profile extends BaseController
         $data['type'] = $result['type'];
         $data['plan'] = $result['plan'];
         if ($result['type'] == "macro") {
-            echo "reached here";
-            die();
             $data['booking_packages_number'] = 5;
+            echo $data['booking_packages_number'];
+            die();
         } else {
             $data['booking_packages_number'] = (int)substr($result['type'], -2, -1);
         }
