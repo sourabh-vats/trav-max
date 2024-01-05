@@ -138,15 +138,15 @@ class Profile extends BaseController
                                 ORDER BY I.due_date
                                 LIMIT 2');
         $result = $query->getResultArray();
-       
+
         $remaining_days = array_column($result, 'days_left');
         $data['remaining_days'] = $remaining_days[1];
-        $remaining_days_percentage = $data['remaining_days']/31*100;
+        $remaining_days_percentage = $data['remaining_days'] / 31 * 100;
         $data['remaining_days_percentage'] = $remaining_days_percentage;
         //$amount_due = $result[0]['amount_due'] + $result[1]['amount_due'];
         $installmentController = new InstallmentController();
         $data['amount_due'] = (int)$installmentController->get_remaining_amount();
-        $amount_due_percentage = $data['amount_due']/11000*100;
+        $amount_due_percentage = $data['amount_due'] / 11000 * 100;
         $data['amount_due_percentage'] = $amount_due_percentage;
         // var_dump($data['amount_due']);
         // die();
@@ -543,7 +543,7 @@ class Profile extends BaseController
         $id = session('cust_id');
         $customer_id = session('trav_id');
         $data['profile'] = $user_model->profile($id);
-        
+
         $db = db_connect();
         $sql = "select p.total, p.name , pr.type, pr.plan from package p
                 inner join partnership pr on pr.package_id = p.id
@@ -555,7 +555,13 @@ class Profile extends BaseController
         $data['package_name'] = $result['name'];
         $data['type'] = $result['type'];
         $data['plan'] = $result['plan'];
-        $data['booking_packages_number'] = (int)substr($result['type'], -2, -1);
+        echo $data['type'];
+        die();
+        if ($result['type'] == "macro") {
+            $data['booking_packages_number'] = 5;
+        } else {
+            $data['booking_packages_number'] = (int)substr($result['type'], -2, -1);
+        }
         $data['payment_amount'] = $result['total'] * $data['booking_packages_number'];
 
         $installmentController = new InstallmentController();
@@ -625,53 +631,53 @@ class Profile extends BaseController
                 where pr.user_id = $id ;";
         $query = $db->query($sql)->getResultArray();
         $result = $query[0];
-        
+
         $data['main_content'] = 'admin/request_fund';
         return view('includes/admin/template', $data);
     }
 
     public function kyc()
     {
-        $userModel = model('UserModel'); 
+        $userModel = model('UserModel');
         $session = session();
         $validation = \Config\Services::validation();
         $id = $session->get('cust_id');
         $customer_id = $session->get('bliss_id');
-    
+
         if ($this->request->getMethod() === 'post') {
             $rules = [
-                'pancard' =>'regex_match[/[A-Z]{5}[0-9]{4}[A-Z]{1}$/]' ,
-                'aadhar' =>'regex_match[/^\d{4}\s\d{4}\s\d{4}$/]' ,
+                'pancard' => 'regex_match[/[A-Z]{5}[0-9]{4}[A-Z]{1}$/]',
+                'aadhar' => 'regex_match[/^\d{4}\s\d{4}\s\d{4}$/]',
                 'bank_name' => 'required|trim',
                 'account_name' => 'required',
                 'account_no' => 'required|trim|regex_match[/^\d{9,18}$/]',
                 'ifsc' => 'required'
             ];
-    
+
             if ($this->validate($rules)) {
-                $applied_pan='no';
+                $applied_pan = 'no';
                 $panimage = '';
                 $uploadConfig = [
-                    'path' => WRITEPATH . 'images/user/', 
+                    'path' => WRITEPATH . 'images/user/',
                     'allowedTypes' => 'gif|jpg|png|jpeg',
                     'maxSize' => 1024
                 ];
                 $file = $this->request->getFile('panimage');
-                $applied_pan=$this->request->getPost('applied_pan');
+                $applied_pan = $this->request->getPost('applied_pan');
                 if ($file->isValid() && !$file->hasMoved()) {
                     if ($file->move($uploadConfig['path'], $file->getName())) {
                         $panimage = $file->getName();
                     }
                 }
-                $applied_aadhar='no';
+                $applied_aadhar = 'no';
                 $aadharimage = '';
                 $uploadConfig = [
-                    'path' => WRITEPATH . 'images/user/', 
+                    'path' => WRITEPATH . 'images/user/',
                     'allowedTypes' => 'gif|jpg|png|jpeg',
-                    'maxSize' => 1024 
+                    'maxSize' => 1024
                 ];
                 $file = $this->request->getFile('aadharimage');
-                $applied_aadhar=$this->request->getPost('applied_aadhar');
+                $applied_aadhar = $this->request->getPost('applied_aadhar');
 
                 if ($file->isValid() && !$file->hasMoved()) {
                     if ($file->move($uploadConfig['path'], $file->getName())) {
@@ -681,19 +687,19 @@ class Profile extends BaseController
 
                 $cheque_img = '';
                 $uploadConfig = [
-                    'path' => WRITEPATH . 'images/user/', 
+                    'path' => WRITEPATH . 'images/user/',
                     'allowedTypes' => 'gif|jpg|png|jpeg',
-                    'maxSize' => 1024 
+                    'maxSize' => 1024
                 ];
                 $file = $this->request->getFile('cheque_img');
-    
+
                 if ($file->isValid() && !$file->hasMoved()) {
                     if ($file->move($uploadConfig['path'], $file->getName())) {
                         $cheque_img = $file->getName();
                     }
                 }
-                $var_status='no';
-                $var_status=$this->request->getPost('var_status');
+                $var_status = 'no';
+                $var_status = $this->request->getPost('var_status');
 
                 $dataToStore = [
                     'pancard' => $this->request->getPost('pancard'),
@@ -714,30 +720,29 @@ class Profile extends BaseController
                     'ifsc' => $this->request->getPost('ifsc'),
                     'var_status' => $var_status
                 ];
-    
-                $return = $userModel->update_profile($id, $dataToStore); 
-    
+
+                $return = $userModel->update_profile($id, $dataToStore);
+
                 if ($return) {
                     $session->setFlashdata('flash_message', 'updated');
                     return redirect()->to(base_url('admin/kyc'));
                 } else {
                     $session->setFlashdata('flash_message', 'not_updated');
                 }
-            } else{
+            } else {
                 $errors = $validation->getErrors();
                 $value = empty($errors) ? "" : reset($errors);
                 $data = array("status" => "error", "message" => $value);
                 $session->setFlashdata('flash_message', $value);
                 return redirect()->to(base_url('admin/kyc'));
-                
             }
         }
-    
+
         $data['profile'] = $userModel->profile($id);
         $data['main_content'] = 'admin/kyc';
         return view('includes/admin/template', $data);
     }
-    
+
 
     public function installments()
     {
@@ -1083,8 +1088,8 @@ class Profile extends BaseController
         $db = db_connect();
         $data['profile'] = $user_model->profile($id);
         $query = $db->query('   select wt.*, concat(c.f_name, " ", c.l_name) as name from wallet_transaction wt, customer c
-                                where wt.wallet_id = (select wallet_id from wallet where user_id = '.$id.' and wallet_type = "reward")
-                                and c.id = '.$id.';');
+                                where wt.wallet_id = (select wallet_id from wallet where user_id = ' . $id . ' and wallet_type = "reward")
+                                and c.id = ' . $id . ';');
         $row = $query->getResultArray();
         $data['rewards'] = $row;
 
@@ -1124,7 +1129,7 @@ class Profile extends BaseController
         $data['profile'] = $user_model->profile($id);
 
         $db = db_connect();
-        $query = $db->query('select package.name as package, partnership.* from partnership, package where partnership.user_id = "'.$id.'" and package.id = partnership.package_id;');
+        $query = $db->query('select package.name as package, partnership.* from partnership, package where partnership.user_id = "' . $id . '" and package.id = partnership.package_id;');
         $row = $query->getRowArray();
         $data["partnership"] = $row;
 
