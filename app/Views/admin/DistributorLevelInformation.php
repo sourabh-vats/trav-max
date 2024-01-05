@@ -35,7 +35,7 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
         <div class="row">
             <div class="col-md-5">
                 <strong>
-                    <div class="form-group"><label class="control-label " style="text-dec;">Trav ID : </label>
+                    <div class="form-group"><label class="control-label " >Trav ID : </label>
                 </strong><?php echo " " . $profile[0]['customer_id']; ?>
 
             </div>
