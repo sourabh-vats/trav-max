@@ -562,8 +562,6 @@ class Profile extends BaseController
             $data['booking_packages_number'] = (int)substr($result['type'], -2, -1);
         }
         $data['payment_amount'] = $result['total'] * $data['booking_packages_number'];
-        echo $data['payment_amount'];
-        die();
 
         $installmentController = new InstallmentController();
         $data['amount_due'] = (int)$installmentController->get_remaining_amount();
