@@ -101,10 +101,11 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
                     } else {
                         $status = "Pax " . substr($partner['role'], -2, -1);
                     }
-                    if ($partner['image'] != '') {
-                        $partner['image'] = $partner['image'];
-                    } else {
+                    
+                    if ($partner['image'] == "") {
                         $partner['image'] = 'avatar.png';
+                    } else {
+                        $partner['image'] = $partner['image'];
                     }
                     ?>
                     <tr>
