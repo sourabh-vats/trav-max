@@ -90,6 +90,8 @@
           <div class="form-group col-sm-12">
             <label> Payment Mode </label>
             <select class='form-select cash' name="mode" class="form-control" id="sel1">
+              <option value="UPI">UPI</option>
+              <option value="Card">Credit/Debit Card</option>
               <option value="NEFT">NEFT</option>
               <option value="RTGS">RTGS</option>
               <option value="IMPS">IMPS</option>
@@ -108,6 +110,7 @@
               <option value="Punjab National Bank">Punjab National Bank</option>
               <option value="Bank of Baroda"> Bank of Baroda</option>
               <option value="Axis Bank">Axis Bank</option>
+              <option value="Others">Others</option>
             </select>
 
             <!-- <input type="text" class="form-control" name="bank_name" value="<?php if (!empty($_POST['bank_name'])) {
@@ -123,7 +126,7 @@
                                                                                   }  ?>" >
           </div>-->
           <div class="form-group col-sm-12 utr">
-            <label class='one'> UTR No.</label>
+            <label class='one'> Reference Number</label>
             <input type="text" class="form-control" name="neft">
           </div>
           <div class="form-group col-sm-12 utr">

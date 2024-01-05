@@ -63,7 +63,7 @@
 <div class="row gap-5">
     <div class="col-md-5 px-0">
         <div class="row mx-0 mx-md-auto mb-md-2">
-            <div class="col-md-auto border-end" id="hero_total_sales">
+            <div class="col-auto border-end" id="hero_total_sales">
                 <span class="big_number"><?php echo $total_sales; ?></span>
                 <span class="big_number_title">Total Sales</span>
             </div>

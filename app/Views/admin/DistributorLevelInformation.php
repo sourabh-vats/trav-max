@@ -79,49 +79,45 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
 	  </div>
 	  </div>-->
 <div class="col-md-12 col-sm-12 martintb">
-    <div class="table-responsive">
-        <div>
-            <table cellspacing="0" rules="all" class="table table-bordered table-striped" border="1" id="ContentPlaceHolder1_GridView1" style="border-collapse:collapse;width: 100%">
-                <tbody>
-                    <tr>
-                        <th scope="col">S.No</th>
-                        <th scope="col">Trav ID</th>
-                        <th scope="col">Partner Name</th>
-                        <th scope="col">Partnership</th>
-                        <th scope="col">DOJ</th>
-                    </tr>
-                    <?php $no_user_found = 'true';
-                    if (!empty($myfriends)) { //echo '<pre>'; print_r($myfriends); echo '</pre>';
-                        $i = 1;
-                        $no_user_found = 'false';
-                        foreach ($myfriends as $friend) {
-
-                            if ($friend['macro'] > 0) {
-                                $status = 'Macro';
-                            } else {
-                                $status = 'Micro';
-                            }
-                            echo '
-                            <tr align="center">
-                            <td>' . $i . '</td>
-                            <td>';
-                            echo $friend['customer_id'] . '<!--/a--></td><td>' . $friend['f_name'] . ' ' . $friend['l_name'] . '</td>';
-                            if ($friend['role'] == "partner") {
-                                $friend['role'] = "Pending";
-                            }
-                            echo '
-                            <td>' . $friend['role'] . '</td>
-                            <td>' . date('d F Y', strtotime($friend['rdate'])) . '</td></tr>';
-                            $i++;
-                        }
+    <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 700px">
+        <table class="table table-striped mb-0">
+            <thead style="background-color: #002d72;">
+                <tr>
+                    <th scope="col">Sr. No.</th>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Trav ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Membership</th>
+                    <th scope="col">DOJ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i = 1; ?>
+                <?php foreach ($myfriends as $partner) : ?>
+                    <?php if ($partner['role'] == "partner") {
+                        $status = 'Pending';
+                    } else if ($partner['role'] == "micro") {
+                        $status = 'Free';
+                    } else {
+                        $status = "Pax " . substr($partner['role'], -2, -1);
                     }
-                    if ($no_user_found == 'true') {
-                        echo '<tr><td colspan="9">No user found</td></tr>';
+                    if ($partner['image'] != '') {
+                        $partner['image'] = $partner['image'];
+                    } else {
+                        $partner['image'] = 'avatar.png';
                     }
                     ?>
-                </tbody>
-            </table>
-        </div>
+                    <tr>
+                        <td><?= $i++; ?></td>
+                        <td><img class="partner_img" src="<?= base_url('/images/user_profile/' . $partner['image']); ?>" width="50" height="50" /></td>
+                        <td><?= $partner['customer_id']; ?></td>
+                        <td><?= $partner['f_name'] . ' ' . $partner['l_name']; ?></td>
+                        <td><?= $status; ?></td>
+                        <td><?= $partner['rdate']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 </div><span id="ContentPlaceHolder1_Label2" style="color:Red;font-weight:bold;display: none;"></span>
 </div>

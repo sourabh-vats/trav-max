@@ -448,6 +448,40 @@ th {
     animation: blinking .8s infinite;
 }
 
+
+table td,
+table th {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+thead th {
+    color: #fff;
+    text-align: left;
+}
+
+.card {
+    border-radius: .5rem;
+}
+
+.table-scroll {
+    border-radius: .5rem;
+}
+
+.table-scroll table thead th {
+    font-size: 1.25rem;
+}
+
+thead {
+    top: 0;
+    position: sticky;
+}
+
+.partner_img{
+    border-radius: 50%;
+}
+
 @keyframes blinking {
     0% {
         color: white;
@@ -473,10 +507,6 @@ th {
     #main {
         margin-left: 0px !important;
         padding-bottom: 20px;
-    }
-
-    .my_partners_hero_link {
-        display: none;
     }
 
     .navbar-toggler-icon {

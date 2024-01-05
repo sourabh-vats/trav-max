@@ -101,6 +101,9 @@ $routes->post('api/set_partnership', 'Api::set_partnership');
 $routes->post('api/notification', 'Api::notification');
 $routes->get('api/get_otp', 'Api::get_otp');
 
+//Installment
+$routes->get('api/get_installment', 'InstallmentController::get_remaining_amount');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

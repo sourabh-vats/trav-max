@@ -216,8 +216,8 @@
     <main class="details-container">
         <div class="white-gradient">
             <header>
-                <h1>Invite Friends &amp; Earn</h1>
-                <h3 class="refer-meta-data">Invite Friends &amp; Earn Points For Every Friend</h3>
+                <h1>Refer &amp; Earn</h1>
+                <h3 class="refer-meta-data">Invite friends & earn cash for each friend.</h3>
             </header>
             <div class="hero-img-container"><img src="/images/refer-image.webp" loading="eager"></div>
             <div class="overlay" id="overlay">
@@ -319,6 +319,8 @@
     function shareOnWhatsApp() {
         var shareURL = '<?php echo base_url() ?>signup?refer_id=<?php echo $profile[0]['customer_id']; ?>';
         var imageURL = 'http://localhost:8080/images/addidas.png';
+        shareURL="whatsapp://send?text=Hey friend, I came across a new exciting idea 💡 where one can travel for international holidays  and can earn from it. I liked it and would like you to explore it too. It's awesome! Signup for free using my link. I am sure you'ld like it 😊." + $("#the_text").val();
+
 
         var whatsappURL = 'https://api.whatsapp.com/send?' +
             'text=' + encodeURIComponent(shareURL) +

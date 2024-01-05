@@ -170,6 +170,7 @@
                     </div>
                     <!-- i dont know  -->
                     <div class="form-floating mb-3">
+                        <input type="checkbox" id="refergentick">
                         <span class="dont" id="refergen">I don't know</span>
                     </div>
 
@@ -234,6 +235,21 @@
                 const freeRefferalIDs = ["1085MEM3665", "1086MEM3665", "1087MEM3665", "1088MEM3665", "1089MEM3665", "1090MEM3665", "1091MEM3665", "1092MEM3665", "1093MEM3665", "1094MEM3665", "1095MEM3665", "1096MEM3665", "1097MEM3665", "1098MEM3665", "1098MEM3665", "1099MEM3665", "1100MEM3665", "1101MEM3665", "1102MEM3665", "1103MEM3665", "1104MEM3665", "1105MEM3665", "1106MEM3665", "1107MEM3665", "1108MEM3665", "1108MEM3665"];
                 const random = Math.floor(Math.random() * freeRefferalIDs.length);
                 $("#trav_id").val(freeRefferalIDs[random]);
+                if (!$("#refergentick").is(":checked")) {
+                    $("#refergentick").prop("checked", true);
+                } else {
+                    $("#trav_id").val("");
+                    $("#refergentick").prop("checked", false);
+                }
+            });
+            $("#refergentick").click(function() {
+                if ($("#refergentick").is(":checked")) {
+                    const freeRefferalIDs = ["1085MEM3665", "1086MEM3665", "1087MEM3665", "1088MEM3665", "1089MEM3665", "1090MEM3665", "1091MEM3665", "1092MEM3665", "1093MEM3665", "1094MEM3665", "1095MEM3665", "1096MEM3665", "1097MEM3665", "1098MEM3665", "1098MEM3665", "1099MEM3665", "1100MEM3665", "1101MEM3665", "1102MEM3665", "1103MEM3665", "1104MEM3665", "1105MEM3665", "1106MEM3665", "1107MEM3665", "1108MEM3665", "1108MEM3665"];
+                    const random = Math.floor(Math.random() * freeRefferalIDs.length);
+                    $("#trav_id").val(freeRefferalIDs[random]);
+                } else {
+                    $("#trav_id").val("");
+                }
             });
         }
     });

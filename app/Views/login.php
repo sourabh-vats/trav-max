@@ -109,7 +109,7 @@
                 <div id="login_other_options">
                     <a href="/signup">Create an account</a>
                     <span>|</span>
-                    <a href="/forgot_password">I forgot my password</a>
+                    <a href="/forgot_password">Forgot password</a>
                 </div>
             </div>
         </div>

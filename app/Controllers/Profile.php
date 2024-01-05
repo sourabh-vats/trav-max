@@ -143,9 +143,10 @@ class Profile extends BaseController
         $data['remaining_days'] = $remaining_days[1];
         $remaining_days_percentage = $data['remaining_days']/31*100;
         $data['remaining_days_percentage'] = $remaining_days_percentage;
-        $amount_due = $result[0]['amount_due'] + $result[1]['amount_due'];
-        $data['amount_due'] = $amount_due;
-        $amount_due_percentage = $amount_due/11000*100;
+        //$amount_due = $result[0]['amount_due'] + $result[1]['amount_due'];
+        $installmentController = new InstallmentController();
+        $data['amount_due'] = (int)$installmentController->get_remaining_amount();
+        $amount_due_percentage = $data['amount_due']/11000*100;
         $data['amount_due_percentage'] = $amount_due_percentage;
         // var_dump($data['amount_due']);
         // die();
