@@ -26,7 +26,7 @@ if (isset($_SESSION['upgrade']) && $_SESSION['upgrade'] === true) {
                 <?php if ($booking_packages_number > 1) {
                     echo ' per person for <span class="highlight">' . $booking_packages_number . ' persons</span>';
                 } ?> and have taken the <span class="highlight"><?= $plan ?></span>.
-                Please make a payment of <span class="highlight">Rs. <?= $amount_due ?> (<?= $amount_due/$booking_packages_number . ' * ' . $booking_packages_number ?>)</span>
+                Please make a payment of <span class="highlight">Rs. <?= $payment_amount ?> (<?= $total . ' * ' . $booking_packages_number ?>)</span>
                 and share the proof with us</h4>
             <img src="/images/travel_img.jpeg" alt="" class="img-fluid" style="background-color: grey;">
         </div>
