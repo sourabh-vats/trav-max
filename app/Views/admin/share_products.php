@@ -129,25 +129,6 @@
         </div>
     </div>
 </form>
-<div class="row">
-    <?php
-
-    use App\Controllers\Profile;
-
-    foreach ($products as $product) : ?>
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="<?= $product['photo'] ?>" class="card-img-top" alt="<?= $product['name'] ?>">
-                <div class="card-body">
-                    <h5 class="card-title"><?= $product['name'] ?></h5>
-                    <p class="card-text"><?= $product['description'] ?></p>
-                    <p class="card-text">Price: $<?= $product['price'] ?></p>
-                    <a href="#" class="share-button btn btn-primary">Share</a>
-                </div>
-            </div>
-        </div>
-    <?php endforeach; ?>
-</div> -->
 
 <script>
     $(document).ready(function() {

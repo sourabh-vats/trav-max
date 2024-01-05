@@ -1048,16 +1048,16 @@ class Profile extends BaseController
         $id = session('cust_id');
         $data['profile'] = $user_model->profile($id);
 
-        if ($this->request->getMethod() === 'post') {
-            $category = $this->request->getPost('selected_category');
-            if ($category === 'all') {
-                $data['products'] = $user_model->get_all_products();
-            } else {
-                $data['products'] = $user_model->get_products_by_category($category);
-            }
-        } else {
-            $data['products'] = $user_model->get_all_products();
-        }
+        // if ($this->request->getMethod() === 'post') {
+        //     $category = $this->request->getPost('selected_category');
+        //     if ($category === 'all') {
+        //         $data['products'] = $user_model->get_all_products();
+        //     } else {
+        //         $data['products'] = $user_model->get_products_by_category($category);
+        //     }
+        // } else {
+        //     $data['products'] = $user_model->get_all_products();
+        // }
 
         $data['main_content'] = 'admin/share_products';
         return view('includes/admin/template', $data);
