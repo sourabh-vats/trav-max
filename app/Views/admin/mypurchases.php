@@ -8,7 +8,11 @@
     </div>
     <div class="col-12 col-md-3 border p-3 shadow bg-primary">
         <h4>Partnership: </h4>
+        <?php if ($partnership["type"] == "macro") : ?>
+            <h3><strong>Pax 5</strong></h3>
+        <?php else : ?>
         <h3><strong><?= "Pax " . substr($partnership["type"], -2, -1) ?></strong></h3>
+        <?php endif; ?>
     </div>
     <div class="col-12 col-md-3 border p-3 shadow bg-primary">
         <h4>Plan: </h4>
