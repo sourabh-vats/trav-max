@@ -146,9 +146,9 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/feedback">
+                            <a class="nav-link" aria-current="page" href="/admin/support">
                                 <i class="bi-info-circle-fill"></i>
-                                Give Us Feedback
+                                Support/Help
                             </a>
                         </li>
                     </ul>

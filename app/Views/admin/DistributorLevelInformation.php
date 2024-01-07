@@ -87,7 +87,7 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
                     <th scope="col">Photo</th>
                     <th scope="col">Trav ID</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Membership</th>
+                    <th scope="col">Partnership</th>
                     <th scope="col">DOJ</th>
                 </tr>
             </thead>
@@ -110,7 +110,7 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
                         <td><?= $partner['customer_id']; ?></td>
                         <td><?= $partner['f_name'] . ' ' . $partner['l_name']; ?></td>
                         <td><?= $status; ?></td>
-                        <td><?= $partner['rdate']; ?></td>
+                        <td><?= date_format(new DateTime($partner['rdate']),"D, d M Y"); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

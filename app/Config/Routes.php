@@ -93,6 +93,9 @@ $routes->get('admin/reward', 'Profile::reward');
 $routes->get('admin/myincome', 'Profile::myincome');
 $routes->get('admin/teamincome', 'Profile::teamincome');
 
+// Support
+$routes->get('admin/support', 'Profile::support');
+
 
 // APIs
 $routes->get('admin/get_notification', 'Profile::teamincome');

@@ -1148,4 +1148,12 @@ class Profile extends BaseController
         $data['main_content'] = 'admin/refer_and_earn';
         return view('includes/admin/template', $data);
     }
+
+    public function support(){
+        $user_model = model('UserModel');
+        $id = session('cust_id');
+        $data['profile'] = $user_model->profile($id);
+        $data['main_content'] = 'admin/support';
+        return view('includes/admin/template', $data);
+    }
 }
