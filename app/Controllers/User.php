@@ -112,49 +112,49 @@ class User extends BaseController
                 $numbers = '91' . $_POST["number"];
                 $message = $otp . ' is your travmax account verification code.';
 
-                //$result = send_sms($numbers, $message);
+                $result = send_sms($numbers, $message);
 
-                // if ($result === true) {
+                if ($result === true) {
                     
-                // } else {
-                //     echo 'Failed to send SMS: ' . $result;
-                // }
-                // $mail = new PHPMailer(true);
+                } else {
+                    echo 'Failed to send SMS: ' . $result;
+                }
+                $mail = new PHPMailer(true);
 
-                // try {
-                //     //Server settings
-                //     // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-                //     $mail->SMTPOptions = array(
-                //         'ssl' => array(
-                //             'verify_peer' => false,
-                //             'verify_peer_name' => false,
-                //             'allow_self_signed' => true
-                //         )
-                //     );
-                //     $mail->isSMTP();
-                //     $mail->Host = 'localhost';
-                //     $mail->SMTPAuth = false;
-                //     $mail->SMTPAutoTLS = false;
-                //     $mail->Port = 25;
+                try {
+                    //Server settings
+                    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                    $mail->SMTPOptions = array(
+                        'ssl' => array(
+                            'verify_peer' => false,
+                            'verify_peer_name' => false,
+                            'allow_self_signed' => true
+                        )
+                    );
+                    $mail->isSMTP();
+                    $mail->Host = 'localhost';
+                    $mail->SMTPAuth = false;
+                    $mail->SMTPAutoTLS = false;
+                    $mail->Port = 25;
 
-                //     //Recipients
-                //     $mail->setFrom('support@travmaxholidays.com', 'Travmax');
-                //     $mail->addAddress($_POST['email']);     //Add a recipient
-                //     $mail->addReplyTo('info@travmaxholidays.com', 'Information');
+                    //Recipients
+                    $mail->setFrom('support@travmaxholidays.com', 'Travmax');
+                    $mail->addAddress($_POST['email']);     //Add a recipient
+                    $mail->addReplyTo('info@travmaxholidays.com', 'Information');
 
-                //     //Content
-                //     $mail->isHTML(true);                                  //Set email format to HTML
-                //     $mail->Subject = 'OTP';
+                    //Content
+                    $mail->isHTML(true);                                  //Set email format to HTML
+                    $mail->Subject = 'OTP';
 
 
-                //     // Set the view content as the email body
-                //     $mail->Body = 'OTP for Completing the registraton is this: ' . $otp;
-                //     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                    // Set the view content as the email body
+                    $mail->Body = 'OTP for Completing the registraton is this: ' . $otp;
+                    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-                //     $mail->send();
-                // } catch (Exception $e) {
-                //     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-                // }
+                    $mail->send();
+                } catch (Exception $e) {
+                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                }
 
                 $email = $_POST['email'];
                 $db = db_connect();

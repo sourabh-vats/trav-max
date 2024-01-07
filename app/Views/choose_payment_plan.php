@@ -111,7 +111,7 @@ switch ($plan) {
 
                     </div>
                 </div>
-                <div class="card plan_box" id="traveasy_plan">
+                <!-- <div class="card plan_box" id="traveasy_plan">
                     <div class="card-body">
                         <h5 class="card-title">trav<span style="color: #97030f;">easy</span></h5>
                         <p>Package Name : <?php echo $package_data[0]['display_name']; ?></p>
@@ -129,7 +129,7 @@ switch ($plan) {
                             echo '<h2 id="travlater_price">₹' . 5500 *  $booking_packages_number . '</h2><p>Plus Taxes</p>';
                         } ?>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="w-100 mt-5 text-center">
                 <a href="/signup/confirm_plan?package=<?php echo $_GET["package"]; ?>&plan=<?php echo $_GET["plan"]; ?>&payment_plan=" id="confirm_btn" class="primary_btn d-none">Continue</a>
