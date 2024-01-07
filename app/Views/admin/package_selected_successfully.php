@@ -20,7 +20,7 @@ if (isset($_SESSION['upgrade']) && $_SESSION['upgrade'] === true) {
 <div class="container">
     <div class="row d-flex justify-content-center flex-wrap">
         <div class="col-md-6 p-3 p-md-5 border-end text-center">
-            <h2 class="heading">Congratulations!</h2>
+            <h2 class="heading">Please pay booking amount!</h2>
             <br>
             <h4>You have selected <span class="highlight"><?= $package_name ?></span> Package for <span class="highlight">Rs. <?= $total ?></span>
                 <?php if ($booking_packages_number > 1) {

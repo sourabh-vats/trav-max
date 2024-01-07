@@ -100,6 +100,7 @@ switch ($plan) {
                         <p>No. of Packages : <?php echo $booking_packages_number; ?></p>
                         <p>Total Amout : ₹<?php echo $package_data[0]['total'] . ' * ' . $booking_packages_number . ' = ₹' . $package_data[0]['total'] * $booking_packages_number; ?></p>
                         <p>Down Payment : ₹11000 per Person</p>
+                        <p>Balance : In 12 equal EMIs</p>
                         <p>Pay Now : ₹<?php echo '11000 * ' . $booking_packages_number . ' = ₹' . 11000 * $booking_packages_number; ?></p>
                     </div>
                     <div class="card-footer">
