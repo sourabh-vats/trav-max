@@ -141,7 +141,7 @@
             <p class="text_3">Total Income : <span>₹ <?php echo $total_income; ?></p>
             <p class="text_3">Pending Income : <span>₹ <?php echo $pending_income; ?></p>
             <p class="text_3">Approved Income : <span>₹ <?php echo $approved_income; ?></p>
-            <p class="text_3">Redemmed Income : <span>₹ <?php echo $redeemed_income; ?></p>
+            <p class="text_3">Redeemed Income : <span>₹ <?php echo $redeemed_income; ?></p>
             <p class="text_3">Active Income : <span>₹ <?php echo $active_income; ?></p>
             <p class="text_3">Team Income : <span>₹ <?php echo $team_income; ?></p>
         </div>
