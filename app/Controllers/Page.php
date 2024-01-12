@@ -110,6 +110,11 @@ class Page extends BaseController
 
 	public function login()
 	{
+		$session = session();
+		if ($session->is_customer_logged_in) {
+            header('Location: /admin');
+            die();
+        }
 		$data['page_keywords'] = '';
 		$data['page_description'] = '';
 		$data['page_slug'] = 'Login';
