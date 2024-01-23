@@ -129,7 +129,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                         <?php } ?> -->
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/admin/mypurchases">
-                                <i class="bi-cash"></i>
+                                <i class="bi-bag-check-fill"></i>
                                 My Purchases
                             </a>
                         </li>

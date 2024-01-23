@@ -263,7 +263,8 @@ p {
     text-align: center;
 }
 
-#total_partners_number {
+#total_partners_number,
+#total_purchases {
     font-size: 2rem;
 }
 
@@ -458,7 +459,7 @@ table th {
 
 thead th {
     color: #fff;
-    text-align: left;
+    text-align: center;
 }
 
 .card {
@@ -484,6 +485,11 @@ thead {
 
 tr{
     vertical-align: middle;
+}
+
+td{
+    vertical-align: middle;
+    text-align: center !important;
 }
 
 @keyframes blinking {

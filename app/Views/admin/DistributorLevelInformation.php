@@ -116,7 +116,8 @@ $attributes = array('class' => 'form form-inline', 'id' => '');
             </tbody>
         </table>
     </div>
-</div><span id="ContentPlaceHolder1_Label2" style="color:Red;font-weight:bold;display: none;"></span>
+</div>
+<span id="ContentPlaceHolder1_Label2" style="color:Red;font-weight:bold;display: none;"></span>
 </div>
 </div>
 <?php //echo form_close(); 

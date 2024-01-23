@@ -129,6 +129,12 @@ class Profile extends BaseController
         //         return redirect()->to('admin/start');
         //     }
         // }
+
+        // Get number of my partners
+        $query = $db->query('SELECT count(*) as total FROM `customer` WHERE parent_customer_id = "' . $customer_id . '"');
+        $row = $query->getRow();
+        $data['my_partners'] = $row->total;
+
         $query = $db->query('   SELECT I.installment_id, I.due_date, DATEDIFF(I.due_date, CURDATE()) AS days_left, I.amount_due
                                 FROM installment I
                                 JOIN purchase P ON I.purchase_id = P.purchase_id
@@ -148,8 +154,45 @@ class Profile extends BaseController
         $data['amount_due'] = (int)$installmentController->get_remaining_amount();
         $amount_due_percentage = $data['amount_due'] / 11000 * 100;
         $data['amount_due_percentage'] = $amount_due_percentage;
-        // var_dump($data['amount_due']);
-        // die();
+
+        $data['total_income'] = 0;
+        $data['direct_income'] = 0;
+        $data['team_income'] = 0;
+        $data['total_sales'] = 0;
+        $data['my_sales'] = 0;
+        $data['team_sales'] = 0;
+        // Get my income from my direct sales
+        $query = $db->query('SELECT SUM(income_amount) as total, count(*) as mysales FROM `income` WHERE user_id = ' . $id . ' and income_type = "direct"');
+        $row = $query->getRow();
+        $data['direct_income'] = $row->total;
+        $data['my_sales'] = $row->mysales;
+
+        // Get team income from my team sales
+        $query = $db->query('SELECT SUM(income_amount) as total, count(*) as teamsales FROM `income` WHERE user_id = ' . $id . ' and income_type = "team"');
+        $row = $query->getRow();
+        $data['team_income'] = (int)$row->total;
+        $data['team_sales'] = $row->teamsales;
+
+        // Calculate total income and total sales from all incomes
+        $data['total_income'] = $data['direct_income'] + $data['team_income'] + $data['wallet']['reward'] + $data['wallet']['bonus'] + $data['wallet']['moneyback'] + $data['wallet']['cashback'] ;
+        $data['total_sales'] = $data['my_sales'] + $data['team_sales'];
+
+        // Get all travel center and business center income from income table
+        $query = $db->query('SELECT SUM(travel_center_income) as total_travel_center_income, SUM(business_center_income) as total_business_center_income FROM `income` WHERE user_id = ' . $id . ' and travel_center_income is not null;');
+        $row = $query->getRow();
+        $data['travel_center_income'] = $row->total_travel_center_income;
+        $data['business_center_income'] = $row->total_business_center_income;
+
+        // Get pending income of all types
+        $query = $db->query('SELECT SUM(income_amount) as total FROM `income` WHERE user_id = ' . $id . ' and income_status = "pending"');
+        $row = $query->getRow();
+        $data['pending_income'] = $row->total;
+
+        // Get total purchases of all types
+        $query = $db->query('SELECT count(*) as total_purchases FROM `purchase` WHERE user_id = ' . $id);
+        $row = $query->getRow();
+        $data['total_purchases'] = $row->total_purchases;
+
         $data['main_content'] = 'admin/micro_home';
         //$data['main_content'] = 'admin/home';
         return view('includes/admin/template', $data);
@@ -820,14 +863,19 @@ class Profile extends BaseController
         $id = session('cust_id');
         $customer_id = session('trav_id');
         $data['profile'] = $user_model->profile($id);
+
         $db = db_connect();
-        $query   = $db->query('
-        SELECT  incomes.id, incomes.amount,incomes.rdate,incomes.dist_level, customer.customer_id as user_send_by
-        FROM customer
-          LEFT JOIN incomes ON customer.id = incomes.user_send_by
-        WHERE incomes.user_id = ' . $id . ' and incomes.status = "Approved" and incomes.pay_type = "travmoney";');
+        $sql = "select partnership.type as role, partnership.plan,package.name, package.total
+                from partnership
+                inner join package on package.id = partnership.package_id
+                where partnership.user_id = $id;";
+        $query = $db->query($sql)->getResultArray();
+        $data['partnership'] = $query[0];
+
+        // Get all travel center income from income table
+        $query = $db->query('SELECT * FROM `income` WHERE user_id = ' . $id . ' and travel_center_income is not null;');
         $result = $query->getResultArray();
-        $data["travelcenter"] = $result;
+        $data["incomes"] = $result;
 
         $data['main_content'] = 'admin/travelcenter';
         return view('includes/admin/template', $data);
@@ -840,13 +888,9 @@ class Profile extends BaseController
         $customer_id = session('trav_id');
         $data['profile'] = $user_model->profile($id);
         $db = db_connect();
-        $query   = $db->query('
-        SELECT  incomes.id, incomes.amount,incomes.rdate,incomes.dist_level, customer.customer_id as user_send_by
-        FROM customer
-          LEFT JOIN incomes ON customer.id = incomes.user_send_by
-        WHERE incomes.user_id = ' . $id . ' and incomes.status = "Approved" and incomes.pay_type = "travprofit";');
+        $query = $db->query('SELECT * FROM `income` WHERE user_id = ' . $id . ' and travel_center_income is not null;');
         $result = $query->getResultArray();
-        $data["travelcenter"] = $result;
+        $data["incomes"] = $result;
 
         $data['main_content'] = 'admin/businesscenter';
         return view('includes/admin/template', $data);
@@ -859,26 +903,15 @@ class Profile extends BaseController
         $customer_id = session('trav_id');
         $data['profile'] = $user_model->profile($id);
 
-        $team = array();
-        $ids = array($customer_id);
-        $p = 0;
-        while ($p < 1) {
-            $myfriends = $user_model->my_friends_in($ids);
-            if (!empty($myfriends)) {
-                $team = array_merge($team, $myfriends);
-                $ids = array_column($myfriends, 'customer_id');
-            } else {
-                $p++;
-            }
-        }
-
-        $my_sales = array();
-        foreach ($team as $member) {
-            if ($member["parent_customer_id"] == $customer_id) {
-                array_push($my_sales, $member);
-            }
-        }
-        $data["mysales"] = $my_sales;
+        $db = db_connect();
+        $sql = "select i.income_amount, concat(c.f_name, ' ', c.l_name) as from_name, c.customer_id as from_id, i.income_date, p.type as product_type, pck.name as product_name
+                from income i
+                inner join customer c on c.id = i.referred_user_id
+                inner join partnership p on p.user_id = i.referred_user_id
+                inner join package pck on pck.id = p.package_id
+                where i.user_id = $id and i.income_type = 'direct';";
+        $query = $db->query($sql)->getResultArray();
+        $data['my_incomes'] = $query;
 
         $data['main_content'] = 'admin/mysales';
         return view('includes/admin/template', $data);
@@ -891,26 +924,15 @@ class Profile extends BaseController
         $customer_id = session('trav_id');
         $data['profile'] = $user_model->profile($id);
 
-        $team = array();
-        $ids = array($customer_id);
-        $p = 0;
-        while ($p < 1) {
-            $myfriends = $user_model->my_friends_in($ids);
-            if (!empty($myfriends)) {
-                $team = array_merge($team, $myfriends);
-                $ids = array_column($myfriends, 'customer_id');
-            } else {
-                $p++;
-            }
-        }
+        $db = db_connect();
+        $sql = "select i.income_amount, concat(c.f_name, ' ', c.l_name) as from_name, c.customer_id as from_id, i.income_date, p.type as product_type
+                from income i
+                inner join customer c on c.id = i.referred_user_id
+                inner join partnership p on p.user_id = i.referred_user_id
+                where i.user_id = $id and i.income_type = 'team';";
+        $query = $db->query($sql)->getResultArray();
+        $data['team_incomes'] = $query;
 
-        $team_sales = array();
-        foreach ($team as $member) {
-            if ($member["parent_customer_id"] != $customer_id) {
-                array_push($team_sales, $member);
-            }
-        }
-        $data["teamsales"] = $team_sales;
 
         $data['main_content'] = 'admin/teamsales';
         return view('includes/admin/template', $data);
@@ -1106,6 +1128,15 @@ class Profile extends BaseController
         $customer_id = session('trav_id');
         $data['profile'] = $user_model->profile($id);
 
+        // Get my income entries of the user from the database
+        $db = db_connect();
+        $sql = "select i.income_amount, concat(c.f_name, ' ', c.l_name) as from_name, c.customer_id as from_id, i.income_date, i.income_status, p.type as product_type
+                from income i
+                inner join customer c on c.id = i.referred_user_id
+                inner join partnership p on p.user_id = i.referred_user_id
+                where i.user_id = $id and i.income_type = 'direct';";
+        $query = $db->query($sql)->getResultArray();
+        $data['my_incomes'] = $query;
 
         $data['main_content'] = 'admin/myincome';
         return view('includes/admin/template', $data);
@@ -1118,6 +1149,15 @@ class Profile extends BaseController
         $customer_id = session('trav_id');
         $data['profile'] = $user_model->profile($id);
 
+        // Get team income from team sales
+        $db = db_connect();
+        $sql = "select i.income_amount, concat(c.f_name, ' ', c.l_name) as from_name, c.customer_id as from_id, i.income_date, p.type as product_type
+                from income i
+                inner join customer c on c.id = i.referred_user_id
+                inner join partnership p on p.user_id = i.referred_user_id
+                where i.user_id = $id and i.income_type = 'team';";
+        $query = $db->query($sql)->getResultArray();
+        $data['team_incomes'] = $query;
 
         $data['main_content'] = 'admin/teamincome';
         return view('includes/admin/template', $data);
@@ -1134,6 +1174,11 @@ class Profile extends BaseController
         $query = $db->query('select package.name as package, partnership.* from partnership, package where partnership.user_id = "' . $id . '" and package.id = partnership.package_id;');
         $row = $query->getRowArray();
         $data["partnership"] = $row;
+
+        // Get purchases of the user from the database
+        $sql = "select p.*, package.name as package_name, package.total as package_amount from purchase p, package where p.user_id = $id and p.product_id = package.id;";
+        $query = $db->query($sql)->getResultArray();
+        $data['purchases'] = $query;
 
         $data['main_content'] = 'admin/mypurchases';
         return view('includes/admin/template', $data);

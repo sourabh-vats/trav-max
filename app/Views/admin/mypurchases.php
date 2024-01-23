@@ -23,7 +23,35 @@
 <div class="page-heading mt-5">
     <h2>Purchases</h2>
 </div>
-
+<div class="col-md-12 col-sm-12 martintb table-hover">
+    <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 700px">
+        <table class="table table-striped mb-0">
+            <thead style="background-color: #002d72;">
+                <tr>
+                    <th scope="col">Sr. No.</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Booking Amount</th>
+                    <th scope="col">Status</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i = 1; ?>
+                <?php foreach ($purchases as $purchase) : ?>
+                    <tr>
+                        <td><?= $i++; ?></td>
+                        <td><?= date_format(new DateTime($purchase['purchase_date']),"D, d M Y"); ?></td>
+                        <td><?= $purchase['package_name']; ?></td>
+                        <td>Rs.<?= $purchase['total_amount']; ?></td>
+                        <td>Rs.11000</td>
+                        <td><?= ucfirst($purchase['purchase_status']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 <script>
     if($("#user_role") == "micro"){
         $("#partner_section").hide();

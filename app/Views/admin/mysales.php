@@ -1,44 +1,47 @@
 <div class="page-heading">
     <h2>My Sales</h2>
 </div>
-<div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 700px">
+<style>
+    td {
+        text-align: center;
+    }
+</style>
+<div class="col-md-12 col-sm-12 martintb table-hover">
+    <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 700px">
         <table class="table table-striped mb-0">
             <thead style="background-color: #002d72;">
                 <tr>
                     <th scope="col">Sr. No.</th>
-                    <th scope="col">Photo</th>
-                    <th scope="col">Trav ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Membership</th>
-                    <th scope="col">DOJ</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">From Name</th>
+                    <th scope="col">From TravID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Product</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $i = 1; ?>
-                <?php foreach ($mysales as $partner) : ?>
-                    <?php if ($partner['role'] == "partner") {
-                        $status = 'Pending';
-                    } else if ($partner['role'] == "micro") {
-                        $status = 'Free';
+                <?php foreach ($my_incomes as $income) : ?>
+                    <?php if ($income['product_type'] == "partner") {
+                        $product = 'Pending';
+                    } else if ($income['product_type'] == "micro") {
+                        $product = 'Free';
+                    } else if ($income['product_type'] == "macro") {
+                        $product = 'Pax 5';
                     } else {
-                        $status = "Pax " . substr($partner['role'], -2, -1);
-                    }
-                    
-                    if ($partner['image'] == "") {
-                        $partner['image'] = 'avatar.png';
-                    } else {
-                        $partner['image'] = $partner['image'];
+                        $product = "Pax " . substr($income['product_type'], -2, -1);
                     }
                     ?>
                     <tr>
                         <td><?= $i++; ?></td>
-                        <td><img class="partner_img" src="<?= base_url('/images/user_profile/' . $partner['customer_id'] . '.png'); ?>" width="50" height="50" onerror="this.src='/images/user_profile/avatar.png';" /></td>
-                        <td><?= $partner['customer_id']; ?></td>
-                        <td><?= $partner['f_name'] . ' ' . $partner['l_name']; ?></td>
-                        <td><?= $status; ?></td>
-                        <td><?= $partner['rdate']; ?></td>
+                        <td>Rs.<?= (int)$income['income_amount']; ?></td>
+                        <td><?= $income['from_name']; ?></td>
+                        <td><?= $income['from_id']; ?></td>
+                        <td><?= date_format(new DateTime($income['income_date']),"D, d M Y"); ?></td>
+                        <td><?= $product . "(" . $income['product_name'] . ")"?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+</div>
