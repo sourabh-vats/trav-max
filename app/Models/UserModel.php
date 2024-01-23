@@ -341,10 +341,12 @@ class UserModel extends Model
             //Add reward to parent
             $query = $db->query('select balance from wallet where user_id = "' . $parent_id . '" and wallet_type = "reward"');
             $result = $query->getRowArray();
-            $parent_reward_balance = $result['balance'];
-            if ($parent_reward_balance < 1100) {
-                $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$parent_id' and `wallet_type` = 'reward')");
-                $db->query("INSERT INTO `wallet_transaction` (`wallet_id`, `transaction_type`, `amount`, `transaction_date`) VALUES ((select wallet_id from wallet where user_id='$parent_id' and wallet_type = 'reward'), 'credit', '$reward_amount', now())");
+            if ($result != null) {
+                $parent_reward_balance = $result['balance'];
+                if ($parent_reward_balance < 1100) {
+                    $db->query("UPDATE `wallet` SET `balance` = `balance` + '$reward_amount' WHERE (`user_id` = '$parent_id' and `wallet_type` = 'reward')");
+                    $db->query("INSERT INTO `wallet_transaction` (`wallet_id`, `transaction_type`, `amount`, `transaction_date`) VALUES ((select wallet_id from wallet where user_id='$parent_id' and wallet_type = 'reward'), 'credit', '$reward_amount', now())");
+                }
             }
         }
 
