@@ -118,6 +118,12 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                                 Refer & Earn
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/admin/marketing_materials/">
+                                <i class="bi-megaphone-fill"></i>
+                                Marketing Materials
+                            </a>
+                        </li>
                         <!-- <?php if ($profile[0]["role"] == "micro") {
                         } else { ?>
                             <li class="nav-item">

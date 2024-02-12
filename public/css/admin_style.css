@@ -492,6 +492,19 @@ td{
     text-align: center !important;
 }
 
+.images_section{
+    display: flex;
+    justify-content: start;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.img-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 @keyframes blinking {
     0% {
         color: white;

@@ -217,8 +217,8 @@ class User extends BaseController
 
                 try {
                     //Server settings
-                    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-                    //$mail->isSMTP();
+                    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                    $mail->isSMTP();
                     $mail->SMTPOptions = array(
                         'ssl' => array(
                             'verify_peer' => false,
@@ -226,22 +226,22 @@ class User extends BaseController
                             'allow_self_signed' => true
                         )
                     );                                         //Send using SMTP
-                    //$mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
-                    //$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                    //$mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
-                    //$mail->Password   = 'D523B4735BB9E3503EF9C1257E0FBD6AD5BF';                               //SMTP password
-                    //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                    //$mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                    $mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
+                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                    $mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
+                    $mail->Password   = 'D523B4735BB9E3503EF9C1257E0FBD6AD5BF';                               //SMTP password
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
 
-                    $mail->isSMTP();
-                    $mail->Host = 'localhost';
-                    $mail->SMTPAuth = false;
-                    $mail->SMTPAutoTLS = false;
-                    $mail->Port = 25;
+                    // $mail->isSMTP();
+                    // $mail->Host = 'localhost';
+                    // $mail->SMTPAuth = false;
+                    // $mail->SMTPAutoTLS = false;
+                    // $mail->Port = 25;
 
                     //Recipients
-                    $mail->setFrom('support@travmaxholidays.com', 'Travmax');
+                    $mail->setFrom('sourabhvats96@gmail.com');
                     $mail->addAddress($_POST["email"]);     //Add a recipient
                     $mail->addReplyTo('info@travmaxholidays.com', 'Information');
 

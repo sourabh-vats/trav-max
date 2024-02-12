@@ -76,7 +76,6 @@ $routes->match(['get', 'post'],'admin/kyc', 'Profile::kyc');
 $routes->match(['get', 'post'],'admin/profile', 'Profile::profile');
 $routes->match(['get', 'post'],'admin/update_profile', 'Profile::update_profile');
 
-
 /*Distributor Level Information*/
 $routes->match(['get', 'post'],'admin/DistributorLevelInformation', 'DistributorLevelInformation::index');
 
@@ -92,6 +91,8 @@ $routes->get('admin/bonus', 'Profile::bonus');
 $routes->get('admin/reward', 'Profile::reward');
 $routes->get('admin/myincome', 'Profile::myincome');
 $routes->get('admin/teamincome', 'Profile::teamincome');
+
+$routes->get('admin/marketing_materials', 'Profile::marketing_materials');
 
 // Support
 $routes->get('admin/support', 'Profile::support');

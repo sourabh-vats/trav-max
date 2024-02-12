@@ -1201,4 +1201,19 @@ class Profile extends BaseController
         $data['main_content'] = 'admin/support';
         return view('includes/admin/template', $data);
     }
+
+    public function marketing_materials()
+    {
+        $user_model = model('UserModel');
+        $id = session('cust_id');
+        $data['profile'] = $user_model->profile($id);
+
+        $db = db_connect();
+        $query = $db->query('select * from marketing_material where type = "video"');
+        $row = $query->getResultArray();
+        $data["videos"] = $row;
+
+        $data['main_content'] = 'admin/marketing_materials';
+        return view('includes/admin/template', $data);
+    }
 }

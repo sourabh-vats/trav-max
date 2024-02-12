@@ -108,7 +108,7 @@
                     <div class="alert alert-danger text-center d-none" id="signup_error" role="alert">
 
                     </div>
-                    <div class="row g-1 g-md-3 mb-3" id="select_signup_container">
+                    <!-- <div class="row g-1 g-md-3 mb-3" id="select_signup_container">
                         <div class="col-5 col-md">
                             <div class="radio-box">
                                 <input class="form-check-input" type="radio" name="signupType" id="freeSignup" value="micro">
@@ -125,11 +125,7 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com" aria-describedby="emailHelp" required>
-                        <label for="email">Email address</label>
-                    </div>
+                    </div> -->
                     <div class="row g-0 g-md-3">
                         <div class="col-md">
                             <div class="form-floating mb-3">
@@ -143,6 +139,10 @@
                                 <label for="l_name">Last Name</label>
                             </div>
                         </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com" aria-describedby="emailHelp" required>
+                        <label for="email">Email address</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input name="number" type="number" class="form-control" id="phone" placeholder="name@example.com" required>
@@ -169,9 +169,13 @@
                         <label for="trav_id">Referral ID</label>
                     </div>
                     <!-- i dont know  -->
-                    <div class="form-floating mb-3">
+                    <!-- <div class="form-floating mb-3">
                         <input type="checkbox" id="refergentick">
                         <span class="dont" id="refergen">I don't know</span>
+                    </div> -->
+
+                    <div class="form-floating mb-3">
+                        <span>If you don’t have a referral ID call <a href="tel:6283285828"> 6283285828 </a> for assistance.</span>
                     </div>
 
 
