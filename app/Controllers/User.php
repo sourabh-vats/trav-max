@@ -216,15 +216,15 @@ class User extends BaseController
 
                 try {
                     //Server settings
-                    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
                     // $mail->isSMTP();
-                    $mail->SMTPOptions = array(
-                        'ssl' => array(
-                            'verify_peer' => false,
-                            'verify_peer_name' => false,
-                            'allow_self_signed' => true
-                        )
-                    );                                         //Send using SMTP
+                    // $mail->SMTPOptions = array(
+                    //     'ssl' => array(
+                    //         'verify_peer' => false,
+                    //         'verify_peer_name' => false,
+                    //         'allow_self_signed' => true
+                    //     )
+                    // );                                         //Send using SMTP
                     // $mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
                     // $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
                     // $mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
