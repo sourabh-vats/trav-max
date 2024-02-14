@@ -218,13 +218,13 @@ class User extends BaseController
                     //Server settings
                     // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
                     // $mail->isSMTP();
-                    // $mail->SMTPOptions = array(
-                    //     'ssl' => array(
-                    //         'verify_peer' => false,
-                    //         'verify_peer_name' => false,
-                    //         'allow_self_signed' => true
-                    //     )
-                    // );                                         //Send using SMTP
+                    $mail->SMTPOptions = array(
+                        'ssl' => array(
+                            'verify_peer' => false,
+                            'verify_peer_name' => false,
+                            'allow_self_signed' => true
+                        )
+                    );                                         //Send using SMTP
                     // $mail->Host       = 'smtp.elasticemail.com';                     //Set the SMTP server to send through
                     // $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
                     // $mail->Username   = 'sourabhvats96@gmail.com';                     //SMTP username
@@ -240,7 +240,7 @@ class User extends BaseController
                     $mail->Port = 25;
 
                     //Recipients
-                    $mail->setFrom('info@travmaxholidays.com');
+                    $mail->setFrom('support@travmaxholidays.com', 'Travmax');
                     $mail->addAddress($_POST["email"]);     //Add a recipient
                     $mail->addReplyTo('info@travmaxholidays.com', 'Information');
 
