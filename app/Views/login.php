@@ -10,6 +10,10 @@
     <meta property="og:title" content="Travmax" />
     <meta property="og:image" content="http://travmaxholidays.com/images/logo-social.jpg" />
     <title>Login</title>
+    <script src="https://cdn.logr-ingest.com/LogRocket.min.js" crossorigin="anonymous"></script>
+    <script>
+        window.LogRocket && window.LogRocket.init('bgyhu3/travmax');
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="/lib/jquery/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -167,8 +171,8 @@
                                         window.location.replace("/signup/choose_partnership?package=" + response.data.package_id);
                                     } else if (response.data.plan == "") {
                                         window.location.replace("/signup/choose_payment_plan?plan=" + response.data.type + "&package=" + response.data.package_id);
-                                    }else{
-                                        window.location.replace("/signup/confirm_plan?package="+response.data.package_id+"&plan="+response.data.type+"&payment_plan="+response.data.plan);
+                                    } else {
+                                        window.location.replace("/signup/confirm_plan?package=" + response.data.package_id + "&plan=" + response.data.type + "&payment_plan=" + response.data.plan);
                                     }
                                 } else if (response.status == "fail") {
                                     window.location.replace("/signup/select_package");

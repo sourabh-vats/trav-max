@@ -11,6 +11,10 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
+    <script src="https://cdn.logr-ingest.com/LogRocket.min.js" crossorigin="anonymous"></script>
+    <script>
+        window.LogRocket && window.LogRocket.init('bgyhu3/travmax');
+    </script>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="/lib/bootstrap5.3/bootstrap.min.css">
     <link rel="stylesheet" href="/css/admin_style.css">
@@ -80,7 +84,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                     <span id="sidenav_partnership_type">Partnership: <?php if ($profile["0"]["role"] == "macro") {
                                                                             echo "Pax 5";
                                                                         } else {
-                                                                            echo "Pax" . substr($profile["0"]["role"], -2, -1); ;
+                                                                            echo "Pax" . substr($profile["0"]["role"], -2, -1);;
                                                                         } ?></span>
                     <span class="mb-md-3" id="sidenav_id">Trav ID: <?php echo $session->trav_id; ?></span>
                 </div>
@@ -125,7 +129,7 @@ $full_name = $user['f_name'] . " " . $user['l_name'];
                             </a>
                         </li>
                         <!-- <?php if ($profile[0]["role"] == "micro") {
-                        } else { ?>
+                                } else { ?>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="/admin/installments">
                                     <i class="bi-calendar2-check-fill"></i>
