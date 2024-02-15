@@ -126,6 +126,7 @@
                             </div>
                         </div>
                     </div> -->
+                    <input type="hidden" name="signupType" id="partnerSignup" value="partner">
                     <div class="row g-0 g-md-3">
                         <div class="col-md">
                             <div class="form-floating mb-3">
