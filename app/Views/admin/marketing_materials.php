@@ -1,22 +1,12 @@
 <div>
     <h2>Images</h2>
     <div class="images_section">
-        <div class="img-container">
-            <img src="" alt="" width="200px" height="300px">
-            <a class="btn btn-success" href="http://">Download</a>
-        </div>
-        <div class="img-container">
-            <img src="" alt="" width="200px" height="300px">
-        </div>
-        <div class="img-container">
-            <img src="" alt="" width="200px" height="300px">
-        </div>
-        <div class="img-container">
-            <img src="" alt="" width="200px" height="300px">
-        </div>
-        <div class="img-container">
-            <img src="" alt="" width="200px" height="300px">
-        </div>
+        <?php foreach ($images as $image) : ?>
+            <div class="img-container">
+                <img src="<?= base_url() . $image['image'] ?>" alt="" width="200px" height="300px">
+                <a class="btn btn-success" href="<?= $image['image_link'] ?>" download>Download</a>
+            </div>
+        <?php endforeach; ?>
     </div>
 
     <h2>Videos</h2>

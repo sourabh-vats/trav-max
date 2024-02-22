@@ -193,6 +193,13 @@ class Profile extends BaseController
         $row = $query->getRow();
         $data['total_purchases'] = $row->total_purchases;
 
+        $query = $db->query('   SELECT sum(i.amount_paid) as booking_amount_paid FROM installment i
+                                where purchase_id = (select purchase_id from purchase where user_id = '. $id .' and purchase_type = "membership" limit 1)
+                                and installment_status = "paid"
+                                limit 2;');
+        $row = $query->getRow();
+        $data['booking_amount_paid'] = $row->booking_amount_paid;
+
         $data['main_content'] = 'admin/micro_home';
         //$data['main_content'] = 'admin/home';
         return view('includes/admin/template', $data);
@@ -618,6 +625,7 @@ class Profile extends BaseController
         $user_model = model('UserModel');
         $id = session()->get('cust_id');
         $customer_id = session()->get('bliss_id');
+        $data['js'] = '/js/payment.js';
 
         $data['image_error'] = 'false';
 
@@ -1212,6 +1220,10 @@ class Profile extends BaseController
         $query = $db->query('select * from marketing_material where type = "video"');
         $row = $query->getResultArray();
         $data["videos"] = $row;
+
+        $query = $db->query('select * from marketing_material where type = "image"');
+        $row = $query->getResultArray();
+        $data["images"] = $row;
 
         $data['main_content'] = 'admin/marketing_materials';
         return view('includes/admin/template', $data);

@@ -70,20 +70,12 @@
           /* Rest of your CSS rules */
         </style>
         <fieldset>
-          <div class="form-group col-sm-12 d-flex justify-content-between">
+        <span class="text-muted h4 mb-0" id="type_of_remaining_amount">Type: Installment</span>
+          <div class="form-group col-sm-12 d-flex justify-content-between align-items-center">
             <div>
               <label> Amount</label>
-              <?php if (!empty($payment_amount)) {
-                echo '<input type="number" class="form-control w-auto" name="amount" value="' . $payment_amount . '" >';
-                echo '<input type="hidden" name="subject" value="installment">';
-              } else {
-                echo '<input type="number" class="form-control w-auto" name="amount">';
-                echo '<input type="hidden" name="subject" value="fund">';
-              } ?>
-            </div>
-            <div>
-              <p>Booking Amount Remaining</p>
-              <p class="h4">Rs <?= $amount_due?></p>
+              <input type="text" class="form-control" name="readonly_amount" id="readonly_amount" readonly>
+              <input type="hidden" name="amount" id="amount">
             </div>
           </div>
 

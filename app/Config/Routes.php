@@ -107,6 +107,7 @@ $routes->get('api/get_otp', 'Api::get_otp');
 
 //Installment
 $routes->get('api/get_installment', 'InstallmentController::get_remaining_amount');
+$routes->get('api/get_remaining_payment', 'InstallmentController::get_remaining_payment');
 
 /*
  * --------------------------------------------------------------------
