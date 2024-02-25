@@ -28,4 +28,27 @@ $(document).ready(function () {
     }
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    $.ajax('/api/get_user_info', {
+        dataType: 'json',
+        type: 'POST', // http method
+        data: {
+            userId: $("#user_id").val()
+        }, // data to submit
+        success: function (response, status, xhr) {
+            if (response.status == "200") {
+                data = response.data;
+                if(data.booking.status == "Paid"){
+                    $("#booking_amount_card").show();
+                    $("#booking_amount").html(data.booking.amount);
+                }else{
+                    $("#booking_amount_card").hide();
+                }
+            } else {
+                console.log("Some error happend. Please come back.");
+            }
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            console.log(errorMessage);
+        }
+    });
 });

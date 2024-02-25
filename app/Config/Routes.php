@@ -99,6 +99,7 @@ $routes->get('admin/support', 'Profile::support');
 
 
 // APIs
+$routes->post('api/get_user_info', 'Api::get_user_info');
 $routes->get('admin/get_notification', 'Profile::teamincome');
 $routes->post('api/get_partnership', 'Api::get_partnership');
 $routes->post('api/set_partnership', 'Api::set_partnership');
