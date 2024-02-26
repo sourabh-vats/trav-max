@@ -8,7 +8,6 @@ use CodeIgniter\Database\Exceptions\DatabaseException;
 
 class InstallmentController extends BaseController
 {
-
     use ResponseTrait;
     public function get_remaining_amount()
     {
@@ -100,13 +99,16 @@ class InstallmentController extends BaseController
 
             if ($remaining_amount == 0) {
                 // get first unpaid installment of first unpaid purchase
-                $sql = "SELECT * FROM `purchase` WHERE `user_id` = $customer_id and `purchase_status` = 'pending'";
+                $sql = "SELECT purchase_id FROM `purchase` WHERE `user_id` = $customer_id and `purchase_status` = 'pending' limit 1";
                 $query = $db->query($sql);
-                $purchases = $query->getResultArray();
+                $purchase = $query->getResultArray();
+                $purchase_id = $purchase[0]['purchase_id'];
+
                 $remaining_amount = 0;
-                $sql = "SELECT * FROM `installment` WHERE `purchase_id` = $purchases[0]['purchase_id'] and `installment_status` = 'pending' order by installment_id ASC limit 1";
+                $sql = "SELECT * FROM `installment` WHERE `purchase_id` = $purchase_id and `installment_status` = 'pending' order by installment_id ASC limit 1";
                 $query = $db->query($sql);
-                $installment = $query->getResultArray();
+                $installment = $query->getRowArray();
+
                 if ($installment) {
                     $remaining_amount = $installment['amount_due'];
                     $type = 'installment';
@@ -128,7 +130,7 @@ class InstallmentController extends BaseController
         } catch (DatabaseException $e) {
             return $this->fail($e->getMessage());
         } catch (\Exception $e) {
-            return $this->$e->getMessage();
+            return $this->fail($e->getMessage());
         }
     }
 }
