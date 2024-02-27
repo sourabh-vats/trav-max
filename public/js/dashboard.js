@@ -52,3 +52,26 @@ $(document).ready(function () {
         }
     });
 });
+
+$(".download").click(function () {
+    // Download image from URL
+    var url = $(this).attr('data-url');
+    var filename = $(this).attr('data-filename');
+    downloadImage(url, filename);
+});
+
+function downloadImage(url, filename) {
+    // Construct the a element
+    var link = document.createElement("a");
+    link.download = filename;
+    link.target = "_blank";
+
+    // Construct the uri
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+
+    // Cleanup the DOM
+    document.body.removeChild(link);
+    delete link;
+}

@@ -3,8 +3,8 @@
     <div class="images_section">
         <?php foreach ($images as $image) : ?>
             <div class="img-container">
-                <img src="<?= ADMIN_APP_URL . "/uploads/marketing/" . $image['image'] ?>" alt="" width="200px" height="300px">
-                <a class="btn btn-success" href="<?= $image['image_link'] ?>" download>Download</a>
+                <img src="<?= ADMIN_APP_URL . "/uploads/marketing/" . $image['image'] ?>" alt="" width="200px">
+                <a class="btn btn-success" href="<?= ADMIN_APP_URL . "/uploads/marketing/" . $image['image'] ?>" target="_blank" download="">Download</a>
             </div>
         <?php endforeach; ?>
     </div>
