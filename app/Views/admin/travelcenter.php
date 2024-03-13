@@ -43,13 +43,15 @@ $partnership['role'] = $role;
                 <tbody>
                     <?php
                     $i = 1;
+                    $due = $partnership["total"] - 11000;
                     foreach ($incomes as $income) {
+                        $due = $due - $income["travel_center_income"];
                         echo '<tr>';
                         echo '<td>' . $i . '</td>';
                         echo '<td>' . date_format(new DateTime($income['income_date']),"D, d M Y") . '</td>';
                         echo '<td>Rs.' . '11000' . '</td>';
                         echo '<td>Rs.' . $income["travel_center_income"] . '</td>';
-                        echo '<td>' . ucfirst($income["income_status"]) . '</td>';
+                        echo '<td>Rs.' . $due . '</td>';
                         echo '<td>' . ucfirst($income["income_type"]) . '</td>';
                         echo '<td>' . ucfirst($income["income_status"]) . '</td>';
                         echo '</tr>';
